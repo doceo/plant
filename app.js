@@ -1,7 +1,8 @@
 
 var express = require('express');
-var  db= require('./gestione');
+var db= require('./gestione');
 var io = require('socket.io')(server);
+var server =require('http').Server(app);
  
 var app = express();
 
@@ -9,7 +10,7 @@ app.get('/dato/tutti', function (req, res) {
 	res.send(db.gestioneDati.tutti());
 });
 
-app.get('/', function(req, res)){
+app.get('/', function(req, res){
 	res.sendFile(__dirname+'/html/index.html');
 
 });
