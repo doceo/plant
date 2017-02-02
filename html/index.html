@@ -18,6 +18,17 @@
     <![endif]-->
 
   <script src="/socket.io/socket.io.js"></script>
+  
+  <script>
+  
+  <!-- indicare l\'indirizzo IP del server a cui ci si collega --!>
+  
+  var socket = io.connect('http://192.168.1.241');
+  socket.on('news', function (data) {
+    console.log(data);
+    socket.emit('my other event', { my: 'data' });
+  });
+</script>
 
   </head>
   <body>
