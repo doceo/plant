@@ -1,12 +1,12 @@
 
-var express = require('express').createServer();
-var app = express();
 
-var db= require('./gestione');
+var app = require('express')();
 
-var io = require('socket.io')(app);
+var db = require('./gestione');
 
-var server =require('http').Server(app);
+var io = require('socket.io')(server);
+
+var server = require('http').Server(app);
  
 
 app.get('/dato/tutti', function (req, res) {
@@ -28,14 +28,14 @@ io.on('connection',function(socket){
 
   // all'avvio di una connessione viene creato un socket!
 	socket.emit('news', {hello: 'world' });
-	socket.on('my other event', function (data)
+	socket.on('my other event', function (data){
     console.log(data);
  });
 });
 
 app.listen(8080, function () {
-  console.log('Per inviare dati tramite metodo Post: /dato/acquisisci/:dato');
-  console.log('Per visualizzare l\'elenco di tutti i dati acquisiti tramite metodo Get: /dato/tutti');
+  console.log('Per inviare dati tramite metodo GET: /dato/acquisisci/:dato');
+  console.log('Per visualizzare l\'elenco di tutti i dati acquisiti tramite metodo GET: /dato/tutti');
   console.log('...');
   console.log('Server in esecuzione sulla porta 4156...');
  
