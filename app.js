@@ -27,13 +27,10 @@ app.get('/dato/acquisisci/:dato', function (req, res) {
 io.on('connection',function(socket){
 
   // all'avvio di una connessione viene creato un socket!
-	socket.emit('news', {hello; 'world' });
+	socket.emit('news', {hello: 'world' });
 	socket.on('my other event', function (data)
- 	console.log('ricevuto:');
-	console.log(data);
- 
-
-
+    console.log(data);
+ });
 });
 
 app.listen(8080, function () {
