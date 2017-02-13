@@ -11,21 +11,17 @@ app.get('/', function(req, res) {
 });
 
 app.get('/dato/acquisisci/:dato', function (req, res) {
-  db.gestioneDati.nuovo(req.params.dato);
+  var temperature = req.params.dato;
+  db.gestioneDati.nuovo(temperature);
   res.end();
-});
 
-/*app.get('/dato/tutti', function (req, res) {
-	res.send(db.gestioneDati.tutti());
-});*/
+  io.emit('newTemperature', { t: new Date(), temperature: temperature });
+});
 
 io.on('connection', function (socket) {
   console.log('connessione dal client');
-  //socket.emit('news', {hello: 'world' });
-  io.emit('news', {hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
+  console.log('invio tutte le temperature');
+  io.emit('temperatures', db.gestioneDati.tutti());
 });
 
 server.listen(3000, function () {

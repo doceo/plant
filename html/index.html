@@ -22,10 +22,15 @@
 
     <script>
     var socket = io();
-    socket.on('news', function (data) {
-      console.log(data);
+    var temperatures;
+
+    socket.on('temperatures', function (data) {
+      temperatures = data;
     });
-    socket.emit('my other event', { my: 'data' });
+    socket.on('newTemperature', function (data) {
+      temperatures.push(data);
+      console.log(temperatures);
+    });
     </script>
 
   </head>
