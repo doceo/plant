@@ -29,14 +29,14 @@
     });
     socket.on('newTemperature', function (data) {
       temperatures.push(data);
-      console.log(temperatures);
+      $('#temp').val(data.temperature);
     });
     </script>
-
   </head>
 
   <body>
     <h1>stato del terreno</h1>
+    <!--
     <div style="height: 300px; border: solid;">
       <svg  class="mybox"  x="0" y="0" style="max-height: 100%"  viewBox="0, 0, 200, 570">
         <path d="M85,350  a60,60,0,1,0,50 ,0 l 0,-300 l -50 0 l 0,300 z" fill="#333333" stroke-width="10" stroke="orange"/>
@@ -46,6 +46,11 @@
         <text x="110" y="410" text-anchor="middle" font-family="Verdana" font-size="20" fill="red" >23.5</text>
         <text x="110" y="500" text-anchor="middle" font-family="Verdana" font-size="20" fill="red" >Oven</text>
       </svg>
+    </div>
+  -->
+
+    <div class="container">
+      <input type="range" name="temp" id="temp" value="0" min="0" max="100" />
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
