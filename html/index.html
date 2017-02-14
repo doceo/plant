@@ -17,91 +17,106 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <script src="/socket.io/socket.io.js"></script>
-
-
   </head>
 
   <body>
-    <h1>stato del terreno</h1>
-    <!--
-    <div style="height: 300px; border: solid;">
-      <svg  class="mybox"  x="0" y="0" style="max-height: 100%"  viewBox="0, 0, 200, 570">
-        <path d="M85,350  a60,60,0,1,0,50 ,0 l 0,-300 l -50 0 l 0,300 z" fill="#333333" stroke-width="10" stroke="orange"/>
-        <path d="M97.5,367.5  a40,40,0,1,0,25 ,0 l 0,-111 l -25 0 l 0,111 z" fill="green" stroke-width="10" stroke="green"/>
-               <text x="15" y="80" font-family="Verdana" font-size="20" fill="red" >100 </text>
-        <text x="15" y="350" font-family="Verdana" font-size="20" fill="red" >0 </text>
-        <text x="110" y="410" text-anchor="middle" font-family="Verdana" font-size="20" fill="red" >23.5</text>
-        <text x="110" y="500" text-anchor="middle" font-family="Verdana" font-size="20" fill="red" >Oven</text>
-      </svg>
+    <div class="header">
+      <h1 class="text-center">Temperatura del terreno</h1>
     </div>
-  -->
 
     <div class="container">
-      <input type="range" name="temp" id="temp" value="0" min="0" max="100" />
+      <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+          <div style="height: 300px; border: solid;">
+            <svg  class="mybox"  x="0" y="0" style="max-height: 100%"  viewBox="0, 0, 200, 570">
+              <path d="M85,350  a60,60,0,1,0,50 ,0 l 0,-300 l -50 0 l 0,300 z" fill="#333333" stroke-width="10" stroke="orange"/>
+              <path d="M97.5,367.5  a40,40,0,1,0,25 ,0 l 0,-111 l -25 0 l 0,111 z" fill="green" stroke-width="10" stroke="green"/>
+                     <text x="15" y="80" font-family="Verdana" font-size="20" fill="red" >100 </text>
+              <text x="15" y="350" font-family="Verdana" font-size="20" fill="red" >0 </text>
+              <text x="110" y="410" text-anchor="middle" font-family="Verdana" font-size="20" fill="red" >23.5</text>
+              <text x="110" y="500" text-anchor="middle" font-family="Verdana" font-size="20" fill="red" >Oven</text>
+            </svg>
+          </div>
+        </div>
+      </div>
 
-      <canvas id="tempChart"></canvas>
+      <div class="row">
+        <div class="col-md-12">
+          <input type="range" name="temp" id="temp" value="0" min="0" max="100" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <canvas id="temp-chart"></canvas>
+        </div>
+      </div>
     </div>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/locale/it.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-    <script>
-    var ctx = $("#tempChart");
-    var createChart = function (data) {
-    var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        //labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-        datasets: [{
-            label: '# of Votes',
-            data: data,
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-    }
-});
-return myChart;
-}
-    </script>
     <script>
     var socket = io();
     var temperatures;
+    var ctx = $("#temp-chart");
+    var myChart;
 
     socket.on('temperatures', function (data) {
       temperatures = data;
-      createChart(temperatures);
+      var dataLabels = [];
+      var dataTemp = [];
+      for (var i = 0; i < temperatures.length; i++) {
+        dataLabels.push(moment().format("DD/MM/YY HH:mm", temperatures[i].t));
+        dataTemp.push(temperatures[i].temperature);
+      }
+
+      myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: dataLabels,
+          datasets: [{
+              label: 'T',
+              data: dataTemp,
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)'
+              ],
+              borderColor: [
+                  'rgba(255,99,132,1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero:true
+              }
+            }]
+          }
+        }
+      });
     });
+
     socket.on('newTemperature', function (data) {
       temperatures.push(data);
       $('#temp').val(data.temperature);
-      createChart(temperatures);
-      
+      myChart.data.datasets[0].data.push(data.temperature);
+      myChart.data.labels.push(moment().format("DD/MM/YY HH:mm", data.t));
+      myChart.update();
     });
     </script>
   </body>
