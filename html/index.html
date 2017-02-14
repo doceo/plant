@@ -117,7 +117,10 @@
 
     socket.on('newTemperature', function (data) {
       temperatures.push(data);
-      $('#temp').val(data.temperature);
+      $('#temp-slider').val(data.temperature);
+      $('#temp-text').text(data.temperature);
+      $('#tempSvgText').text(data.temperature);
+      $('#temp-time').text(moment().format("DD-MM-YYYY HH:mm", data.t));
       myChart.data.datasets[0].data.push(data.temperature);
       myChart.data.labels.push(moment().format("DD/MM/YY HH:mm", data.t));
       myChart.update();
