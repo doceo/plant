@@ -13,6 +13,7 @@ app.get('/', function(req, res) {
 app.get('/dato/acquisisci/:dato', function (req, res) {
   var temperature = req.params.dato;
   db.gestioneDati.nuovo(temperature);
+  console.log('acquisisco il dato');
   res.end();
 
   io.emit('newTemperature', { t: new Date(), temperature: temperature });
