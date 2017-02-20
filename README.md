@@ -1,37 +1,15 @@
-## Welcome to GitHub Pages
+## Autore: Diomede Mazzone con la collaborazione di Fabio Z Tessitore (@FabioZTessitore)
 
-You can use the [editor on GitHub](https://github.com/doceo/plant/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+#Tag: NodeJS, ExpressJS, Socket.io, HTML 5, client/server
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Versione: 0.1
 
-### Markdown
+Licenza: GPL 3.0 o successive
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+###PLANT
 
-```markdown
-Syntax highlighted code block
+questo pacchetto ha scopo didattico e si vogliono rappresentare le potenzialità di Node.js. A tal fine prevede uno script da lanciare su uno o più dispositivi IoT (nel nostro caso NodeMCU, che invia dati al server node, il quale li rappresenta sotto forma di grafico ad eventuali client collegati tramite web browser.
 
-# Header 1
-## Header 2
-### Header 3
+il server ascolta sulla porta 3000 sia i client che inviano i dati sia quelli che li ricevono sotto forma di pagina web.
 
-- Bulleted
-- List
 
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/doceo/plant/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
