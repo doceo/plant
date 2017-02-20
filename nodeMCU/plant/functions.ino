@@ -22,12 +22,15 @@ void sendRnd(int rnd)
    
    String postStr= String(rnd);
 
-   String url = "/dato/acquisisci/" + postStr;
-   Serial.println(url);
+   String url = "GET /dato/acquisisci/" + postStr;
+     Serial.println(url);
 
-   client.print(url);
-//   client.print("\n\n");
-//   client.print(postStr);
+     client.print(url);
+     client.print("HTTP/1.0 \n\n");
+     Serial.println("HTTP/1.0 \n\n");
+     
+     client.println();
+     client.stop();
  
    
    delay(1000);
