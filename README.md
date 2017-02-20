@@ -13,3 +13,10 @@ questo pacchetto ha scopo didattico e si vogliono rappresentare le potenzialità
 il server ascolta sulla porta 3000 sia i client che inviano i dati sia quelli che li ricevono sotto forma di pagina web.
 
 
+#NodeMCU 
+
+per installarlo bisogna prima scaricare i driver
+https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers
+
+e poi, per comodita', abbiamo utilizzato l'ide di Arduino, debitamente onfigurato così come indicato nelle numerose guide on line.
+
