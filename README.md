@@ -1,6 +1,6 @@
-# Autore: Diomede Mazzone con la collaborazione di Fabio Z Tessitore (@FabioZTessitore)
+ Autore: Diomede Mazzone con la collaborazione di Fabio Z Tessitore (@FabioZTessitore)
 
-#Tag: NodeJS, ExpressJS, Socket.io, HTML 5, client/server
+Tag: NodeJS, ExpressJS, Socket.io, HTML 5, client/server
 
 Versione: 0.1
 
