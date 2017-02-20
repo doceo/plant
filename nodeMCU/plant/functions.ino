@@ -30,7 +30,7 @@ void sendRnd(int rnd)
      Serial.println("HTTP/1.0 \n\n");
      
      client.println();
-     client.stop();
+  
  
    
    delay(1000);
