@@ -2,7 +2,7 @@
 
 Tag: NodeJS, ExpressJS, Socket.io, HTML 5, client/server
 
-Versione: 0.1
+Versione: 1
 
 Licenza: GPL 3.0 o successive
 
