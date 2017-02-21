@@ -22,25 +22,21 @@ void sendRnd(int rnd)
    
    String postStr= String(rnd);
 
-//   String url = "GET /dato/acquisisci/" + postStr;
-//     Serial.println(postStr);
+   String url = "GET /dato/acquisisci/" + postStr + " HTTP/1.1";
+   Serial.println(postStr);
 
-     client.print("GET ");
-//     client.print(server);
-//     client.print(":3000");
-     client.print("/dato/acquisisci/");
-     Serial.print("GET /dato/acquisisci/");
+   client.println(url);
+   Serial.println(url);
+   
+   client.println("Host: 192.168.1.67:3000");
+   Serial.println("Host: 192.168.1.67:3000");
+   
+   client.println("Connection: close");
+   Serial.println("Connection: close");
      
-     client.print(postStr);
-     Serial.print(postStr);
+   client.println();
      
-//     client.println();
-//     Serial.println();
-     
-     client.print(" HTTP/1.1 \n");
-//     client.println();
-  
-     Serial.println(" HTTP/1.1 \n\n");
+   Serial.println();
      
    delay(2000);
    client.stop();   
