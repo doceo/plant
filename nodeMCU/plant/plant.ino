@@ -16,7 +16,7 @@ void setup() {
 void loop() {
   int rnd;
 
-  rnd = random(1,100);
+  rnd = random(0,40);
 
 //  Serial.print(String(sent)+" Temperature: ");
   Serial.println(rnd);
