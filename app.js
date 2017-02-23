@@ -1,9 +1,16 @@
+
+//inizializiamo le variabili relative ai moduli utili all anostra applicazione.
+
+//il framework
 var app = require('express')();
 
+//il server
 var server = require('http').Server(app);
 
+//la gestione della comunicazione via socket
 var io = require('socket.io')(server);
 
+//la gestione delle informazioni. in questo caso è quasi fittizio, perchè non sono salvate in modo permanente.
 var db = require('./gestione');
 
 app.get('/', function(req, res) {
