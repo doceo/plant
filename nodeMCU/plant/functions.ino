@@ -37,8 +37,11 @@ void sendRnd(int rnd)
    client.println();
      
    Serial.println();
-     
-   delay(2000);
+   digitalWrite(14, HIGH);            
+   delay(500);
+   digitalWrite(14, LOW);
+  
+   delay(1500);
    client.stop();   
    
    }//end if
