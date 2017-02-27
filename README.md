@@ -23,3 +23,14 @@ e poi, per comodita', abbiamo utilizzato l'ide di Arduino, debitamente onfigurat
 ##Node.js
 
 va installato su una macchina e messo in ascolto sulla porta 3000, così come indicato nel pacchetto. riferimenti https://nodejs.org/en/docs/
+
+##INSTALLAZIONE
+per avviare il server bisogna procedere nel seguente modo:
+
+1. Scaricare e installare la versione idonea di node ed npm: https://nodejs.org/it/download/
+2. installare il framework express tramite il gestore dei pacchetti: npm intall express
+3. installare socket.io attraverso il gestore dei pacchetti: npm install socket.io
+
+a questo punto si potrà avviare il server:
+
+node app.js
