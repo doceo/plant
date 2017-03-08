@@ -31,6 +31,11 @@ per avviare il server bisogna procedere nel seguente modo:
 2. installare il framework express tramite il gestore dei pacchetti: npm intall express
 3. installare socket.io attraverso il gestore dei pacchetti: npm install socket.io
 
+è possibile anche configurare tutto tramite npm install, a patto che il file package.json sia aggiornato nelle dipendenze necessarie.
+ 
+
 a questo punto si potrà avviare il server:
 
 node app.js
+
+Da notare che su sistemi Debian Node viene avviato con nodejs app.js, in quanto node è un altro applicativo presente sui repository.
