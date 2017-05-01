@@ -5,13 +5,13 @@ const MongoClient = require('mongodb').MongoClient;
 
 var db;
 
-MongoClient.connect('mongodb://172.17.0.3:27017/terreno', (err, database) => {
+MongoClient.connect('mongodb://127.0.0.1:27017/terreno', function (err, database) {
   if (err) return console.log(err)
   db = database;
-  server.listen(3000, () => {
+  server.listen(3000, function() {
     console.log('Server in ascolto sulla porta 3000 ...');
   });
-})
+});
 
 app.get('/', function(req, res) {
   res.sendFile(__dirname+'/html/index.html');
@@ -36,7 +36,7 @@ app.get('/acquisisci/:dato', function (req, res) {
 io.on('connection', function (socket) {
   console.log('richiesta di connessione dal client');
   console.log('invio tutte le temperature');
-  db.collection('temperatures').find().toArray( (err, result) => {
+  db.collection('temperatures').find().toArray( function (err, result) {
     io.emit('temperatures', result);
   });
 });
