@@ -21,12 +21,13 @@ app.get('/', function(req, res) {
 // abbiamo usato una GET ma sarebbe più opportuno usare il metodo POST. la scelta del GET
 // perchè risulta più comodo nel caso non si disponga di dispositivi fisici e si voglia
 // testare l'applicativo da browser
-app.get('/acquisisci/:dato', function (req, res) {
+app.get('/acquisisci/:node/:dato', function (req, res) {
   res.end();
 
   var temperature = {
     t: new Date(),
     temperature: req.params.dato,
+    pianta: req.params.node,
   };
   db.collection('temperatures').insert(temperature);
 
@@ -36,7 +37,7 @@ app.get('/acquisisci/:dato', function (req, res) {
 io.on('connection', function (socket) {
   console.log('richiesta di connessione dal client');
   console.log('invio tutte le temperature');
-  db.collection('temperatures').find().toArray( function (err, result) {
+  db.collection('temperatures').find().limit(50).toArray( function (err, result) {
     io.emit('temperatures', result);
   });
 });
