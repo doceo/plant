@@ -28,9 +28,16 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <canvas id="temp-chart"></canvas>
+          <canvas id="temp-chart-1"></canvas>
         </div>
       </div>
+      
+       <div class="row">
+        <div class="col-md-12">
+          <canvas id="temp-chart-2"></canvas>
+        </div>
+      </div>
+      
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -42,7 +49,7 @@
     <script>
     var socket = io();
     var temperatures;
-    var ctx = $("#temp-chart");
+    var ctx = $("#temp-chart-1");
     var myChart;
 
     socket.on('temperatures', function (data) {
