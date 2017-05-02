@@ -1,8 +1,8 @@
  Autore: Diomede Mazzone con la collaborazione di Fabio Z Tessitore (@FabioZTessitore)
 
-Tag: NodeJS, ExpressJS, Socket.io, HTML 5, client/server
+Tag: NodeJS, ExpressJS, Socket.io, HTML 5, client/server, MongoDB, Arduino Yun
 
-Versione: 1
+Versione: 1.1
 
 Licenza: GPL 3.0 o successive
 
@@ -15,10 +15,14 @@ il server ascolta sulla porta 3000 sia i client che inviano i dati sia quelli ch
 
 ##NodeMCU 
 
-per installarlo bisogna prima scaricare i driver
+per configurarlo bisogna prima scaricare i driver
 https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers
 
 e poi, per comodita', abbiamo utilizzato l'ide di Arduino, debitamente onfigurato così come indicato nelle numerose guide on line.
+
+##Arduino Yun
+
+come ulteriore client utilizzato per la raccolta dei dati è stato utilizzato Arduino Yun.
 
 ##Node.js
 
