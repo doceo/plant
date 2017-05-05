@@ -32,12 +32,7 @@
         </div>
       </div>
       
-       <div class="row">
-        <div class="col-md-12">
-          <canvas id="temp-chart-2"></canvas>
-        </div>
-      </div>
-      
+            
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -56,8 +51,27 @@
       temperatures = data;
       var dataLabels = [];
       var dataTemp = [];
+
+      var sensoreUno = [];
+      var sensoreDue = [];
+      var sensoreTre = [];
+      	      
+      
       for (var i = 0; i < temperatures.length; i++) {
-        dataLabels.push(moment().format("DD/MM/YY HH:mm", temperatures[i].t));
+   
+       	switch(temperatures[i].pianta) {
+      	
+      		case 1:
+      			sensoreUno.push(temperatures[i]);
+      	
+      		case 2:
+      			sensoreDue.push(temperatures[i]);
+      			
+      		case 3:
+      			sensoreTre.push(temperatures[i]);
+		}
+
+         dataLabels.push(moment().format("DD/MM/YY HH:mm", temperatures[i].t));
         dataTemp.push(temperatures[i].temperature);
       }
 
@@ -110,6 +124,10 @@
       myChart.update();
     });
     </script>
+    
+ 
+
+    
   </body>
 
 </html>
