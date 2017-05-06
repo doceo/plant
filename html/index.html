@@ -31,8 +31,19 @@
           <canvas id="temp-chart-1"></canvas>
         </div>
       </div>
-      
-            
+	    
+      <div class="row">
+        <div class="col-md-12">
+          <canvas id="temp-chart-2"></canvas>
+        </div>
+      </div>
+	    
+      <div class="row">
+        <div class="col-md-12">
+          <canvas id="temp-chart-3"></canvas>
+        </div>
+      </div>
+
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -52,26 +63,29 @@
       var dataLabels = [];
       var dataTemp = [];
 
-      var sensoreUno = [];
-      var sensoreDue = [];
-      var sensoreTre = [];
-      	      
+      var sensoreUnoData = [];
+      var sensoreDueData = [];
+      var sensoreTreData = [];
+      var sensoreUnoT = [];
+      var sensoreDueT = [];
+      var sensoreTreT = [];    	      
       
       for (var i = 0; i < temperatures.length; i++) {
    
        	switch(temperatures[i].pianta) {
       	
       		case 1:
-      			sensoreUno.push(temperatures[i]);
-      	
+      			sensoreUnoData.push(temperatures[i].temperature);
+      	     		sensoreUnoT.push(moment().format("DD/MM/YY HH:mm", temperatures[i].t));
       		case 2:
-      			sensoreDue.push(temperatures[i]);
-      			
-      		case 3:
-      			sensoreTre.push(temperatures[i]);
-		}
+      			sensoreDueData.push(temperatures[i].temperature);
+      	     		sensoreDueT.push(moment().format("DD/MM/YY HH:mm", temperatures[i].t));      			
+		case 3:
+      			sensoreTreData.push(temperatures[i].temperature);
+      	     		sensoreTreT.push(moment().format("DD/MM/YY HH:mm", temperatures[i].t));
+	}
 
-         dataLabels.push(moment().format("DD/MM/YY HH:mm", temperatures[i].t));
+        dataLabels.push(moment().format("DD/MM/YY HH:mm", temperatures[i].t));
         dataTemp.push(temperatures[i].temperature);
       }
 
