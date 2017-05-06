@@ -3,7 +3,9 @@ void runCurl() {
   // Launch "curl" command and get Arduino ascii art logo from the network
  
   terra = analogRead(sensorPin);
-  url = server + "/acquisisci/1/" + String(terra);
+ 
+  //il valore 1 indica il client che invia il dato. ogni client ha un valore diverso così da differenziare i grafici
+  url = server + "/acquisisci/1/" + String(terra); 
   
   // curl is command line program for transferring data using different internet protocols
   Process p;    // Create a process and call it "p"
