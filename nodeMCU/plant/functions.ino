@@ -26,7 +26,7 @@ void sendRnd(int rnd)
    String postStr= String(rnd);
 
    //costruisce la stringa da inviare, si noti il parametro GET che denota il metodo scelto
-   String url = "GET /dato/acquisisci/" + postStr + " HTTP/1.1";
+   String url = "GET /acquisisci/2/" + postStr + " HTTP/1.1";
    Serial.println(postStr);
 
    //tutte le istruzioni sono duplicate per poter inviare la stessa sequenza di dati 
