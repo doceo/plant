@@ -1,8 +1,0 @@
-##PLANT 1.1
-
-due client - nodeMCU e arduino YUN
-connessione a Mongo DB
-
-da notare che 
-- per il caricamento di dati è stata usata una GET teoricamente non corretta per permettere un più facile test effettuabile via browser
-- il DB restituisce sempre tutti i dati da visualizzare, metodo che rende poco fruibile in caso di dati troppo numerosi.
