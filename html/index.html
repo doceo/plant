@@ -56,7 +56,11 @@
     var socket = io();
     var temperatures;
     var ctx = $("#temp-chart-1");
+    var ctx2 = $("#temp-chart-2");
+
     var myChart;
+	var chartDue;
+
 
     socket.on('temperatures', function (data) {
       temperatures = data;
@@ -80,7 +84,7 @@
       		case 2:
       			sensoreDueData.push(temperatures[i].temperature);
       	     		sensoreDueT.push(moment().format("DD/MM/YY HH:mm", temperatures[i].t));      			
-		case 3:
+			case 3:
       			sensoreTreData.push(temperatures[i].temperature);
       	     		sensoreTreT.push(moment().format("DD/MM/YY HH:mm", temperatures[i].t));
 	}
@@ -137,6 +141,47 @@
       myChart.data.labels.push(moment().format("DD/MM/YY HH:mm", data.t));
       myChart.update();
     });
+    
+    
+	chartDue = new Chart(ctx2, {
+    type: 'line',
+    data: {
+        labels: sensoreDueT,
+        datasets: [{
+            label: 'T',
+            data: sensoreDueData,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+    
+    
+    
     </script>
     
  
