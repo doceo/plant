@@ -31,13 +31,13 @@
           <canvas id="temp-chart-1"></canvas>
         </div>
       </div>
-	    
+
       <div class="row">
         <div class="col-md-12">
           <canvas id="temp-chart-2"></canvas>
         </div>
       </div>
-	    
+
       <div class="row">
         <div class="col-md-12">
           <canvas id="temp-chart-3"></canvas>
@@ -53,95 +53,68 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
     <script>
+    moment().locale('it');
     var socket = io();
     var temperatures;
-    var ctx = $("#temp-chart-1");
-    var myChart;
+    var ctx = [ $("#temp-chart-1"), $("#temp-chart-2"), $("#temp-chart-3") ];
+    var charts = [];
+
+    var sensoriData = [ [], [], [] ];
+    var sensoriTemperatura = [ [], [], [] ];
 
     socket.on('temperatures', function (data) {
-      temperatures = data;
-      var dataLabels = [];
-      var dataTemp = [];
-
-      var sensoreUnoData = [];
-      var sensoreDueData = [];
-      var sensoreTreData = [];
-      var sensoreUnoT = [];
-      var sensoreDueT = [];
-      var sensoreTreT = [];    	      
-      
-      for (var i = 0; i < temperatures.length; i++) {
-   
-       	switch(temperatures[i].pianta) {
-      	
-      		case 1:
-      			sensoreUnoData.push(temperatures[i].temperature);
-      	     		sensoreUnoT.push(moment().format("DD/MM/YY HH:mm", temperatures[i].t));
-      		case 2:
-      			sensoreDueData.push(temperatures[i].temperature);
-      	     		sensoreDueT.push(moment().format("DD/MM/YY HH:mm", temperatures[i].t));      			
-		case 3:
-      			sensoreTreData.push(temperatures[i].temperature);
-      	     		sensoreTreT.push(moment().format("DD/MM/YY HH:mm", temperatures[i].t));
-	}
-
-        dataLabels.push(moment().format("DD/MM/YY HH:mm", temperatures[i].t));
-        dataTemp.push(temperatures[i].temperature);
-      }
-
-      myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: dataLabels,
-          datasets: [{
-              label: 'T',
-              data: dataTemp,
-              backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)',
-                  'rgba(54, 162, 235, 0.2)',
-                  'rgba(255, 206, 86, 0.2)',
-                  'rgba(75, 192, 192, 0.2)',
-                  'rgba(153, 102, 255, 0.2)',
-                  'rgba(255, 159, 64, 0.2)'
-              ],
-              borderColor: [
-                  'rgba(255,99,132,1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
-              ],
-              borderWidth: 1
-          }]
-        },
-        options: {
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero:true
-              }
-            }]
-          }
-        }
+      data.forEach( function (record) {
+        sensoriData[ record.pianta ].push(moment(record.t).format("DD/MM/YY HH:mm:ss"));
+        sensoriTemperatura[ record.pianta ].push(record.temperature);
       });
+
+      for (var i = 0; i < ctx.length; i++) {
+        charts[i] = new Chart(ctx[i], {
+          type: 'line',
+          data: {
+            labels: sensoriData[i],
+            datasets: [{
+                label: 'T',
+                data: sensoriTemperatura[i],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1,
+            }],
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero:true
+                },
+              }],
+            },
+          },
+        });
+      }
     });
 
     socket.on('newTemperature', function (data) {
-      temperatures.push(data);
-      $('#temp-slider').val(data.temperature);
-      $('#temp-text').text(data.temperature);
-      $('#tempSvgText').text(data.temperature);
-      $('#temp-time').text(moment().format("DD-MM-YYYY HH:mm", data.t));
-      myChart.data.datasets[0].data.push(data.temperature);
-      myChart.data.labels.push(moment().format("DD/MM/YY HH:mm", data.t));
-      myChart.update();
+      sensoriTemperatura[data.pianta].push(data.temperature);
+      sensoriData[data.pianta].push(moment(data.t).format("DD/MM/YY HH:mm:ss"));
+      charts[data.pianta].update();
     });
     </script>
-    
- 
 
-    
   </body>
 
 </html>

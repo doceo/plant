@@ -6,6 +6,7 @@ const MongoClient = require('mongodb').MongoClient;
 var db;
 
 MongoClient.connect('mongodb://127.0.0.1:27017/terreno', function (err, database) {
+//MongoClient.connect('mongodb://172.17.0.:27017/terreno', function (err, database) {
   if (err) return console.log(err)
   db = database;
   server.listen(3000, function() {
@@ -26,10 +27,11 @@ app.get('/acquisisci/:node/:dato', function (req, res) {
 
   var temperature = {
     t: new Date(),
-    temperature: req.params.dato,
-    pianta: req.params.node,
+    temperature: parseInt(req.params.dato),
+    pianta: parseInt(req.params.node),
   };
   db.collection('temperatures').insert(temperature);
+  console.log('acquisisco valore');
 
   io.emit('newTemperature', temperature);
 });
@@ -37,7 +39,7 @@ app.get('/acquisisci/:node/:dato', function (req, res) {
 io.on('connection', function (socket) {
   console.log('richiesta di connessione dal client');
   console.log('invio tutte le temperature');
-  db.collection('temperatures').find().limit(50).toArray( function (err, result) {
+  db.collection('temperatures').find().limit(200).toArray( function (err, result) {
     io.emit('temperatures', result);
   });
 });
