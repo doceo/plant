@@ -1,11 +1,12 @@
 # Change Log
 
-## [Unreleased]
+## [2.0]
 - aggiunta la possibilità di acquisire dati da più client, in particolare è presente il codice per farlo con nodeMCU e arduino YUN
 - salvataggio dei dati in un DB Mongo
+- i dati vengono visualizzato in tre grafici differenti
 
 ### Changed
-- non vengono inviati tutti i dati del DB ma solo gli ultimi 50
+- non vengono inviati tutti i dati del DB ma solo gli ultimi 100
 
 ## [1.0]
 - app.js acquisisce dati da client e li memorizza finchè rimane in esecuzione
