@@ -1,0 +1,1 @@
+## Aggiunta questa nuova funzionalità
