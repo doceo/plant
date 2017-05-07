@@ -13,7 +13,7 @@ void connectWifi()
   Serial.println("");  
 }//end connect
  
-void sendRnd(int rnd)
+void sendUmid(int umd)
 {  
    WiFiClient client;
   
@@ -23,9 +23,10 @@ void sendRnd(int rnd)
    Serial.println("WiFi Client connected ");
    
    //converte in oggetto Stringa il parametro ricevuto
-   String postStr= String(rnd);
+   String postStr= String(umd);
 
    //costruisce la stringa da inviare, si noti il parametro GET che denota il metodo scelto
+   //attribuiamo il valore 2 al sensore collegato
    String url = "GET /acquisisci/2/" + postStr + " HTTP/1.1";
    Serial.println(postStr);
 

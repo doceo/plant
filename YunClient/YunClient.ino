@@ -24,6 +24,6 @@ void loop() {
   Serial.print("leggo...");
   terra = analogRead(A0);
   Serial.print(terra);
-  delay(300000);
+  delay(3000000);
 }
 

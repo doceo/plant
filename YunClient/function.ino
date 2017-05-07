@@ -4,8 +4,10 @@ void runCurl() {
  
   terra = analogRead(sensorPin);
  
+  int sens = random(0,1);
+  
   //il valore 1 indica il client che invia il dato. ogni client ha un valore diverso così da differenziare i grafici
-  url = server + "/acquisisci/1/" + String(terra); 
+  url = server + "/acquisisci/" + String(sens) + "/" + String(terra); 
   
   // curl is command line program for transferring data using different internet protocols
   Process p;    // Create a process and call it "p"
