@@ -64,7 +64,7 @@
 
     socket.on('temperatures', function (data) {
       data.forEach( function (record) {
-        sensoriData[ record.pianta ].push(moment(record.t).format("DD/MM/YY HH:mm:ss"));
+        sensoriData[ record.pianta ].push(moment(record.t).format("DD/MM/YY HH:mm"));
         sensoriTemperatura[ record.pianta ].push(record.temperature);
       });
 
@@ -74,25 +74,20 @@
           data: {
             labels: sensoriData[i],
             datasets: [{
+                fill: false,
+    	        pointBorderWidth: 0.5,
+		        pointHoverColor: "rgba(0,255,10,1)",
+
                 label: 'T',
                 data: sensoriTemperatura[i],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
+                    'rgba(20, 99, 132, 0.2)',
+                 ],
                 borderColor: [
-                    'rgba(255,99,132,1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
+                    'rgba(0,99,132,1)',
+
                 ],
-                borderWidth: 1,
+                borderWidth: 2,
             }],
           },
           options: {
@@ -110,7 +105,7 @@
 
     socket.on('newTemperature', function (data) {
       sensoriTemperatura[data.pianta].push(data.temperature);
-      sensoriData[data.pianta].push(moment(data.t).format("DD/MM/YY HH:mm:ss"));
+      sensoriData[data.pianta].push(moment(data.t).format("DD/MM/YY HH:mm"));
       charts[data.pianta].update();
     });
     </script>
