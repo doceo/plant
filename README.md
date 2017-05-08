@@ -2,8 +2,6 @@
 
 Tag: NodeJS, ExpressJS, Socket.io, HTML 5, client/server, MongoDB, Arduino Yun
 
-Versione: 1.1
-
 Licenza: GPL 3.0 o successive
 
 #PLANT
