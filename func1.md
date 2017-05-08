@@ -1,1 +1,1 @@
-## Aggiunta questa nuova funzionalità
+## Corretto bug, i dati venivano inviati in broadcast
