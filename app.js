@@ -40,6 +40,6 @@ io.on('connection', function (socket) {
   console.log('richiesta di connessione dal client');
   console.log('invio tutte le temperature');
   db.collection('temperatures').find().limit(200).toArray( function (err, result) {
-    io.emit('temperatures', result);
+    socket.emit('temperatures', result);
   });
 });
