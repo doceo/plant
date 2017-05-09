@@ -8,7 +8,7 @@ const char* MY_PWD = "*****";
 
 #define KY037_AN A0 
 
-int temp = 3000000;
+int temp = 300000;
 
 
 void setup() {
