@@ -1,8 +1,10 @@
 # Change Log
 
-## [Unreleased]
-- modificati i grafici
+## [2.1]
 - risolto bug dell'invio dei dati, adesso non vengono mandati in brodcast ma solo al singolo client che si connette
+
+### Changed
+- colore e visualizzazione dei grafici migliorata
 
 ## [2.0]
 - aggiunta la possibilità di acquisire dati da più client, in particolare è presente il codice per farlo con nodeMCU e arduino YUN
