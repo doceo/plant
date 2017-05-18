@@ -67,7 +67,10 @@
         sensoriData[ record.pianta ].push(moment(record.t).format("DD/MM/YY HH:mm"));
         sensoriTemperatura[ record.pianta ].push(record.temperature);
       });
-
+	
+	sensoriData.reverse();
+	sensoriTemperatura.reverse();
+	    
       for (var i = 0; i < ctx.length; i++) {
         charts[i] = new Chart(ctx[i], {
           type: 'line',
