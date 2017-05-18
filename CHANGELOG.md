@@ -1,5 +1,9 @@
 # Change Log
 
+## [Unreleased]
+- risolto un bug sull'invio dei dati, venivano visualizzati a partire dal primo e quindi ignorati tutti i campioni rilevati dopo il 150-esimo. Ora vengono inviati al client a partire dall'ultimo memorizzato e il client ordinerà il vettore in modo da visualizzarli correttamente. 
+
+
 ## [2.1]
 - risolto bug dell'invio dei dati, adesso non vengono mandati in brodcast ma solo al singolo client che si connette
 
