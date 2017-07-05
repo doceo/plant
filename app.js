@@ -18,6 +18,9 @@ app.get('/', function(req, res) {
   res.sendFile(__dirname+'/html/index.html');
 });
 
+app.get('/temperatura', function(req, res) {
+  res.sendFile(__dirname+'/html/temperatura.html');
+});
 
 // abbiamo usato una GET ma sarebbe più opportuno usare il metodo POST. la scelta del GET
 // perchè risulta più comodo nel caso non si disponga di dispositivi fisici e si voglia
@@ -35,6 +38,7 @@ app.get('/acquisisci/:node/:dato', function (req, res) {
 
   io.emit('newTemperature', temperature);
 });
+
 
 io.on('connection', function (socket) {
   console.log('richiesta di connessione dal client');
