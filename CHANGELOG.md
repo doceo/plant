@@ -3,9 +3,9 @@
 ## [Unreleased]
 - risolto un bug sull'invio dei dati, venivano visualizzati a partire dal primo e quindi ignorati tutti i campioni rilevati dopo il 150-esimo. Ora vengono inviati al client a partire dall'ultimo memorizzato e il client ordinerà il vettore in modo da visualizzarli correttamente. 
 
-- aggiunta la gestione di un sensore di temeratura/unidità dh11 con NodeMCU
+- aggiunta l'acquisizione di temperatura e umidità con un sensore dh11 collegato a NodeMCU. lalibreria usata è DH11.h
 
-- aggiunta della pagina temperatura.html dedicata alla rilevazione del sensore di temperatura
+- aggiunta della pagina temperatura.html dedicata alla rilevazione di dati con il sensore di temperatura/umidità DH11
 
 
 ## [2.1]
