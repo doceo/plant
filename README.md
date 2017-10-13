@@ -30,7 +30,7 @@ va installato su una macchina e messo in ascolto sulla porta 3000, così come in
 per avviare il server bisogna procedere nel seguente modo:
 
 1. Scaricare e installare la versione idonea di node ed npm: https://nodejs.org/it/download/
-2. installare il framework express tramite il gestore dei pacchetti: npm intall express
+2. installare il framework express tramite il gestore dei pacchetti: npm install express
 3. installare socket.io attraverso il gestore dei pacchetti: npm install socket.io
 
 è possibile anche configurare tutto tramite npm install, a patto che il file package.json sia aggiornato nelle dipendenze necessarie.
