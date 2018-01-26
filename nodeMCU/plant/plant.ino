@@ -2,14 +2,6 @@
 #include <ESP8266WiFi.h>
 dht11 DHT;
 
-//definisco le costanti che determinano la connessione. Bisogna sostituire l'indirizzo IP della macchina a cui collegarsi.
-
-const char* MY_SSID = "FASTWEB-1-ADD163";
-const char* MY_PWD = "0418EE41E8";
-
-//const char* MY_SSID = "makappa";
-//const char* MY_PWD = "liberdiom";
-
 #define DHT11_PIN 13
 
 int temp = 900000;
