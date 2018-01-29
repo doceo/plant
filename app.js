@@ -62,11 +62,21 @@ app.get('/acquisisci/:node/:dato', function (req, res) {
 mqttClient.on('message', (topic, message) => {  
   console.log(`Received message: '${message}'`);
   
- 	var dati = message.split(".");
-//  	console.log('dati[0]');
-//   	console.log('dati[1]');
-		console.log(typeof 'message'); 
+  	var msg = (message).toString();
+  	var dati = msg.split("/");
+  
+  	console.log(dati[0]);
+  	console.log(dati[1]);
 
+	var temperature = {
+    	t: new Date(),
+    	temperature: dati[1],
+    	pianta: dati[0],
+  	};
+  	db.collection('temperatures').insert(temperature);
+  	console.log('acquisisco valore');
+
+  	io.emit('newTemperature', temperature);
 });
 
 
