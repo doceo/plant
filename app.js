@@ -14,6 +14,25 @@ MongoClient.connect('mongodb://127.0.0.1:27017/terreno', function (err, database
   });
 });
 
+
+//rendo possibile il collegamento ad un broker mqtt esterno
+var mqtt = require('mqtt');  
+var mqttClient = mqtt.connect('mqtt://localhost:1883', {
+	clean: true,
+    clientId: 'nodeJS'
+});  
+
+mqttClient.on('connect', (connack) => {  
+  if (connack.sessionPresent) {
+    console.log('Already subbed, no subbing necessary');
+  } else {
+    console.log('First session! Subbing.');
+    mqttClient.subscribe('sensore/valore', { qos: 2 });
+  }
+});
+
+
+
 app.get('/', function(req, res) {
   res.sendFile(__dirname+'/html/index.html');
 });
@@ -40,6 +59,29 @@ app.get('/acquisisci/:node/:dato', function (req, res) {
 });
 
 
+mqttClient.on('message', (topic, message) => {  
+  console.log(`Received message: '${message}'`);
+  
+  	var msg = (message).toString();
+  	var dati = msg.split("/");
+  
+  	console.log(dati[0]);
+  	console.log(dati[1]);
+
+	var temperature = {
+    	t: new Date(),
+    	temperature: dati[1],
+    	pianta: dati[0],
+  	};
+  	db.collection('temperatures').insert(temperature);
+  	console.log('acquisisco valore');
+
+  	io.emit('newTemperature', temperature);
+});
+
+
+
+
 io.on('connection', function (socket) {
   console.log('richiesta di connessione dal client');
   console.log('invio tutte le temperature');
@@ -47,3 +89,4 @@ io.on('connection', function (socket) {
     socket.emit('temperatures', result.reverse());
   });
 });
+
