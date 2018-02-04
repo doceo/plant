@@ -22,6 +22,11 @@ e poi, per comodita', abbiamo utilizzato l'ide di Arduino, debitamente onfigurat
 
 come ulteriore client utilizzato per la raccolta dei dati è stato utilizzato Arduino Yun.
 
+##MQTT
+
+permette la ricezione di dati tramite protocollo Mqtt. deve quindi potersi collegare ad un broker in ascolto sul topic sensore/valore.
+
+
 ##Node.js
 
 va installato su una macchina e messo in ascolto sulla porta 3000, così come indicato nel pacchetto. riferimenti https://nodejs.org/en/docs/
