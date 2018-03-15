@@ -8,8 +8,24 @@ Licenza: GPL 3.0 o successive
 
 Questo pacchetto ha scopo didattico e si vogliono rappresentare le potenzialità di Node.js. L'istituto superiore Morano ha dato delle direttive per la realizzazione di una StartUp,
 con l'obiettivo di riuscire a creare un sistema che raccolga dati logici per un particolare sensore di: umidità dell'aria, umidità del terreno e temperatura del terreno.
-In tale progetto,la capacità progettuale d'implementazione fa la differenza. Per questo motivo, siamo stati divisi in gruppi  
+In tale progetto,la capacità progettuale d'implementazione fa la differenza. Per questo motivo, siamo stati divisi in due squadre lavorative: la prima squadra è stata incaricata 
+di eseguire la parte di elettronica del progetto, mentre la seconda squadra quella di informatica. Queste due macroattività si dividono a loro volta in delle microattività, formate da
+addetti selezionati per compiti precisi. In particolar modo, all'interno della seconda macroattività, sono presenti 3 gruppi di lavoro:
 
+- CORE: gruppo CAVIALE
+  
+  RESPONSABILE: Vittorio Auriemma
+  PARTECIPANTI: Giuseppe Garotti, Alessio Guerra, Alessandro Castelli
+
+- GRAFICA: gruppo DJICKAR
+  
+  RESPONSABILE: Emanuele Franzese
+  PARTECIPANTI: Giuseppe Andretta, Vincenzo Longobardo, Salvatore Belardo, Angelo Muggione
+
+- DOCUMENTAZIONE: gruppo DocGrimaldiPedata
+  
+  RESPONSABILE: Raffaele Grimaldi
+  PARTECIPANTI: Luca Pedata
 
 ##NodeMCU 
 
