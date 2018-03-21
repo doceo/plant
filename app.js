@@ -1,11 +1,11 @@
 const app = require('express')();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
-//const MongoClient = require('mongodb').MongoClient;
+const MongoClient = require('mongodb').MongoClient;
 
 var db;
 
-//MongoClient.connect('mongodb://127.0.0.1:27017/terreno', function (err, database) {
+MongoClient.connect('mongodb://127.0.0.1:27017/terreno', function (err, database) {
 //MongoClient.connect('mongodb://172.17.0.:27017/terreno', function (err, database) {
   if (err) return console.log(err)
   //db = database;
@@ -33,13 +33,13 @@ mqttClient.on('connect', (connack) => {
 
 
 
-/*app.get('/', function(req, res) {
+app.get('/', function(req, res) {
   res.sendFile(__dirname+'/html/index.html');
 });
 
 app.get('/temperatura', function(req, res) {
   res.sendFile(__dirname+'/html/temperatura.html');
-});*/
+});
 
 // abbiamo usato una GET ma sarebbe più opportuno usare il metodo POST. la scelta del GET
 // perchè risulta più comodo nel caso non si disponga di dispositivi fisici e si voglia
@@ -52,11 +52,11 @@ app.get('/acquisisci/:node/:dato', function (req, res) {
     temperature: parseInt(req.params.dato),
     pianta: parseInt(req.params.node),
   };
-  /*db.collection('temperatures').insert(temperature);
+  db.collection('temperatures').insert(temperature);
   console.log('acquisisco valore');
 
   io.emit('newTemperature', temperature);
-});*/
+});
 
 
 mqttClient.on('message', (topic, message) => {  
@@ -73,7 +73,7 @@ mqttClient.on('message', (topic, message) => {
     	temperature: dati[1],
     	pianta: dati[0],
   	};
-  	//db.collection('temperatures').insert(temperature);
+  	db.collection('temperatures').insert(temperature);
   	console.log('acquisisco valore');
 
   	io.emit('newTemperature', temperature);
@@ -85,7 +85,7 @@ mqttClient.on('message', (topic, message) => {
 io.on('connection', function (socket) {
   console.log('richiesta di connessione dal client');
   console.log('invio tutte le temperature');
- // db.collection('temperatures').find({},{sort:{t:-1}}).limit(150).toArray( function (err, result) {
+  db.collection('temperatures').find({},{sort:{t:-1}}).limit(150).toArray( function (err, result) {
     socket.emit('temperatures', result.reverse());
   });
 });
