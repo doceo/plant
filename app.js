@@ -1,16 +1,20 @@
 const app = require('express')();
 const log=require('morgan');
-app.use(log('dev'));
+const path=require('path');
+
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const MongoClient = require('mongodb').MongoClient;
 
+
 var db;
 
-MongoClient.connect('mongodb://127.0.0.1:27017/terreno', function (err, database) {
+app.use(log('dev'));
+
+MongoClient.connect('mongodb://192.168.40.44:27017/terreno', function (err, database) {
 //MongoClient.connect('mongodb://172.17.0.:27017/terreno', function (err, database) {
   if (err) return console.log(err)
-  //db = database;
+  db = database;
   server.listen(3000, function() {
     console.log('Server in ascolto sulla porta 3000 ...');
   });
@@ -36,12 +40,27 @@ mqttClient.on('connect', (connack) => {
 
 
 app.get('/', function(req, res) {
-  res.sendFile(__dirname+'/html/index.html');
+  res.sendFile(
+  path.resolve( __dirname,'html','index.html')
+  );
 });
 
-app.get('/temperatura', function(req, res) {
+/*app.get('/temperatura', function(req, res) {
   res.sendFile(__dirname+'/html/temperatura.html');
+});*/
+
+app.get('/report', function(req, res) {
+  res.sendFile(
+  path.resolve( __dirname,'html','report.html')
+  );
+  });
+  
+  app.get('/admin', function(req, res) {
+  res.sendFile(
+  path.resolve( __dirname,'html','admin.html')
+  );
 });
+ 
 
 // abbiamo usato una GET ma sarebbe più opportuno usare il metodo POST. la scelta del GET
 // perchè risulta più comodo nel caso non si disponga di dispositivi fisici e si voglia
