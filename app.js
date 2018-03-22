@@ -1,4 +1,6 @@
 const app = require('express')();
+const log=require('morgan');
+app.use(log('dev'));
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const MongoClient = require('mongodb').MongoClient;
