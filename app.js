@@ -1,4 +1,6 @@
 const app = require('express')();
+const log=require('morgan');
+app.use(log('dev'));
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const MongoClient = require('mongodb').MongoClient;
@@ -8,7 +10,7 @@ var db;
 MongoClient.connect('mongodb://127.0.0.1:27017/terreno', function (err, database) {
 //MongoClient.connect('mongodb://172.17.0.:27017/terreno', function (err, database) {
   if (err) return console.log(err)
-  db = database;
+  //db = database;
   server.listen(3000, function() {
     console.log('Server in ascolto sulla porta 3000 ...');
   });
