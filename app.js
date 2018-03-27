@@ -5,20 +5,23 @@ const path=require('path');
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const MongoClient = require('mongodb').MongoClient;
+const ObjectId = require('mongodb').ObjectId;
 
 
 var db;
 
 app.use(log('dev'));
+//connessione del client a mongodb
+MongoClient.connect('mongodb://192.168.40.55:27017/terreno', function (err, database) {
 
-MongoClient.connect('mongodb://192.168.40.44:27017/terreno', function (err, database) {
-//MongoClient.connect('mongodb://172.17.0.:27017/terreno', function (err, database) {
   if (err) return console.log(err)
   db = database;
   server.listen(3000, function() {
     console.log('Server in ascolto sulla porta 3000 ...');
   });
 });
+
+
 
 
 //rendo possibile il collegamento ad un broker mqtt esterno
@@ -62,21 +65,76 @@ app.get('/report', function(req, res) {
 });
  
 
-// abbiamo usato una GET ma sarebbe più opportuno usare il metodo POST. la scelta del GET
-// perchè risulta più comodo nel caso non si disponga di dispositivi fisici e si voglia
-// testare l'applicativo da browser
-app.get('/acquisisci/:node/:dato', function (req, res) {
+/* abbiamo usato una GET ma sarebbe più opportuno usare il metodo POST. la scelta del 
+GETperchè risulta più comodo nel caso 
+non si disponga di dispositivi fisici e si voglia testare l'applicativo da browser*/
+app.get('/acquisisci/:postazione/:sensore/:dato', function (req, res) {
   res.end();
-
-  var temperature = {
+    if(req.params.postazione==1)
+	{
+		console.log('postazione1');
+	
+		
+  var data = {
     t: new Date(),
-    temperature: parseInt(req.params.dato),
-    pianta: parseInt(req.params.node),
+    valore: parseInt(req.params.dato),
+    sensore: parseInt(req.params.sensore),
   };
-  db.collection('temperatures').insert(temperature);
+  db.collection('postazione1').insert(data);
   console.log('acquisisco valore');
 
-  io.emit('newTemperature', temperature);
+  io.emit('newTemperature', data);
+	}
+	else if(req.params.postazione==2)
+	{
+		console.log('postazione2');
+	
+		
+  var data = {
+    t: new Date(),
+    valore: parseInt(req.params.dato),
+    sensore: parseInt(req.params.sensore),
+  };
+  db.collection('postazione2').insert(data);
+  console.log('acquisisco valore');
+
+  io.emit('newTemperature', data);
+	}
+		else if(req.params.postazione==3)
+	{
+		console.log('postazione3');
+	
+		
+  var data = {
+    t: new Date(),
+    valore: parseInt(req.params.dato),
+    sensore: parseInt(req.params.sensore),
+  };
+  db.collection('postazione3').insert(data);
+  console.log('acquisisco valore');
+
+  io.emit('newTemperature', data);
+	}
+		else if(req.params.postazione==4)
+	{
+		console.log('postazione4');
+	
+		
+  var data = {
+    t: new Date(),
+    valore: parseInt(req.params.dato),
+    sensore: parseInt(req.params.sensore),
+  };
+  db.collection('postazione4').insert(data);
+  console.log('acquisisco valore');
+
+  io.emit('newTemperature', data);
+	}
+	else{console.log('postazione non esistente');
+		
+	}
+	
+		
 });
 
 
@@ -89,15 +147,15 @@ mqttClient.on('message', (topic, message) => {
   	console.log(dati[0]);
   	console.log(dati[1]);
 
-	var temperature = {
+	var data = {
     	t: new Date(),
-    	temperature: dati[1],
-    	pianta: dati[0],
+    	valore: dati[1],
+    	sensore : dati[0],
   	};
-  	db.collection('temperatures').insert(temperature);
+  	db.collection('temperatures').insert(valore);
   	console.log('acquisisco valore');
 
-  	io.emit('newTemperature', temperature);
+  	io.emit('newTemperature', valore);
 });
 
 
