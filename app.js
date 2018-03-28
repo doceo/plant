@@ -68,68 +68,54 @@ app.get('/report', function(req, res) {
 /* abbiamo usato una GET ma sarebbe più opportuno usare il metodo POST. la scelta del 
 GETperchè risulta più comodo nel caso 
 non si disponga di dispositivi fisici e si voglia testare l'applicativo da browser*/
-app.get('/acquisisci/:postazione/:sensore/:dato', function (req, res) {
+app.get('/acquisisci/:sensore/:postazione/:dato', function (req, res) {
   res.end();
-    if(req.params.postazione==1)
+    if(req.params.sensore=="temp")
 	{
-		console.log('postazione1');
+		console.log('sensore temperatura');
 	
 		
   var data = {
     t: new Date(),
     valore: parseInt(req.params.dato),
-    sensore: parseInt(req.params.sensore),
+    postazione: parseInt(req.params.postazione),
   };
-  db.collection('postazione1').insert(data);
+  db.collection('temp').insert(data);
   console.log('acquisisco valore');
 
   io.emit('newTemperature', data);
 	}
-	else if(req.params.postazione==2)
+	else if(req.params.sensore=="humid")
 	{
-		console.log('postazione2');
+		console.log('sensore umidità aria');
 	
 		
   var data = {
     t: new Date(),
     valore: parseInt(req.params.dato),
-    sensore: parseInt(req.params.sensore),
+    postazione: parseInt(req.params.postazione),
   };
-  db.collection('postazione2').insert(data);
+  db.collection('humid').insert(data);
   console.log('acquisisco valore');
 
   io.emit('newTemperature', data);
 	}
-		else if(req.params.postazione==3)
+		else if(req.params.sensore=="hygro")
 	{
-		console.log('postazione3');
+		console.log('Sensore umidità terreno');
 	
 		
   var data = {
     t: new Date(),
     valore: parseInt(req.params.dato),
-    sensore: parseInt(req.params.sensore),
+    postazione: parseInt(req.params.postazione),
   };
-  db.collection('postazione3').insert(data);
+  db.collection('hygro').insert(data);
   console.log('acquisisco valore');
 
   io.emit('newTemperature', data);
 	}
-		else if(req.params.postazione==4)
-	{
-		console.log('postazione4');
-	
 		
-  var data = {
-    t: new Date(),
-    valore: parseInt(req.params.dato),
-    sensore: parseInt(req.params.sensore),
-  };
-  db.collection('postazione4').insert(data);
-  console.log('acquisisco valore');
-
-  io.emit('newTemperature', data);
-	}
 	else{console.log('postazione non esistente');
 		
 	}
@@ -168,4 +154,3 @@ io.on('connection', function (socket) {
     socket.emit('temperatures', result.reverse());
   });
 });
-
