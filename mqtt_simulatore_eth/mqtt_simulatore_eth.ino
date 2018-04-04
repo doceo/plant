@@ -31,8 +31,8 @@ int value = 0;
 
 // Update these with values suitable for your network.
 byte mac[]    = {  0xDE, 0xED, 0xBA, 0xFE, 0xFE, 0xED };
-IPAddress ip(192, 168, 1, 101);
-IPAddress server(192, 168, 1, 69);
+IPAddress ip(192, 168, 1, 230);
+IPAddress server(192, 168, 1, 145);
 
 void callback(char* topic, byte* payload, unsigned int length) {
   Serial.print("Message arrived [");
@@ -92,7 +92,19 @@ void loop()
   temp = String(random(-40,50));
   terUm = String(random(0, 1024));
   AriaUm = String(random(0, 1024));
-  timeAcq = String(random(1,31)) + "/"+ String(random(1,13)) + "/" + String(2018);
+  //YYYY-MM-dd hh:mm:ss
+  String MM = '0' + String(random(1,13));
+  MM = MM.substring(MM.length() - 2, MM.length());
+  String dd = '0' + String(random(1,32));
+  dd = dd.substring(dd.length() - 2, dd.length());
+  String hh = '0' + String(random(0,24));
+  hh = hh.substring(hh.length() - 2, hh.length());
+  String mm = '0' + String(random(0,60));
+  mm = mm.substring(mm.length() - 2, mm.length());
+  String ss = '0' + String(random(0,60));
+  ss = ss.substring(ss.length() - 2, ss.length());
+  timeAcq =  (String)2018 + '-' + MM + "-" + dd + " " + \
+              hh + ":" + mm + ":" + ss;
   
 
   String msg= puntoAcq + ',' + temp + ',' + terUm + ',' + AriaUm + ',' + timeAcq;
