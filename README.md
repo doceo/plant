@@ -24,7 +24,7 @@ addetti selezionati per compiti precisi. In particolar modo, all'interno della s
 
 - DOCUMENTAZIONE: gruppo DocGrimaldiPedata
   
-  RESPONSABILE: Raffaele Grimaldi
+  RESPONSABILE: Raffaele Grimaldi Capitello
   PARTECIPANTI: Luca Pedata
 
 ##NodeMCU 
