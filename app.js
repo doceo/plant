@@ -80,34 +80,98 @@ app.get('/acquisisci/:node/:dato', function (req, res) {
 });
 
 
+//acquisione dati
+
 mqttClient.on('message', (topic, message) => {  
   console.log(`Received message: '${message}'`);
   
   	var msg = (message).toString();
-  	var dati = msg.split("/");
+  	var dato = msg.split(",");
   
-  	console.log(dati[0]);
-  	console.log(dati[1]);
+ 
+	dato.forEach(function (record){
+	console.log("messaggio ricevuto:");
+	console.log(record);
+	});
 
-	var temperature = {
-    	t: new Date(),
-    	temperature: dati[1],
-    	pianta: dati[0],
+	var data =dato[4].split("-");
+
+	data.forEach(function (record){
+	console.log("conversione: " + record +" in " + Number(record));
+
+	});
+	
+	var dataAcq = new Date(parseInt(data[0]),parseInt(data[1]-1),parseInt(data[2]),parseInt(data[3]),parseInt(data[4]),parseInt(data[5]));
+
+//	console.log("il tipo che arriva è: " + typeof(dato[4]));
+
+//	console.log("il dato ricevuto è: " + dato[4]);
+	
+//	dataAcq =new Date('String(dato[4])');	
+	console.log("la data generata:" + dataAcq);	
+//	console.log("il formato data è: " + Date());
+
+	console.log("");
+	console.log("");	
+	//creo la variabile estrapolando i pezzi del vettore
+
+	var temp = {
+    	postazione: parseInt(dato[0]),
+    	temperature: Number(dato[1]),
+    	data: dataAcq,
   	};
-  	db.collection('temperatures').insert(temperature);
-  	console.log('acquisisco valore');
 
-  	io.emit('newTemperature', temperature);
+	//inserisco nel DB
+
+  	db.collection('temp').insert(temp);
+  	console.log('acquisisco temperatura');
+
+	//invio il nuovo dato al client collegato
+  	io.emit('newTemperature', temp);
+
+	var humid = {
+    	postazione: parseInt(dato[0]),
+    	humidity: Number(dato[2]),
+    	data: dataAcq,
+  	};
+  	db.collection('Humidity').insert(humid);
+  	console.log('acquisisco Umidità');
+  	io.emit('newHumid', humid);
+
+
+	var hygro = {
+    	postazione: parseInt(dato[0]),
+    	hygroThermal: Number(dato[3]),
+    	data: dataAcq,
+  	};
+  	db.collection('HygroThermal').insert(hygro);
+  	console.log('acquisisco umidità del terreno');
+  	io.emit('newHygro', hygro);
+
+
 });
 
 
+//invio vettori al client
 
 
 io.on('connection', function (socket) {
   console.log('richiesta di connessione dal client');
   console.log('invio tutte le temperature');
-  db.collection('temperatures').find({},{sort:{t:-1}}).limit(150).toArray( function (err, result) {
-    socket.emit('temperatures', result.reverse());
+
+  db.collection('temp').find({},{sort:{data:-1}}).limit(50).toArray( function (err, result) {
+//  console.log(result);
+   socket.emit('temp', result.reverse());
   });
+ db.collection('Humidity').find({},{sort:{data:-1}}).limit(50).toArray( function (err, result) {
+//  console.log(result);
+   socket.emit('humid', result.reverse());
+  });
+ db.collection('HygroThermal').find({},{sort:{data:-1}}).limit(50).toArray( function (err, result) {
+//  console.log(result);
+   socket.emit('hygro', result.reverse());
+  });
+
+
 });
 
