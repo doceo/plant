@@ -39,388 +39,346 @@
                 <a class="nav-link" href="admin.html">Admin</a>
             </li>
         </ul>
-        <div class="container">
-            <div class="row">
-                <div class="col-6"><canvas id="Grafico1" width="600" height="400"></canvas></div>
-                <div class="col-6"><canvas id="Grafico2" width="600" height="400"></canvas></div>
-            </div>
-            <div class="row">
-                <div class="col-6"><canvas id="Grafico3" width="600" height="400"></canvas></div>
-                <div class="col-6"><canvas id="Grafico4" width="600" height="400"></canvas></div>
-            </div>
-            
-        </div>
-        
-        
-        
-        
-        
-        <div class="valore">
-            <div class="row" >
-                <div class="col-6"><canvas id="Grafico1" width="600" height="400"></canvas></div>
-                <div class="col-6"><canvas id="Grafico2" width="600" height="400"></canvas></div>
-                <div class="w-100"></div>
-                <div class="col-6"><canvas id="Grafico3" width="600" height="400"></canvas></div>
-                <div class="col-6"><canvas id="Grafico4" width="600" height="400"></canvas></div>
-            </div>
-        </div>
-        
-        
-        
+          <div class="row">
+        <div class="col-md-12">
+          <canvas id="post_1"></canvas>
+      	</div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <canvas id="post_2"></canvas>
+      	</div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <canvas id="post_3"></canvas>
+      	</div>
+      </div>
+          
         <script>
-            var temp1, temp2, temp3,
-            humid1, humid2, humid3,
-            hygro1, hygro2, hygro3;
-            
-            socket.on('temp', function(data) {
-                      temp1 = data[0];
-                      temp2 = data[1];
-                      temp3 = data[2];
-                      }
-                      
-                      socket.on('humid', function(data) {
-                                humid1 = data[0];
-                                humid2 = data[1];
-                                humid3 = data[2];
-                                }
-                                
-                                socket.on('hygro', function(data) {
-                                          hygro1 = data[0];
-                                          hygro2 = data[1];
-                                          hygro3 = data[2];
-                                          }
-                                          
-                                          
-                                          
-                                          var speedCanvas = document.getElementById("Grafico1");
-                                          
-                                          Chart.defaults.global.defaultFontFamily = "Lato";
-                                          Chart.defaults.global.defaultFontSize = 18;
-                                          
-                                          var dataFirst = {
-                                          label: "Temperatura",
-                                          data: temp1,
-                                          lineTension: 0.3,
-                                          fill: false,
-                                          borderColor: 'red',
-                                          backgroundColor: 'transparent',
-                                          pointBorderColor: 'black',
-                                          pointBackgroundColor: 'black',
-                                          pointRadius: 3,
-                                          pointHoverRadius: 10,
-                                          pointHitRadius: 30,
-                                          pointBorderWidth: 2,
-                                          pointStyle: 'rect'
-                                          };
-                                          
-                                          var dataSecond = {
-                                          label: "Umidita' aria",
-                                          data: humid1,
-                                          lineTension: 0.3,
-                                          fill: false,
-                                          borderColor: 'lightgreen',
-                                          backgroundColor: 'transparent',
-                                          pointBorderColor: 'black',
-                                          pointBackgroundColor: 'black',
-                                          pointRadius: 3,
-                                          pointHoverRadius: 15,
-                                          pointHitRadius: 30,
-                                          pointBorderWidth: 2,
-                                          pointStyle: 'rect'
-                                          };
-                                          
-                                          var dataThird = {
-                                          label: "Umidita' terra",
-                                          data: hygro1,
-                                          lineTension: 0.3,
-                                          fill: false,
-                                          borderColor: '#1e90ff',
-                                          backgroundColor: 'transparent',
-                                          pointBorderColor: 'black',
-                                          pointBackgroundColor: 'black',
-                                          pointRadius: 3,
-                                          pointHoverRadius: 15,
-                                          pointHitRadius: 30,
-                                          pointBorderWidth: 2,
-                                          pointStyle: 'rect'
-                                          };
-                                          
-                                          var speedData = {
-                                          labels: ["0", "10", "20", "30", "40", "50", "90"],
-                                          datasets: [dataFirst, dataSecond,dataThird ]
-                                          };
-                                          
-                                          var chartOptions = {
-                                          legend: {
-                                          display: true,
-                                          position: 'top',
-                                          labels: {
-                                          boxWidth: 80,
-                                          fontColor: 'black'
-                                          }
-                                          }
-                                          };
-                                          
-                                          var lineChart = new Chart(speedCanvas, {
-                                                                    type: 'line',
-                                                                    data: speedData,
-                                                                    options: {
-                                                                    title: {
-                                                                    display: true,
-                                                                    text: 'Sensore A'
-                                                                    }
-                                                                    }
-                                                                    
-                                                                    });
-                                          
-            </script>
-        
-        <script>
-            var speedCanvas = document.getElementById("Grafico2");
-            
-            Chart.defaults.global.defaultFontFamily = "Lato";
-            Chart.defaults.global.defaultFontSize = 18;
-            
-            var dataFirst = {
-                label: "Temperatura",
-                data: [0, 59, 75, 20, 20, 55, 90],
-                lineTension: 0.3,
-                fill: false,
-                borderColor: 'red',
-                backgroundColor: 'transparent',
-                pointBorderColor: 'black',
-                pointBackgroundColor: 'black',
-                pointRadius: 3,
-                pointHoverRadius: 10,
-                pointHitRadius: 30,
-                pointBorderWidth: 2,
-                pointStyle: 'rect'
-            };
-        
-        var dataSecond = {
-            label: "Umidita' aria",
-            data: [20, 15, 60, 60, 65, 30, 70],
-            lineTension: 0.3,
-            fill: false,
-            borderColor: 'lightgreen',
-            backgroundColor: 'transparent',
-            pointBorderColor: 'black',
-            pointBackgroundColor: 'black',
-            pointRadius: 3,
-            pointHoverRadius: 15,
-            pointHitRadius: 30,
-            pointBorderWidth: 2,
-            pointStyle: 'rect'
-        };
-        
-        var dataThird = {
-            label: "Umidita' terra",
-            data: [60, 19, 70, 30, 75, 10, 30],
-            lineTension: 0.3,
-            fill: false,
-            borderColor: '#1e90ff',
-            backgroundColor: 'transparent',
-            pointBorderColor: 'black',
-            pointBackgroundColor: 'black',
-            pointRadius: 3,
-            pointHoverRadius: 15,
-            pointHitRadius: 30,
-            pointBorderWidth: 2,
-            pointStyle: 'rect'
-        };
-        
-        var speedData = {
-            labels: ["0", "10", "20", "30", "40", "50", "90"],
-            datasets: [dataFirst, dataSecond,dataThird ]
-        };
-        
-        var chartOptions = {
-            legend: {
-                display: true,
-                position: 'top',
-                labels: {
-                    boxWidth: 80,
-                    fontColor: 'black'
-                }
-            }
-        };
-        
-        var lineChart = new Chart(speedCanvas, {
-                                  type: 'line',
-                                  data: speedData,
-                                  options: {
-                                  title: {
-                                  display: true,
-                                  text: 'Sensore B'
-                                  }
-                                  }
-                                  });
-                                  
-            </script>
-        
-        <script>
-            var speedCanvas = document.getElementById("Grafico3");
-            
-            Chart.defaults.global.defaultFontFamily = "Lato";
-            Chart.defaults.global.defaultFontSize = 18;
-            
-            var dataFirst = {
-                label: "Temperatura",
-                data: [0, 59, 75, 20, 20, 55, 65],
-                lineTension: 0.3,
-                fill: false,
-                borderColor: 'red',
-                backgroundColor: 'transparent',
-                pointBorderColor: 'black',
-                pointBackgroundColor: 'black',
-                pointRadius: 3,
-                pointHoverRadius: 10,
-                pointHitRadius: 30,
-                pointBorderWidth: 2,
-                pointStyle: 'rect'
-            };
-        
-        var dataSecond = {
-            label: "Umidita' aria",
-            data: [20, 15, 60, 60, 65, 30, 70],
-            lineTension: 0.3,
-            fill: false,
-            borderColor: 'lightgreen',
-            backgroundColor: 'transparent',
-            pointBorderColor: 'black',
-            pointBackgroundColor: 'black',
-            pointRadius: 3,
-            pointHoverRadius: 15,
-            pointHitRadius: 30,
-            pointBorderWidth: 2,
-            pointStyle: 'rect'
-        };
-        
-        var dataThird = {
-            label: "Umidita' terra",
-            data: [60, 19, 70, 30, 75, 10, 30],
-            lineTension: 0.3,
-            fill: false,
-            borderColor: '#1e90ff',
-            backgroundColor: 'transparent',
-            pointBorderColor: 'black',
-            pointBackgroundColor: 'black',
-            pointRadius: 3,
-            pointHoverRadius: 15,
-            pointHitRadius: 30,
-            pointBorderWidth: 2,
-            pointStyle: 'rect'
-        };
-        
-        var speedData = {
-            labels: ["0", "10", "20", "30", "40", "50", "90"],
-            datasets: [dataFirst, dataSecond,dataThird ]
-        };
-        
-        var chartOptions = {
-            legend: {
-                display: true,
-                position: 'top',
-                labels: {
-                    boxWidth: 80,
-                    fontColor: 'black'
-                }
-            }
-        };
-        
-        var lineChart = new Chart(speedCanvas, {
-                                  type: 'line',
-                                  data: speedData,
-                                  options: {
-                                  title: {
-                                  display: true,
-                                  text: 'Sensore C'
-                                  }
-                                  }
-                                  });
-                                  
-            </script>
-        
-        <script>
-            var speedCanvas = document.getElementById("Grafico4");
-            
-            Chart.defaults.global.defaultFontFamily = "Lato";
-            Chart.defaults.global.defaultFontSize = 18;
-            
-            var dataFirst = {
-                label: "Temperatura",
-                data: [0, 59, 75, 20, 20, 55, 98],
-                lineTension: 0.3,
-                fill: false,
-                borderColor: 'red',
-                backgroundColor: 'transparent',
-                pointBorderColor: 'black',
-                pointBackgroundColor: 'black',
-                pointRadius: 3,
-                pointHoverRadius: 10,
-                pointHitRadius: 30,
-                pointBorderWidth: 2,
-                pointStyle: 'rect'
-            };
-        
-        var dataSecond = {
-            label: "Umidita' aria",
-            data: [20, 15, 60, 60, 65, 30, 70],
-            lineTension: 0.3,
-            fill: false,
-            borderColor: 'lightgreen',
-            backgroundColor: 'transparent',
-            pointBorderColor: 'black',
-            pointBackgroundColor: 'black',
-            pointRadius: 3,
-            pointHoverRadius: 15,
-            pointHitRadius: 30,
-            pointBorderWidth: 2,
-            pointStyle: 'rect'
-        };
-        
-        var dataThird = {
-            label: "Umidita' terra",
-            data: [10, 35, 20, 30, 75, 10, 55],
-            lineTension: 0.3,
-            fill: false,
-            borderColor: '#1e90ff',
-            backgroundColor: 'transparent',
-            pointBorderColor: 'black',
-            pointBackgroundColor: 'black',
-            pointRadius: 3,
-            pointHoverRadius: 15,
-            pointHitRadius: 30,
-            pointBorderWidth: 2,
-            pointStyle: 'rect'
-        };
-        
-        var speedData = {
-            labels: ["0", "10", "20", "30", "40", "50", "90"],
-            datasets: [dataFirst, dataSecond,dataThird ]
-        };
-        
-        var chartOptions = {
-            legend: {
-                display: true,
-                position: 'top',
-                labels: {
-                    boxWidth: 80,
-                    fontColor: 'black'
-                }
-            }
-        };
-        
-        var lineChart = new Chart(speedCanvas, {
-                                  type: 'line',
-                                  data: speedData,
-                                  options: {
-                                  title: {
-                                  display: true,
-                                  text: 'Sensore D'
-                                  }
-                                  }
-                                  });
+
+  var socket = io();
+
+  var temp1  = new Array(); 
+  var temp2  = new Array(); 
+  var temp3  = new Array(); 
+  var tempS  = new Array();
+
+  var humid1  = new Array(); 
+  var humid2  = new Array(); 
+  var humid3  = new Array(); 
+
+  var hygro1  = new Array(); 
+  var hygro2  = new Array(); 
+  var hygro3  = new Array(); 
+
+//  temp1  = [ [], [] ]; 
+  temp1  = [ [], []];
+  temp2  = [ [], []]; 
+  temp3  = [ [], []]; 
+  tempS  = [ [], []];
+  pTemp1  = [];
+
+
+  humid1  = [ [], []];
+  humid2  = [ [], []]; 
+  humid3  = [ [], []]; 
+
+
+  hygro1  = [ [], []];
+  hygro2  = [ [], []]; 
+  hygro3  = [ [], []]; 
+
+ // console.log(temp2);
+
+ 
+  socket.on('temp', function(data){
+	
+	data.forEach(function (record){
+
+	var dataAcq = new Date(record.data);
+	//per record intendiamo ogni elemento del vettore 
+	if(record.postazione==1) {       
+//		console.log("il valore arriva così:");
+//		console.log(moment(record.t));
+		var nuovoDato = { 
+//		    x: (moment(dataAcq).format("DD/MM/YY HH:mm")),
+		    x: dataAcq,
+		    y: Number(record.temperature),
+		    r:2
+		 };
+
+		pTemp1.push(nuovoDato);
+//		console.log(record.temperature);
+		temp1[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
+		temp1[1].push(Number(record.temperature));
+	}else if(record.postazione==2){       
+//		console.log(moment(record.t).format("DD/MM/YY HH:mm"));
+//		console.log(record.temperature);
+		temp2[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
+		temp2[1].push(Number(record.temperature));
+/*		var nuovoDato = { 
+		    x: dataAcq,
+		    y: Number(record.temperature)
+		 };
+
+		temp2.push(nuovoDato);
+*/
+	}else if(record.postazione==3){
+//		console.log(moment(record.t).format("DD/MM/YY HH:mm"));
+//		console.log(record.temperature);
+		temp3[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
+		temp3[1].push(parseInt(record.temperature));
+
+/*		var nuovoDato = { 
+		    x: dataAcq,
+		    y: parseInt(record.temperature)
+		 };
+
+		temp3.push(nuovoDato);
+*/
+
+	}else{       
+//		console.log(moment(record.t).format("DD/MM/YY HH:mm"));
+//		console.log(record.temperature);
+		tempS[0].push(dataAcq);
+		tempS[1].push(Number(record.temperature));
+
+	}
+	});	
+//	console.log("la prima curva è:" + temp1);	
+//	console.log("la seconda curva è:" + temp2);	
+//	console.log("la terza curva è:" + temp3);	
+//	console.log("il vettore bobble è: ");
+//	console.log(pTemp1);	
+
+
+});
+
+ socket.on('humid', function(data){
+	
+	data.forEach(function (record){
+		
+	console.log(record);
+
+	var dataAcq = new Date(record.data);
+	//per record intendiamo ogni elemento del vettore 
+	if(record.postazione==1) {       
+
+		humid1[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
+		humid1[1].push(Number(record.humidity));
+	}else if(record.postazione==2){       
+//		console.log(moment(record.t).format("DD/MM/YY HH:mm"));
+//		console.log(record.temperature);
+		humid2[0].push(dataAcq);
+		humid2[1].push(Number(record.humidity));
+
+	}else if(record.postazione==3){
+//		console.log(moment(record.t).format("DD/MM/YY HH:mm"));
+//		console.log(record.temperature);
+		humid3[0].push(dataAcq);
+		humid3[1].push(parseInt(record.humidity));
+	}
+
+	});	
+	console.log("humid 1 è:" + humid1);	
+	console.log("humid 2 è:" + humid2);	
+	console.log("humid 3 è:" + humid3);	
+
+});
+
+
+ socket.on('hygro', function(data){
+	
+	data.forEach(function (record){
+
+	var dataAcq = new Date(record.data);
+	//per record intendiamo ogni elemento del vettore 
+	if(record.postazione==1) {       
+
+		hygro1[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
+		hygro1[1].push(Number(record.hygroThermal));
+	}else if(record.postazione==2){       
+//		console.log(moment(record.t).format("DD/MM/YY HH:mm"));
+//		console.log(record.temperature);
+		hygro2[0].push(dataAcq);
+		hygro2[1].push(Number(record.hygroThermal));
+
+	}else if(record.postazione==3){
+//		console.log(moment(record.t).format("DD/MM/YY HH:mm"));
+//		console.log(record.temperature);
+		hygro3[0].push(dataAcq);
+		hygro3[1].push(parseInt(record.hygroThermal));
+	}
+
+	});	
+//	console.log("hygro 1 è:" + temp1);	
+//	console.log("hygro 2 è:" + temp2);	
+//	console.log("hygro 3 è:" + temp3);	
+
+});
+</script>
+
+<script>
+
+var ctx1 = document.getElementById('post_1').getContext('2d');
+var chart1 = new Chart(ctx1, {
+    // The type of chart we want to create
+    type: 'line',
+
+    //tipo di dato per chart bubble
+//    data: pTemp1,
+
+//     The data for our dataset
+    data: {
+        labels: temp1[0],
+        datasets: [{
+            label: "temperatura",
+//            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'blue',
+            data: temp1[1],
+	    yAxisID: 'first-y-axis'
+        },{
+            label: "Umidità dell'aria",
+ //           backgroundColor: 'red',
+            borderColor: 'red',
+            data: humid1[1],
+	    yAxisID: 'second-y-axis'
+        },{
+            label: "Umidità del terreno",
+ //           backgroundColor: 'red',
+            borderColor: 'green',
+            data: hygro1[1],
+	    yAxisID: 'second-y-axis'
+        }]
+    },
+
+
+    // Configuration options go here
+    options: {
+//	      
+   	scales: {
+            yAxes: [{
+                id: 'first-y-axis',
+                type: 'linear',
+		position: 'left'
+            }, {
+                id: 'second-y-axis',
+                type: 'linear',
+		position: 'right'
+            }]
+        }
+    }
+});
+
+
+
+var ctx2 = document.getElementById('post_2').getContext('2d');
+var chart2 = new Chart(ctx2, {
+    // The type of chart we want to create
+    type: 'line',
+
+    //tipo di dato per chart bubble
+//    data: pTemp1,
+
+//     The data for our dataset
+    data: {
+        labels: temp2[0],
+        datasets: [{
+            label: "temperatura",
+//            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'blue',
+            data: temp2[1],
+	    yAxisID: 'first-y-axis'
+        },{
+            label: "Umidità dell'aria",
+ //           backgroundColor: 'red',
+            borderColor: 'red',
+            data: humid2[1],
+	    yAxisID: 'second-y-axis'
+        },{
+            label: "Umidità del terreno",
+ //           backgroundColor: 'red',
+            borderColor: 'green',
+            data: hygro2[1],
+	    yAxisID: 'second-y-axis'
+        }]
+    },
+
+
+    // Configuration options go here
+    options: {
+//	      
+   	scales: {
+            yAxes: [{
+                id: 'first-y-axis',
+                type: 'linear',
+		position: 'left'
+            }, {
+                id: 'second-y-axis',
+                type: 'linear',
+		position: 'right'
+            }]
+        }
+    }
+});
+
+
+
+var ctx3 = document.getElementById('post_3').getContext('2d');
+var chart3 = new Chart(ctx3, {
+    // The type of chart we want to create
+    type: 'line',
+
+    //tipo di dato per chart bubble
+//    data: pTemp1,
+
+//     The data for our dataset
+    data: {
+        labels: temp3[0],
+        datasets: [{
+            label: "temperatura",
+//            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'blue',
+            data: temp3[1],
+	    yAxisID: 'first-y-axis'
+        },{
+            label: "Umidità dell'aria",
+ //           backgroundColor: 'red',
+            borderColor: 'red',
+            data: humid3[1],
+	    yAxisID: 'second-y-axis'
+        },{
+            label: "Umidità del terreno",
+ //           backgroundColor: 'red',
+            borderColor: 'green',
+            data: hygro3[1],
+	    yAxisID: 'second-y-axis'
+        }]
+    },
+
+
+    // Configuration options go here
+    options: {
+//	      
+   	scales: {
+            yAxes: [{
+                id: 'first-y-axis',
+                type: 'linear',
+		position: 'left'
+            }, {
+                id: 'second-y-axis',
+                type: 'linear',
+		position: 'right'
+            }]
+        }
+    }
+});
+
+
+    </script>
                                   
                                   
             </script>
