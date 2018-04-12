@@ -220,6 +220,165 @@
 
 });
 </script>
+
+<script>
+
+var ctx1 = document.getElementById('post_1').getContext('2d');
+var chart1 = new Chart(ctx1, {
+    // The type of chart we want to create
+    type: 'line',
+
+    //tipo di dato per chart bubble
+//    data: pTemp1,
+
+//     The data for our dataset
+    data: {
+        labels: temp1[0],
+        datasets: [{
+            label: "temperatura",
+//            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'blue',
+            data: temp1[1],
+	    yAxisID: 'first-y-axis'
+        },{
+            label: "Umidità dell'aria",
+ //           backgroundColor: 'red',
+            borderColor: 'red',
+            data: humid1[1],
+	    yAxisID: 'second-y-axis'
+        },{
+            label: "Umidità del terreno",
+ //           backgroundColor: 'red',
+            borderColor: 'green',
+            data: hygro1[1],
+	    yAxisID: 'second-y-axis'
+        }]
+    },
+
+
+    // Configuration options go here
+    options: {
+//	      
+   	scales: {
+            yAxes: [{
+                id: 'first-y-axis',
+                type: 'linear',
+		position: 'left'
+            }, {
+                id: 'second-y-axis',
+                type: 'linear',
+		position: 'right'
+            }]
+        }
+    }
+});
+
+
+
+var ctx2 = document.getElementById('post_2').getContext('2d');
+var chart2 = new Chart(ctx2, {
+    // The type of chart we want to create
+    type: 'line',
+
+    //tipo di dato per chart bubble
+//    data: pTemp1,
+
+//     The data for our dataset
+    data: {
+        labels: temp2[0],
+        datasets: [{
+            label: "temperatura",
+//            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'blue',
+            data: temp2[1],
+	    yAxisID: 'first-y-axis'
+        },{
+            label: "Umidità dell'aria",
+ //           backgroundColor: 'red',
+            borderColor: 'red',
+            data: humid2[1],
+	    yAxisID: 'second-y-axis'
+        },{
+            label: "Umidità del terreno",
+ //           backgroundColor: 'red',
+            borderColor: 'green',
+            data: hygro2[1],
+	    yAxisID: 'second-y-axis'
+        }]
+    },
+
+
+    // Configuration options go here
+    options: {
+//	      
+   	scales: {
+            yAxes: [{
+                id: 'first-y-axis',
+                type: 'linear',
+		position: 'left'
+            }, {
+                id: 'second-y-axis',
+                type: 'linear',
+		position: 'right'
+            }]
+        }
+    }
+});
+
+
+
+var ctx3 = document.getElementById('post_3').getContext('2d');
+var chart3 = new Chart(ctx3, {
+    // The type of chart we want to create
+    type: 'line',
+
+    //tipo di dato per chart bubble
+//    data: pTemp1,
+
+//     The data for our dataset
+    data: {
+        labels: temp3[0],
+        datasets: [{
+            label: "temperatura",
+//            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'blue',
+            data: temp3[1],
+	    yAxisID: 'first-y-axis'
+        },{
+            label: "Umidità dell'aria",
+ //           backgroundColor: 'red',
+            borderColor: 'red',
+            data: humid3[1],
+	    yAxisID: 'second-y-axis'
+        },{
+            label: "Umidità del terreno",
+ //           backgroundColor: 'red',
+            borderColor: 'green',
+            data: hygro3[1],
+	    yAxisID: 'second-y-axis'
+        }]
+    },
+
+
+    // Configuration options go here
+    options: {
+//	      
+   	scales: {
+            yAxes: [{
+                id: 'first-y-axis',
+                type: 'linear',
+		position: 'left'
+            }, {
+                id: 'second-y-axis',
+                type: 'linear',
+		position: 'right'
+            }]
+        }
+    }
+});
+
+
+    </script>
                                   
                                   
             </script>
