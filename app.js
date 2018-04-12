@@ -80,7 +80,7 @@ app.get('/acquisisci/:node/:dato', function (req, res) {
 });
 
 
-
+//acquisione dati
 
 mqttClient.on('message', (topic, message) => {  
   console.log(`Received message: '${message}'`);
@@ -152,14 +152,26 @@ mqttClient.on('message', (topic, message) => {
 });
 
 
-
+//invio vettori al client
 
 
 io.on('connection', function (socket) {
   console.log('richiesta di connessione dal client');
   console.log('invio tutte le temperature');
-  db.collection('temperatures').find({},{sort:{t:-1}}).limit(150).toArray( function (err, result) {
-    socket.emit('temperatures', result.reverse());
+
+  db.collection('temp').find({},{sort:{data:-1}}).limit(50).toArray( function (err, result) {
+//  console.log(result);
+   socket.emit('temp', result.reverse());
   });
+ db.collection('Humidity').find({},{sort:{data:-1}}).limit(50).toArray( function (err, result) {
+//  console.log(result);
+   socket.emit('humid', result.reverse());
+  });
+ db.collection('HygroThermal').find({},{sort:{data:-1}}).limit(50).toArray( function (err, result) {
+//  console.log(result);
+   socket.emit('hygro', result.reverse());
+  });
+
+
 });
 
