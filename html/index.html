@@ -25,9 +25,9 @@
         
         
         
-        
-        
-        <h1 align="center">Grafico Valori</h1>
+       <div class="header">
+      <h1 class="text-center">Ultimi valori raccolti</h1>
+    </div>
         <ul class="nav justify-content-center">
             <li class="nav-item">
                 <a class="nav-link active" href="index.html">Index</a>
@@ -98,6 +98,8 @@
 	
 	data.forEach(function (record){
 
+	var Nel = record.length;	
+
 	var dataAcq = new Date(record.data);
 	//per record intendiamo ogni elemento del vettore 
 	if(record.postazione==1) {       
@@ -148,11 +150,21 @@
 
 	}
 	});	
-//	console.log("la prima curva è:" + temp1);	
-//	console.log("la seconda curva è:" + temp2);	
-//	console.log("la terza curva è:" + temp3);	
-//	console.log("il vettore bobble è: ");
-//	console.log(pTemp1);	
+	var tempM1=0;
+	
+	temp1[1].forEach(function (record){
+
+	tempM1 = tempM1 + record;
+
+	});	
+
+	tempM1 = tempM1/Nel;
+
+	document.getElementById("tempM1").innerHTML = tempM1;
+
+	chart1.update();
+	chart2.update();
+	chart3.update();
 
 
 });
@@ -187,6 +199,14 @@
 	console.log("humid 2 è:" + humid2);	
 	console.log("humid 3 è:" + humid3);	
 
+	humidM1=humidM1/Nel;
+
+	document.getElementById("humidM1").innerHTML = humidM1;
+	
+	chart1.update();
+	chart2.update();
+	chart3.update();
+
 });
 
 
@@ -217,6 +237,22 @@
 //	console.log("hygro 1 è:" + temp1);	
 //	console.log("hygro 2 è:" + temp2);	
 //	console.log("hygro 3 è:" + temp3);	
+
+	var hygroM1=0;
+	
+	hygro1[1].forEach(function (record){
+
+		hygroM1 = hygroM1 + record;
+
+	});	
+
+	hygroM1 = hygroM1/Nel;
+
+	document.getElementById("hygroM1").innerHTML = hygroM1;
+
+	chart1.update();
+	chart2.update();
+	chart3.update();
 
 });
 </script>
