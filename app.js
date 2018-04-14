@@ -9,6 +9,8 @@ const MongoClient = require('mongodb').MongoClient;
 
 var db;
 
+var Ntemp = 50;
+
 app.use(log('dev'));
 
 MongoClient.connect('mongodb://192.168.40.44:27017/terreno', function (err, database) {
@@ -33,7 +35,7 @@ mqttClient.on('connect', (connack) => {
     console.log('Already subbed, no subbing necessary');
   } else {
     console.log('First session! Subbing.');
-    mqttClient.subscribe('sensore/valore', { qos: 2 });
+    mqttClient.subscribe('acqDati', { qos: 2 });
   }
 });
 
@@ -159,15 +161,15 @@ io.on('connection', function (socket) {
   console.log('richiesta di connessione dal client');
   console.log('invio tutte le temperature');
 
-  db.collection('temp').find({},{sort:{data:-1}}).limit(50).toArray( function (err, result) {
+  db.collection('temp').find({},{sort:{data:-1}}).limit(Ntemp).toArray( function (err, result) {
 //  console.log(result);
    socket.emit('temp', result.reverse());
   });
- db.collection('Humidity').find({},{sort:{data:-1}}).limit(50).toArray( function (err, result) {
+ db.collection('Humidity').find({},{sort:{data:-1}}).limit(Ntemp).toArray( function (err, result) {
 //  console.log(result);
    socket.emit('humid', result.reverse());
   });
- db.collection('HygroThermal').find({},{sort:{data:-1}}).limit(50).toArray( function (err, result) {
+ db.collection('HygroThermal').find({},{sort:{data:-1}}).limit(Ntemp).toArray( function (err, result) {
 //  console.log(result);
    socket.emit('hygro', result.reverse());
   });
