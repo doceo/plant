@@ -16,7 +16,7 @@ per ogni features da realizzare:
 1. aggiornamento all’ultima versione del branch master di doceo/plant 
 
   	per sapere quali sono i repository remoti associati:
-	git remote -v
+	`git remote -v`
    
   	se il branch doceo/plant non è tra quelli che trovate allora bisogna aggiungerlo:
 	git remote add upstream https://github.com/doceo/plant.git
@@ -31,26 +31,26 @@ per ogni features da realizzare:
 	salvare. digitare yes e scaricherà tutti gli aggiornamenti. 
   
 2. creazione del branch (il nome è legato alla features e può essere indicato nella issue da risolvere) 
-        git branch -b “nome branch”
+        `git branch -b “nome branch”`
 
 3. modificare i file che si devono modificare.
 
 4. a prescindere dall'esito dei test è sempre bene salvare in modo remoto le modifiche così da poterle far vedere agli altri o comunque tenerne traccia.
 
 	bisogna prima aggiungere i file modificati che si vogliono salvare.
-	git add "nome file"
-	git commit -m "descrizione delle modifiche"
-	git push origin "branch_creato"
+	`git add "nome file"`
+	`git commit -m "descrizione delle modifiche"`
+	`git push origin "branch_creato"`
 
  5. effettuare una pull request attraverso github, se non ancora fatto.
 
 ##NOTE
 
 - per scaricare gli aggiornamenti del mio repository devo entrare tramite terminale nella cartella di progetto e digitare
-	git pull
+	`git pull`
 
 - per scaricare un branch diverso dal master
-	git pull origin "branch"
+	`git pull origin "branch"`
 
 - per fare una pull request:
         
