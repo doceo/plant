@@ -7,7 +7,8 @@
      <meta charset="utf-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <meta name="viewport" content="width=device-width, initial-scale=1">
-         
+      <title>Plant</title>
+      
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
                         
@@ -20,87 +21,64 @@
     
         
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/locale/it.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-     </head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/locale/it.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    </head>
      <body>
         
         
         
         <div class="header">
-            <h1 class="text-center">Ultimi valori raccolti</h1>
-            </div><!--div header-->
+         <h1 class="text-center">Ultimi valori raccolti</h1>
+        </div><!--div header-->
         
                 <div class="container">
-                <div class="row">
+                    
+                    <div class="row">
                     
                     <div class="col-md-10">
                         <h2 class="text-center">Postazione 1</h2>
                         <canvas id="post_1"></canvas>
-                        </div><!--div md-10-->
+                    </div>
                     <div class="col-md-2">
+                    
                     <div class="row">
 						<h2 class="text-center">Valori Medi</h2>
-					</div><!--div row-->
-					<div class="row">
-                
-						<span class="btn btn-primary" style="width: 180px"> Temperatura<br>
-						<span class="badge badge-light"><div id="tempM1"></div></span>
+					</div>
+					
+                    <div class="row">
+                        <span class="btn btn-primary" style="width: 180px"> Temperatura<br>
+						   <span class="badge badge-light"><div id="tempM1"></div></span>
 						</span>
-					</div><!--row-->
+					</div>
+                    
 					<div class="row">
+                        
 						<span class="btn btn-success" style="width: 180px"> Umidità dell'aria<br>
-						<span class="badge badge-light"><div id="humidM1"></div></span>
+						  <span class="badge badge-light"><div id="humidM1"></div></span>
 						</span>
-					</div><!--row-->
-
-
-          <div class="row">
+					
+                    </div>
+                
+                <div class="row">
               <span class="btn btn-danger" style="width: 180px"> Umidità del suolo<br>
                   <span class="badge badge-light"><div id="hygroM1"></div></span>
               </span>
-      </div><!--row-->
+      </div>
 
-      <div class="input-group">
-        <div class="input-group-prepend">
-            <div class="row">
-                <h3 class="text-center">Data Inizio</h3>
 
-        </div><!--row-->
-      </div><!--input-group-prepend-->
-      </div><!--input-group-->
-<input type="date" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-    <div class="input-group-prepend">
-<div class="row">
-<br>
-<h3 class="text-center">Data Fine</h3>
-      	</div><!--row-->
-      </div><!--input-group-prepend-->
-    <input type="date" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-</div><!--md-2-->
+</div><!--col-md-2-->
       
             </div><!--row-->
-
-                
-                <!--div-->
-                
-                <!--     <div class="row">
-                 <h2 class="text-center">Valori</h2>
-                 <div class="col-md-12">
-                 <canvas id="post_2"></canvas>
-                 </div>
-                 </div>
-                 -->
-                <!--div-->
                 
                 <div class="row">
                     
                     <div class="col-md-10">
                         <h2 class="text-center">Postazione 2</h2>
                         <canvas id="post_1"></canvas>
-                        </div><!--div md-10-->
+                        </div><!--div-col-md-10-->
                     <div class="col-md-2">
                     <div class="row">
 						<h2 class="text-center">Valori Medi</h2>
@@ -122,25 +100,9 @@
               <span class="btn btn-danger" style="width: 180px"> Umidità del suolo<br>
                   <span class="badge badge-light"><div id="hygroM2"></div></span>
               </span>
-      </div><!--row-->
+            </div><!--row-->
 
-      <div class="input-group">
-        <div class="input-group-prepend">
-            <div class="row">
-                <h3 class="text-center">Data Inizio</h3>
-
-        </div><!--row-->
-      </div><!--input-group-prepend-->
-      </div><!--input-group-->
-<input type="date" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-    <div class="input-group-prepend">
-<div class="row">
-<br>
-<h3 class="text-center">Data Fine</h3>
-      	</div><!--row-->
-      </div><!--input-group-prepend-->
-    <input type="date" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-</div><!--md-2-->
+            </div><!--col-md-2-->
       
             </div><!--row-->
 
@@ -150,7 +112,7 @@
                     <div class="col-md-10">
                         <h2 class="text-center">Postazione 3</h2>
                         <canvas id="post_1"></canvas>
-                        </div><!--div md-10-->
+                        </div><!--div col-md-10-->
                     <div class="col-md-2">
                     <div class="row">
 						<h2 class="text-center">Valori Medi</h2>
@@ -174,23 +136,7 @@
               </span>
       </div><!--row-->
 
-      <div class="input-group">
-        <div class="input-group-prepend">
-            <div class="row">
-                <h3 class="text-center">Data Inizio</h3>
-
-        </div><!--row-->
-      </div><!--input-group-prepend-->
-      </div><!--input-group-->
-<input type="date" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-    <div class="input-group-prepend">
-<div class="row">
-<br>
-<h3 class="text-center">Data Fine</h3>
-      	</div><!--row-->
-      </div><!--input-group-prepend-->
-    <input type="date" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-</div><!--md-2-->
+</div><!--col-md-2-->
       
             </div><!--row-->
                 
@@ -199,7 +145,7 @@
 
   var socket = io();
 
-  var temp1  = new Array(); 
+  var temp1  = new Array();
   var temp2  = new Array(); 
   var temp3  = new Array(); 
   var tempS  = new Array();
@@ -230,12 +176,25 @@
   hygro3  = [ [], []]; 
 
  // console.log(temp2);
+ var Nel;
+ var hygroM1=0;
+ var tempM1=0;
+ var humidM1=0;
 
  
   socket.on('temp', function(data){
+            temp1[0].splice(0, temp1[0].lenght);
+            temp1[1].splice(0, temp[1].lenght):
+            
+            temp2[0].splice(0, temp2[0].length);
+            temp2[1].splice(0, temp2[1].length);
+            
+            temp3[0].splice(0, temp3[0].length);
+            temp3[1].splice(0, temp3[1].length);
+
             var Nel = data.length;
 
-	data.forEach(function (record){
+	       data.forEach(function (record){
                  var Nel = record.length;
                  
 	var dataAcq = new Date(record.data);
@@ -282,7 +241,7 @@
 
 	}
 	});	
-var tempM1=0;
+var ParseFloat(tempM1=0);
             temp1[1].forEach(function (record){
 
                              tempM1 = tempM1 + record;
@@ -297,15 +256,25 @@ var tempM1=0;
 });
 
  socket.on('humid', function(data){
+           
+           humid1[0].splice(0, humid1[0].length);
+           humid1[1].splice(0, humid1[1].length);
+
+           humid2[0].splice(0, humid2[0].length);
+           humid2[1].splice(0, humid2[1].length);
+           
+           humid3[0].splice(0, humid3[0].length);
+           humid3[1].splice(0, humid3[1].length);
+           
            var Nel = data.length;
 
-	data.forEach(function (record){
+	      data.forEach(function (record){
 		
 	
 
-	var dataAcq = new Date(record.data);
-	//per record intendiamo ogni elemento del vettore 
-	if(record.postazione==1) {       
+         var dataAcq = new Date(record.data);
+	     //per record intendiamo ogni elemento del vettore
+	     if(record.postazione==1) {       
 
 		humid1[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
 		humid1[1].push(Number(record.humidity));
@@ -343,7 +312,15 @@ var tempM1=0;
 
 
  socket.on('hygro', function(data){
+           hygro1[0].splice(0, hygro1[0].length);
+           hygro1[1].splice(0, hygro1[1].length);
+
+           hygro2[0].splice(0, hygro2[0].length);
+           hygro2[1].splice(0, hygro2[1].length);
            
+           hygro3[0].splice(0, hygro3[0].length);
+           hygro3[1].splice(0, hygro3[1].length);
+
            var Nel = data.length;
 	
            data.forEach(function (record){
@@ -371,7 +348,7 @@ var tempM1=0;
            //    console.log("humid 2 è:" + humid2);
            //    console.log("humid 3 è:" + humid3);
 
-           var hygroM1=0;
+          var hygroM1=0;
            
            hygro1[1].forEach(function (record){
 
@@ -379,7 +356,7 @@ var tempM1=0;
 
 
 });
-           hygroM1 = hygroM1/Nel;
+           hygroM1 = parseFloat(hygroM1/Nel);
 
            document.getElementById("hygroM1").innerHTML = hygroM1;
 
@@ -471,8 +448,9 @@ var tempM1=0;
                                chart3.update();
                                }
                                });
+                               
 
-           
+
 var ctx1 = document.getElementById('post_1').getContext('2d');
 var chart1 = new Chart(ctx1, {
     // The type of chart we want to create
@@ -485,9 +463,9 @@ var chart1 = new Chart(ctx1, {
             label: "temperatura",
 //            backgroundColor: 'rgb(255, 99, 132)',
             borderColor: 'blue',
-            data: temp1[1],
+                   data: temp1[1],
 	    yAxisID: 'first-y-axis'
-        },{
+                   },{
             label: "Umidità dell'aria",
  //           backgroundColor: 'red',
             borderColor: 'red',
