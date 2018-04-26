@@ -159,6 +159,52 @@
                 
             
         <script>
+//Media valori
+Nel = data.length;
+function AverageP1(){
+    data.forEach(function (record){
+             tempM1 = tempM1 + record.temperatura;
+             humidM1 = humidM1 + record.humidity;
+             hygroM1 = hygroM1 + record.hygroTermal;
+             });
+             tempM1 = temp1/Nel;
+             humidM1 = humidM1/Nel;
+             hygroM1 = hygroM1/Nel;
+             
+             document.getElementById("tempM1").innerHTML = tempM1:
+             document.getElementById("HumidM1").innerHTML = HumidM1:
+             document.getElementById("HygroM1").innerHTML = HygroM1;
+};
+        
+        function AverageP2(){
+            data.forEach(function (record){
+                         tempM1 = tempM1 + record.temperatura;
+                         humidM1 = humidM1 + record.humidity;
+                         hygroM1 = hygroM1 + record.hygroTermal;
+                         });
+                         tempM1 = temp1/Nel;
+                         humidM1 = humidM1/Nel;
+                         hygroM1 = hygroM1/Nel;
+                         
+                         document.getElementById("tempM1").innerHTML = tempM1:
+                         document.getElementById("HumidM1").innerHTML = HumidM1:
+                         document.getElementById("HygroM1").innerHTML = HygroM1;
+        };
+        
+        function AverageP3(){
+            data.forEach(function (record){
+                         tempM1 = tempM1 + record.temperatura;
+                         humidM1 = humidM1 + record.humidity;
+                         hygroM1 = hygroM1 + record.hygroTermal;
+                         });
+                         tempM1 = temp1/Nel;
+                         humidM1 = humidM1/Nel;
+                         hygroM1 = hygroM1/Nel;
+                         
+                         document.getElementById("tempM1").innerHTML = tempM1:
+                         document.getElementById("HumidM1").innerHTML = HumidM1:
+                         document.getElementById("HygroM1").innerHTML = HygroM1;
+        };
 
   var socket = io();
 
@@ -198,10 +244,6 @@
 
 
  // console.log(temp2);
- var Nel;
- var hygroM1=0;
- var tempM1=0;
- var humidM1=0;
 
 /* socket.on('temp', function(data){
  //    temp1.length = 0;
@@ -798,6 +840,11 @@
         var hygroThermal2  = new Array();
         var hygroThermal3  = new Array();
         
+        var Nel;
+        var hygroM1=0;
+        var tempM1=0;
+        var humidM1=0;
+
         socket.on('postazioneUno', function(data){
 
        //azzero i vettori, qualora la pagina fosse già nella memoria del browser
@@ -806,8 +853,7 @@
                   humidity1.splice(0, humidity1.length);
                   hygroThermal1.splice(0, hygroThermal1.length);
 
-                  Nel = data.length;
-
+                  
                   data.forEach(function (record){
 
                                var dataAcq = new Date(record.data);
