@@ -5,16 +5,18 @@ const path=require('path');
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const MongoClient = require('mongodb').MongoClient;
+const ObjectId = require('mongodb').ObjectId;
 
 
 var db;
 
 var Ntemp = 50;
 
-app.use(log('dev'));
 
-MongoClient.connect('mongodb://192.168.40.44:27017/terreno', function (err, database) {
-//MongoClient.connect('mongodb://172.17.0.:27017/terreno', function (err, database) {
+app.use(log('dev'));
+//connessione del client a mongodb
+MongoClient.connect('mongodb://127.0.0.1:27017/terreno', function (err, database) {
+
   if (err) return console.log(err)
   db = database;
   server.listen(3000, function() {
@@ -23,9 +25,11 @@ MongoClient.connect('mongodb://192.168.40.44:27017/terreno', function (err, data
 });
 
 
+
+
 //rendo possibile il collegamento ad un broker mqtt esterno
 var mqtt = require('mqtt');  
-var mqttClient = mqtt.connect('mqtt://localhost:1883', {
+var mqttClient = mqtt.connect('mqtt://192.168.1.100:1883', {
 	clean: true,
     clientId: 'nodeJS'
 });  
@@ -43,7 +47,7 @@ mqttClient.on('connect', (connack) => {
 
 app.get('/', function(req, res) {
   res.sendFile(
-  path.resolve( __dirname,'html','index.html')
+  path.resolve( __dirname,'html','testChart.html')
   );
 });
 
@@ -64,21 +68,62 @@ app.get('/report', function(req, res) {
 });
  
 
-// abbiamo usato una GET ma sarebbe più opportuno usare il metodo POST. la scelta del GET
-// perchè risulta più comodo nel caso non si disponga di dispositivi fisici e si voglia
-// testare l'applicativo da browser
-app.get('/acquisisci/:node/:dato', function (req, res) {
+/* abbiamo usato una GET ma sarebbe più opportuno usare il metodo POST. la scelta del 
+GETperchè risulta più comodo nel caso 
+non si disponga di dispositivi fisici e si voglia testare l'applicativo da browser*/
+app.get('/acquisisci/:sensore/:postazione/:dato', function (req, res) {
   res.end();
-
-  var temperature = {
+    if(req.params.sensore=="temp")
+	{
+		console.log('sensore temperatura');
+	
+		
+  var data = {
     t: new Date(),
-    temperature: parseInt(req.params.dato),
-    pianta: parseInt(req.params.node),
+    valore: parseInt(req.params.dato),
+    postazione: parseInt(req.params.postazione),
   };
-  db.collection('temperatures').insert(temperature);
+  db.collection('temp').insert(data);
   console.log('acquisisco valore');
 
-  io.emit('newTemperature', temperature);
+  io.emit('newTemperature', data);
+	}
+	else if(req.params.sensore=="humid")
+	{
+		console.log('sensore umidità aria');
+	
+		
+  		var data = {
+   		 t: new Date(),
+   		 valore: parseInt(req.params.dato),
+    		postazione: parseInt(req.params.postazione),
+  };
+  db.collection('humid').insert(data);
+  console.log('acquisisco valore');
+
+  	io.emit('newTemperature', data);
+	}
+	else if(req.params.sensore=="hygro")
+	{
+	console.log('Sensore umidità terreno');
+	
+		
+  	var data = {
+   	 t: new Date(),
+   	 valore: parseInt(req.params.dato),
+   	 postazione: parseInt(req.params.postazione),
+  	};
+  	db.collection('hygro').insert(data);
+  	console.log('acquisisco valore');
+
+  	io.emit('newTemperature', data);
+	}
+		
+	else{console.log('postazione non esistente');
+		
+	}
+	
+		
 });
 
 
@@ -90,65 +135,77 @@ mqttClient.on('message', (topic, message) => {
   	var msg = (message).toString();
   	var dato = msg.split(",");
   
- 
-	dato.forEach(function (record){
-	console.log("messaggio ricevuto:");
-	console.log(record);
-	});
+
 
 	var data =dato[4].split("-");
 
 	data.forEach(function (record){
-	console.log("conversione: " + record +" in " + Number(record));
+
+//	console.log("conversione: " + record +" in " + parseInt(record));
 
 	});
 	
-	var dataAcq = new Date(parseInt(data[0]),parseInt(data[1]-1),parseInt(data[2]),parseInt(data[3]),parseInt(data[4]),parseInt(data[5]));
+//	var dataAcq = new Date(parseInt(data[0],10),parseInt(data[1]-1,10),parseInt(data[2],10),parseInt(data[3],10),parseInt(data[4],10),parseInt(data[5],10));
+
+	var dataAcq = new Date();
 
 //	console.log("il tipo che arriva è: " + typeof(dato[4]));
 
 //	console.log("il dato ricevuto è: " + dato[4]);
 	
-//	dataAcq =new Date('String(dato[4])');	
-	console.log("la data generata:" + dataAcq);	
+//	dataAcq =new Date('String(dato[4])');
+//	console.log("la data generata: " + dataAcq);	
 //	console.log("il formato data è: " + Date());
 
 	console.log("");
 	console.log("");	
-	//creo la variabile estrapolando i pezzi del vettore
 
+	//creo una variabile che racchiude tutto e la invio al client
+	var nuovoDato = {
+    	postazione: parseInt(dato[0]),
+    	temperature: parseFloat(dato[1]),
+    	humidity: parseFloat(dato[2]),
+    	hygroThermal: parseFloat(dato[3]),
+    	data: dataAcq,
+  	};
+
+  	io.emit('newData', nuovoDato);
+
+	console.log(nuovoDato);
+
+	//creo la variabile temp estrapolando i pezzi del vettore
 	var temp = {
     	postazione: parseInt(dato[0]),
-    	temperature: Number(dato[1]),
+    	temperature: parseFloat(dato[1]),
     	data: dataAcq,
   	};
 
 	//inserisco nel DB
-
   	db.collection('temp').insert(temp);
-  	console.log('acquisisco temperatura');
-
+//  	console.log('acquisisco temperatura');
+//	console.log(temp);
 	//invio il nuovo dato al client collegato
-  	io.emit('newTemperature', temp);
+//  	io.emit('newTemperature', temp);
 
 	var humid = {
     	postazione: parseInt(dato[0]),
-    	humidity: Number(dato[2]),
+    	humidity: parseFloat(dato[2]),
     	data: dataAcq,
   	};
   	db.collection('Humidity').insert(humid);
-  	console.log('acquisisco Umidità');
-  	io.emit('newHumid', humid);
+//  	console.log('acquisisco Umidità');
+//  	io.emit('newHumid', humid);
 
 
 	var hygro = {
     	postazione: parseInt(dato[0]),
-    	hygroThermal: Number(dato[3]),
+
+    	hygroThermal: parseFloat(dato[3]),
     	data: dataAcq,
   	};
   	db.collection('HygroThermal').insert(hygro);
-  	console.log('acquisisco umidità del terreno');
-  	io.emit('newHygro', hygro);
+//  	console.log('acquisisco umidità del terreno');
+//  	io.emit('newHygro', hygro);
 
 
 });
@@ -164,6 +221,7 @@ io.on('connection', function (socket) {
   db.collection('temp').find({},{sort:{data:-1}}).limit(Ntemp).toArray( function (err, result) {
 //  console.log(result);
    socket.emit('temp', result.reverse());
+
   });
  db.collection('Humidity').find({},{sort:{data:-1}}).limit(Ntemp).toArray( function (err, result) {
 //  console.log(result);
@@ -177,3 +235,5 @@ io.on('connection', function (socket) {
 
 });
 
+
+});
