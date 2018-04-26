@@ -1,0 +1,257 @@
+#define RX_TIMEOUT 5
+#define REPLY_TIMEOUT 1000
+#define JOIN_TIMEOUT 20000
+#define RST_DELAY 500
+#define BAUD_DEFAULT 115200
+#define BAUD_TABLE 9600, 14400, 19200, 28800, 38400, 57600, 115200, 128000, \
+	230400, 250000, 256000, 460800, 500000, 512000, 921600, 1000000, 1024000, 0
+//#define BAUD_TABLE_LEN 17
+#define MAX_PKT_SIZE 2048
+#define TX_BUF_SIZE 256
+#define MODE_STATION 1
+#define MODE_SOFTAP 2
+#define ENC_OPEN 0
+#define ENC_WPA_PSK 2
+#define ENC_WPA2_PSK 3
+#define ENC_WPA_WPA2_PSK 4
+#define DHCP_NONE 0
+#define DHCP_SERVER 1
+#define DHCP_CLIENT 2
+
+
+
+typedef struct{
+  byte b3;
+  byte b2;
+  byte b1;
+  byte b0;
+} IP;
+
+class ESP8266 {
+
+private:
+
+  String ip2str(IP ip) {
+    return (String)ip.b3 + "." + (String)ip.b2 + "." + (String)ip.b1 + "." + (String)ip.b0;
+  }
+
+	unsigned long _baud = BAUD_DEFAULT;
+  byte _mode = MODE_SOFTAP;
+  String _ssid = "";
+  String _pwd = "";
+  String _ip = "";
+  String _hostname = "";
+  byte _dchp = 0;
+
+	String read(unsigned int timeout = RX_TIMEOUT) {
+		String buffer = "";
+		unsigned long start = millis();
+		while (millis() - start < timeout)
+			if (Serial.available() > 0) {
+				buffer += (char)Serial.read();
+				start = millis();
+			}
+		return buffer;
+	}
+
+  bool wait(String pattern = "", unsigned int timeout = REPLY_TIMEOUT) {
+    if (pattern != "") {
+      String buffer = "";
+      unsigned long start = millis();
+      while (millis() - start < timeout)
+        if (Serial.available() > 0) {
+          buffer += (char)Serial.read();
+          if (buffer.indexOf(pattern) != -1) {
+            read();
+            return true;
+          }
+          start = millis();
+        }
+    }
+    return false;
+  }
+
+  bool reset() {
+    Serial.println(F("AT+RST"));
+    if (!wait("OK"))
+      return false;
+    delay(RST_DELAY);
+    Serial.println(F("ATE0"));
+    return wait("OK");
+  }
+
+public:
+
+	bool baud(unsigned long baud_rate = 0) {
+		const static unsigned long baud[] PROGMEM = {BAUD_TABLE};
+    byte i = 0;
+    while ((_baud = pgm_read_dword(baud + i++)) != 0) {
+      if (baud_rate == 0) {
+        Serial.begin(_baud);
+        Serial.println(F("AT"));
+        if (wait("OK"))
+          return true;
+      }
+      else if (baud_rate == _baud) {
+        Serial.print(F("AT+UART_CUR="));
+        Serial.print(_baud);
+        Serial.println(F(",8,1,0,0"));
+        read();
+        Serial.println(F("AT"));
+        return wait("OK");
+      }
+    }
+		Serial.begin(_baud = BAUD_DEFAULT);
+    Serial.println(F("AT"));
+		return wait("OK");
+	}
+
+  ESP8266(String ssid = "", String pwd = "", IP ip = {0, 0, 0, 0}, bool dhcp = true) {
+    _mode = MODE_SOFTAP;
+    _ssid = ssid;
+    _pwd = pwd;
+    _ip = ip2str(ip);
+    _hostname = "";
+    _dchp = dhcp? DHCP_SERVER : DHCP_NONE;
+  }
+
+  ESP8266(String ssid = "", String pwd = "", String hostname = "") {
+    _mode = MODE_STATION;
+    _ssid = ssid;
+    _pwd = pwd;
+    _ip = "";
+    _hostname = hostname;
+    _dchp = DHCP_CLIENT;
+  }
+
+  ESP8266(String ssid ="", String pwd = "", String hostname = "", IP ip = {0, 0, 0, 0}) {
+    _mode = MODE_STATION;
+    _ssid = ssid;
+    _pwd = pwd;
+    _ip = ip2str(ip);
+    _hostname = hostname;
+    _dchp = DHCP_NONE;
+  }
+
+  begin(unsigned long baud_rate = BAUD_DEFAULT) {
+    if (!baud() || !reset());
+      return false;
+
+    Serial.print(F("AT+CWMODE_CUR="));
+    Serial.println(_mode);
+    if (!wait("OK"));
+      return false;
+
+    if (_mode == MODE_STATION) {
+      if (_hostname != "") {
+        Serial.print(F("AT+CWHOSTNAME=\""));
+        Serial.print(_hostname);
+        Serial.println("\"");
+        if (!wait("OK"));
+          return false;
+      }
+
+      Serial.print(F("AT+CWJAP_CUR=\""));
+      Serial.print(_ssid);
+      Serial.print("\",\"");
+      Serial.print(_pwd);
+      Serial.println("\"");
+      if (!wait("OK", JOIN_TIMEOUT));
+        return false;
+    }
+    else if (_mode == MODE_SOFTAP) {
+      Serial.print(F("AT+CWSAP_CUR=\""));
+      Serial.print(_ssid);
+      Serial.print("\",\"");
+      Serial.print(_pwd);
+      Serial.print("\",5,");
+      Serial.println(_pwd == ""? ENC_OPEN : ENC_WPA_WPA2_PSK);
+      if (!wait("OK"));
+        return false;
+    }
+
+    Serial.println(F("AT+CIPMODE=0"));
+    if (!wait("OK"));
+      return false;
+    Serial.println(F("AT+CIPMUX=1"));
+    if (!wait("OK"));
+      return false;
+    return true;
+  }
+
+//  bool setip(String ip = "") {
+    if (_mode == MODE_STATION) {
+      if (ip == "")
+        Serial.println(F("AT+CWDHCP_CUR=1,1"));
+      else {
+        Serial.print(F("AT+CIPSTA_CUR=\""));
+        Serial.print(ip);
+        Serial.println("\"");
+      }
+    }
+    else if (_mode == MODE_SOFT_AP && ip != "") {
+      Serial.print(F("AT+CIPAP_CUR=\""));
+      Serial.print(ip);
+      Serial.println("\"");
+      if (!wait("OK"));
+//        return false;
+      Serial.println(F("AT+CWDHCP_CUR=0,1"));
+    }
+//    else
+//      return false;
+//    return wait("OK");
+  }
+
+  bool startsrv(unsigned int port = 80) {
+    Serial.print(F("AT+CIPSERVER=1,"));
+    Serial.println(port);
+    return wait("OK");
+  }
+
+  bool connect(byte link, String type, String url, unsigned int port = 80, unsigned int keepalive = 0) {
+    Serial.print(F("AT+CIPSTART="));
+    Serial.println((String)link + ",\"" + type + "\",\"" + url + "\"," \
+      + (String)port + "," + (String)keepalive);
+    return wait("OK");   
+  }
+
+  bool stop(byte link = 5) {
+    Serial.print(F("AT+CIPCLOSE="));
+    Serial.println(link);
+    return wait("OK");
+  }
+
+  String receive(int &link) {
+    link = -1;
+    String buffer = read();
+    int token_pos = buffer.indexOf(F("+IPD,"));
+    if (token_pos != -1) {
+      link = buffer.substring(token_pos + 5, token_pos + 6).toInt();
+      int sep_pos = buffer.indexOf(':', token_pos + 6);
+      if (sep_pos != -1)
+        return buffer.substring(sep_pos + 1);
+    }
+    return "";
+  }
+
+  bool send(byte link, String buffer) {
+    Serial.print(F("AT+CIPSEND="));
+    Serial.println((String)link + "," + (String)(buffer.length()%MAX_PKT_SIZE));
+    if (!wait(">"))
+      return false;
+    Serial.println(buffer.substring(0, MAX_PKT_SIZE));
+    return wait(F("SEND OK"));
+  }
+
+  bool send(byte link, const char *str) {
+    while (pgm_read_byte(str)) {
+      String buffer = "";
+      while (pgm_read_byte(str) && buffer.length() < TX_BUF_SIZE)
+        buffer += (char)pgm_read_byte(str++);
+      if (!send(link, buffer))
+        return false;
+    }
+    return true;
+  }
+
+};

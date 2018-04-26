@@ -127,21 +127,20 @@ app.get('/acquisisci/:sensore/:postazione/:dato', function (req, res) {
 });
 
 
+//acquisione dati
+
 mqttClient.on('message', (topic, message) => {  
   console.log(`Received message: '${message}'`);
   
   	var msg = (message).toString();
   	var dato = msg.split(",");
   
- 
-	dato.forEach(function (record){
-//	console.log("messaggio ricevuto:");
-//	console.log(record);
-	});
+
 
 	var data =dato[4].split("-");
 
 	data.forEach(function (record){
+
 //	console.log("conversione: " + record +" in " + parseInt(record));
 
 	});
@@ -200,6 +199,7 @@ mqttClient.on('message', (topic, message) => {
 
 	var hygro = {
     	postazione: parseInt(dato[0]),
+
     	hygroThermal: parseFloat(dato[3]),
     	data: dataAcq,
   	};
@@ -211,6 +211,7 @@ mqttClient.on('message', (topic, message) => {
 });
 
 
+//invio vettori al client
 
 
 io.on('connection', function (socket) {
@@ -220,6 +221,7 @@ io.on('connection', function (socket) {
   db.collection('temp').find({},{sort:{data:-1}}).limit(Ntemp).toArray( function (err, result) {
 //  console.log(result);
    socket.emit('temp', result.reverse());
+
   });
  db.collection('Humidity').find({},{sort:{data:-1}}).limit(Ntemp).toArray( function (err, result) {
 //  console.log(result);
@@ -230,10 +232,8 @@ io.on('connection', function (socket) {
    socket.emit('hygro', result.reverse());
   });
 
- db.collection('temp').find({},{sort:{data:-1}}).limit(Ntemp).toArray( function (err, result) {
-//  console.log(result);
-//   console.log(result);
-  });
+
+});
 
 
 });
