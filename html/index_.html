@@ -1,5 +1,5 @@
 <!Doctype html>
-<html lang="en">
+<html lang="it">
     
      <head>
         
@@ -63,20 +63,47 @@
                         <span class="badge badge-light"><div id="hygroM1"></div></span>
                     </span>
                 </div>
+                
+                
+                <!--   <div class="input-group">
+                 <div class="input-group-prepend">
+                 <div class="row">
+<input type="date" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                 <div class="input-group-prepend">
+                 </div>
+                 <div class="row">
+                 <h3 class="text-center">Data Inizio</h3>
+                 </div>
+                 </div>
+<input type="date" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                 <div class="input-group-prepend">
+                 <div class="row">
+                 <br>
+                 </div>
+                 </div>
+                 <input type="date" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                 
+                 </div>
+                 -->
+                
                     </div><!--col-md-2-->
                     </div><!--row-->
                 
                     <div class="row">
                         <div class="col-md-10">
                             <h2 class="text-center">Postazione 2</h2>
-                                <canvas id="post_1"></canvas>
+                                <canvas id="post_2"></canvas>
                         </div><!--div-col-md-10-->
-                        
-                    <div class="col-md-2">
-                        <div class="row">
-                            <h2 class="text-center">Valori Medi</h2>
-					</div><!--div row-->
-					
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-10">
+                            <h2 class="text-center">Postazione 3</h2>
+                                <canvas id="post_3"></canvas>
+                        </div><!--div row-->
+                    </div>
+
+			
                     <div class="row">
                         <span class="btn btn-primary" style="width: 180px"> Temperatura<br>
                             <span class="badge badge-light"><div id="tempM2"></div></span>
@@ -130,7 +157,7 @@
                     </div><!--col-md-2-->
                     </div><!--row-->
                 
-                
+            
         <script>
 
   var socket = io();
@@ -165,13 +192,255 @@
   hygro2  = [ [], []]; 
   hygro3  = [ [], []]; 
 
+/*
+ 
+ DICHIARO QUI LE VARIABILI NUOVE, QUELLE CHE ACQUISISCONO I VETTORI DELLE SINGOLE POSTAZIONI E NON I VETTORI DEI SENSORI */
+
+
  // console.log(temp2);
  var Nel;
  var hygroM1=0;
  var tempM1=0;
  var humidM1=0;
 
+/* socket.on('temp', function(data){
+ //    temp1.length = 0;
+ //    temp2.length = 0;
+ //    temp3.length = 0;
  
+ temp1[0].splice(0, temp1[0].length);
+ temp1[1].splice(0, temp1[1].length);
+
+ temp2[0].splice(0, temp2[0].length);
+ temp2[1].splice(0, temp2[1].length);
+
+ temp3[0].splice(0, temp3[0].length);
+ temp3[1].splice(0, temp3[1].length);
+
+ Nel = data.length;
+
+ data.forEach(function (record){
+
+ 
+ var dataAcq = new Date(record.data);
+ //per record intendiamo ogni elemento del vettore
+ if(record.postazione==1) {
+ //        console.log("il valore arriva così:");
+ //        console.log(moment(record.t));
+ var nuovoDato = {
+ //             x: (moment(dataAcq).format("DD/MM/YY HH:mm")),
+                x: dataAcq,
+                y: Number(record.temperature),
+                r:2
+ };
+ pTemp1.push(nuovoDato);
+ //        console.log(record.temperature);
+ temp1[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
+ temp1[1].push(Number(record.temperature));
+ }else if(record.postazione==2){
+ //        console.log(moment(record.t).format("DD/MM/YY HH:mm"));
+ //        console.log(record.temperature);
+ temp2[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
+ temp2[1].push(Number(record.temperature));
+/* var nuovoDato = {
+ x: dataAcq,
+ y: Number(record.temperature)
+ };
+ temp2.push(nuovoDato);
+*/
+ 
+ /*
+  
+  }else if(record.postazione==3){
+  //        console.log(moment(record.t).format("DD/MM/YY HH:mm"));
+  //        console.log(record.temperature);
+  temp3[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
+  temp3[1].push(parseInt(record.temperature));
+
+  }else{
+  //        console.log(moment(record.t).format("DD/MM/YY HH:mm"));
+  //        console.log(record.temperature);
+  tempS[0].push(dataAcq);
+  tempS[1].push(Number(record.temperature));
+  }
+  });
+  temp1[1].forEach(function (record){
+
+  tempM1 = tempM1 + record;
+
+  });
+
+  tempM1 = tempM1/Nel;
+
+  document.getElementById("tempM1").innerHTML = tempM1;
+
+  chart1.update();
+  chart2.update();
+  chart3.update();
+  });*/
+
+/*
+ socket.on('humid', function(data){
+
+ humid1[0].splice(0, humid1[0].length);
+ humid1[1].splice(0, humid1[1].length);
+
+ humid2[0].splice(0, humid2[0].length);
+ humid2[1].splice(0, humid2[1].length);
+
+ humid3[0].splice(0, humid3[0].length);
+ humid3[1].splice(0, humid3[1].length);
+ //    humid1.length = 0;
+
+ var Nel = data.length;
+
+ data.forEach(function (record){
+
+ var dataAcq = new Date(record.data);
+ //per record intendiamo ogni elemento del vettore
+ if(record.postazione==1) {
+
+ humid1[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
+ humid1[1].push(Number(record.humidity));
+ }else if(record.postazione==2){
+ //        console.log(moment(record.t).format("DD/MM/YY HH:mm"));
+ //        console.log(record.temperature);
+ humid2[0].push(dataAcq);
+ humid2[1].push(Number(record.humidity));
+ 
+ }else if(record.postazione==3){
+ //        console.log(moment(record.t).format("DD/MM/YY HH:mm"));
+ //        console.log(record.temperature);
+ humid3[0].push(dataAcq);
+ humid3[1].push(parseInt(record.humidity));
+ }
+ });
+ //    console.log("humid 1 è:" + humid1);
+ //    console.log("humid 2 è:" + humid2);
+ //    console.log("humid 3 è:" + humid3);
+
+ humid1[1].forEach(function (record){
+
+ humidM1 = humidM1 + record;
+ });
+ humidM1=humidM1/Nel;
+
+ document.getElementById("humidM1").innerHTML = humidM1;
+
+ chart1.update();
+ chart2.update();
+ chart3.update();
+ });*/
+
+/*
+ socket.on('humid', function(data){
+
+ humid1[0].splice(0, humid1[0].length);
+ humid1[1].splice(0, humid1[1].length);
+
+ humid2[0].splice(0, humid2[0].length);
+ humid2[1].splice(0, humid2[1].length);
+ 
+ humid3[0].splice(0, humid3[0].length);
+ humid3[1].splice(0, humid3[1].length);
+ //    humid1.length = 0;
+ 
+ var Nel = data.length;
+
+ data.forEach(function (record){
+
+ var dataAcq = new Date(record.data);
+ //per record intendiamo ogni elemento del vettore
+ if(record.postazione==1) {
+
+ humid1[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
+ humid1[1].push(Number(record.humidity));
+ }else if(record.postazione==2){
+ //        console.log(moment(record.t).format("DD/MM/YY HH:mm"));
+ //        console.log(record.temperature);
+ humid2[0].push(dataAcq);
+ humid2[1].push(Number(record.humidity));
+
+ }else if(record.postazione==3){
+ //        console.log(moment(record.t).format("DD/MM/YY HH:mm"));
+ //        console.log(record.temperature);
+ humid3[0].push(dataAcq);
+ humid3[1].push(parseInt(record.humidity));
+ }
+ 
+ });
+ //    console.log("humid 1 è:" + humid1);
+ //    console.log("humid 2 è:" + humid2);
+ //    console.log("humid 3 è:" + humid3);
+ 
+ humid1[1].forEach(function (record){
+
+ humidM1 = humidM1 + record;
+
+ });
+
+ humidM1=humidM1/Nel;
+
+ document.getElementById("humidM1").innerHTML = humidM1;
+
+ chart1.update();
+ chart2.update();
+ chart3.update();
+ });
+
+*/
+/*
+ socket.on('hygro', function(data){
+ 
+ hygro1[0].splice(0, hygro1[0].length);
+ hygro1[1].splice(0, hygro1[1].length);
+
+ hygro2[0].splice(0, hygro2[0].length);
+ hygro2[1].splice(0, hygro2[1].length);
+ 
+ hygro3[0].splice(0, hygro3[0].length);
+ hygro3[1].splice(0, hygro3[1].length);
+ 
+ var Nel = data.length;
+ 
+ data.forEach(function (record){
+ var dataAcq = new Date(record.data);
+ //per record intendiamo ogni elemento del vettore
+ if(record.postazione==1) {
+
+ hygro1[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
+ hygro1[1].push(Number(record.hygroThermal));
+
+ }else if(record.postazione==2){
+
+ hygro2[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
+ hygro2[1].push(Number(record.hygroThermal));
+
+ }else if(record.postazione==3){
+
+ hygro3[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
+ hygro3[1].push(parseInt(record.hygroThermal));
+ }
+ 
+ });
+ 
+ hygro1[1].forEach(function (record){
+ hygroM1 = hygroM1 + record;
+ });
+
+ hygroM1 = parseFloat(hygroM1/Nel);
+
+ document.getElementById("hygroM1").innerHTML = hygroM1;
+
+ chart1.update();
+ chart2.update();
+ chart3.update();
+ });
+*/
+/*
+
+
+
   socket.on('temp', function(data){
             
             temp1[0].splice(0, temp1[0].lenght);
@@ -213,12 +482,12 @@
                             //		console.log(record.temperature);
                             temp2[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
                             temp2[1].push(Number(record.temperature));
-                            /*		var nuovoDato = {
-                                    x: dataAcq,
-                                    y: Number(record.temperature)
-                                                        };
-                                    temp2.push(nuovoDato);
-                             */
+                            //	var nuovoDato = {
+                              //      x: dataAcq,
+                                //    y: Number(record.temperature)
+                                    //                    };
+                                  //  temp2.push(nuovoDato);
+ 
                         
                         }else if(record.postazione==3){
                             //		console.log(moment(record.t).format("DD/MM/YY HH:mm"));
@@ -248,7 +517,8 @@
             chart3.update();
 
                                                 });
-
+                                                */
+/*
     socket.on('humid', function(data){
            
            humid1[0].splice(0, humid1[0].length);
@@ -371,7 +641,7 @@
                chart3.update();
                    });
 
-                   */
+ 
             hygroM1 = parseFloat(hygroM1/Nel);
                   document.getElementById("hygroM1").innerHTML = hygroM1;
 
@@ -381,7 +651,7 @@
                                                     });
            
            socket.on('hygro', function(data){
-                     /*
+                     
                       
                       hygro1[0].splice(0, hygro1[0].length);
                       hygro1[1].splice(0, hygro1[1].length);
@@ -392,7 +662,7 @@
                       hygro3[0].splice(0, hygro3[0].length);
                       hygro3[1].splice(0, hygro3[1].length);
 
-                      */
+                     
                      
                      var Nel = data.length;
                      
@@ -504,6 +774,166 @@
                                });
                                
 
+*/
+        
+/*
+ IL CODICE SEGUENTE SERVE AD ACQUISIRE I VALORI ATTRAVERSO I VETTORI DI POSTAZIONE
+ E NON DI SENSORE
+ */
+        // questi vettori conterranno le ascisse dei tre grafici
+        var date1  = new Array();
+        var date2  = new Array();
+        var date3  = new Array();
+        
+        //queste conterranno le ordianate delle tre curve dei grafici
+        var temperature1  = new Array();
+        var temperature2  = new Array();
+        var temperature3  = new Array();
+        
+        var humidity1  = new Array();
+        var humidity2  = new Array();
+        var humidity3  = new Array();
+
+        var hygroThermal1  = new Array();
+        var hygroThermal2  = new Array();
+        var hygroThermal3  = new Array();
+        
+        socket.on('postazioneUno', function(data){
+
+       //azzero i vettori, qualora la pagina fosse già nella memoria del browser
+                  date1.splice(0, date1.length);
+                  temperature1.splice(0, temperature1.length);
+                  humidity1.splice(0, humidity1.length);
+                  hygroThermal1.splice(0, hygroThermal1.length);
+
+                  Nel = data.length;
+
+                  data.forEach(function (record){
+
+                               var dataAcq = new Date(record.data);
+                               //per record intendiamo ogni elemento del vettore
+                               //costruisco il vettore delle ascisse del primo grafico
+                               date1.push(moment(dataAcq).format("DD/MM/YY HH:mm"));
+                               temperature1.push(record.temperature);
+                               humidity1.push(record.humidity);
+                               hygroThermal1.push(record.hygroThermal);
+                               chart1.update();
+                               });
+                  });
+
+socket.on('postazioneDue', function(data){
+
+          //azzero i vettori, qualora la pagina fosse già nella memoria del browser
+          date2.splice(0, date2.length);
+          temperature2.splice(0, temperature2.length);
+          humidity2.splice(0, humidity2.length);
+          hygroThermal2.splice(0, hygroThermal2.length);
+
+          Nel = data.length;
+
+          data.forEach(function (record){
+
+                       var dataAcq = new Date(record.data);
+                       //per record intendiamo ogni elemento del vettore
+                       //costruisco il vettore delle ascisse del primo grafico
+                       date2.push(moment(dataAcq).format("DD/MM/YY HH:mm"));
+                       temperature2.push(record.temperature);
+                       humidity2.push(record.humidity);
+                       hygroThermal2.push(record.hygroThermal);
+                       chart2.update();
+                       });
+          });
+
+socket.on('postazioneTre', function(data){
+
+          //azzero i vettori, qualora la pagina fosse già nella memoria del browser
+          date3.splice(0, date3.length);
+          temperature3.splice(0, temperature3.length);
+          humidity3.splice(0, humidity3.length);
+          hygroThermal3.splice(0, hygroThermal3.length);
+
+          Nel = data.length;
+
+          data.forEach(function (record){
+
+                       var dataAcq = new Date(record.data);
+                       //per record intendiamo ogni elemento del vettore
+                       //costruisco il vettore delle ascisse del primo grafico
+                       date3.push(moment(dataAcq).format("DD/MM/YY HH:mm"));
+                       temperature3.push(record.temperature);
+                       humidity3.push(record.humidity);
+                       hygroThermal3.push(record.hygroThermal);
+                       chart3.update();
+                       });
+          });
+
+/*
+ IL CODICE SEGUENTE SERVE AD ACQUISIRE I VALORI IN TEMPO REALE
+ */
+
+socket.on('newData', function(record){
+
+          console.log(record);
+          console.log(Date(record.data));
+          var dataAcq = new Date(record.data);
+
+          if(record.postazione==1) {
+          date1.push(moment(dataAcq).format("DD/MM/YY HH:mm"));
+          console.log("aggiunto nuovo valore!");
+          temperature1.push(parseFloat(record.temperature));
+          console.log(record.temperature);
+          humidity1.push(parseInt(record.humidity));
+          console.log(record.humidity);
+          hygroTermal1.push(parseInt(record.hygroThermal));
+          console.log(record.hygroThermal);
+
+          var pElhygro = date1.shift();
+          var pElTemp = temperature1.shift();
+          var pElhumid = humidity1.shift();
+          var pElhygro = hygroThermal1.shift();
+
+          chart1.update();
+
+          }else if(record.postazione==2){
+          date2.push(moment(dataAcq).format("DD/MM/YY HH:mm"));
+          console.log("aggiunto nuovo valore!");
+          temperature2.push(parseFloat(record.temperature));
+          console.log(record.temperature);
+          humidity2.push(parseInt(record.humidity));
+          console.log(record.humidity);
+          hygroTermal2.push(parseInt(record.hygroThermal));
+          console.log(record.hygroThermal);
+
+          var pElhygro = date2.shift();
+          var pElTemp = temperature2.shift();
+          var pElhumid = humidity2.shift();
+          var pElhygro = hygroThermal2.shift();
+
+          chart2.update();
+
+          }else if(record.postazione==3){
+          date3.push(moment(dataAcq).format("DD/MM/YY HH:mm"));
+          console.log("aggiunto nuovo valore!");
+          temperature3.push(parseFloat(record.temperature));
+          console.log(record.temperature);
+          humidity3.push(parseInt(record.humidity));
+          console.log(record.humidity);
+          hygroTermal3.push(parseInt(record.hygroThermal));
+          console.log(record.hygroThermal);
+
+          var pElhygro = date3.shift();
+          var pElTemp = temperature3.shift();
+          var pElhumid = humidity3.shift();
+          var pElhygro = hygroThermal3.shift();
+
+          chart3.update();
+
+          }
+          });
+
+        
+        
+        
 
 var ctx1 = document.getElementById('post_1').getContext('2d');
 var chart1 = new Chart(ctx1, {
@@ -511,24 +941,24 @@ var chart1 = new Chart(ctx1, {
     type: 'line',
 
     data: {
-                       labels: temp1[0],
+                       labels: date1,
                         datasets: [{
                                    label: "temperatura",
                                    //backgroundColor: 'rgb(255, 99, 132)',
                                    borderColor: 'blue',
-                                   data: temp1[1],
+                                   data: temperature1,
                                    yAxisID: 'first-y-axis'
             },{
                                    label: "Umidità dell'aria",
                                    //backgroundColor: 'red',
                                    borderColor: 'red',
-                                   data: humid1[1],
+                                   data: humidity1,
                                    yAxisID: 'second-y-axis'
             },{
                                    label: "Umidità del terreno",
                                    //backgroundColor: 'red',
                                    borderColor: 'green',
-                                   data: hygro1[1],
+                                   data: hygroThermal1,
                                    yAxisID: 'second-y-axis'
                                    }]
         },
@@ -564,24 +994,24 @@ var chart2 = new Chart(ctx2, {
                        //     The data for our dataset
                        
                        data: {
-                       labels: temp2[0],
+                       labels: date2,
                        datasets: [{
                                   label: "temperatura",
                                   //backgroundColor: 'rgb(255, 99, 132)',
                                   borderColor: 'blue',
-                                  data: temp2[1],
+                                  data: temperature2,
                                   yAxisID: 'first-y-axis'
         },{
                        label: "Umidità dell'aria",
                                   //backgroundColor: 'red',
                                   borderColor: 'red',
-                                  data: humid2[1],
+                                  data: humidity2,
                                   yAxisID: 'second-y-axis'
         },{
                       label: "Umidità del terreno",
                                   //backgroundColor: 'red',
                                   borderColor: 'green',
-                                  data: hygro2[1],
+                                  data: hygroThermal2,
                                   yAxisID: 'second-y-axis'
         }]
     },
@@ -615,24 +1045,24 @@ var chart3 = new Chart(ctx3, {
 
                        //     The data for our dataset
                        data: {
-                       labels: temp3[0],
+                       labels: date3,
                        datasets: [{
                                   label: "temperatura",
                                   //            backgroundColor: 'rgb(255, 99, 132)',
                                   borderColor: 'blue',
-                                  data: temp3[1],
+                                  data: temperature3,
                                   yAxisID: 'first-y-axis'
         },{
                       label: "Umidità dell'aria",
                                   //           backgroundColor: 'red',
                                   borderColor: 'red',
-                                  data: humid3[1],
+                                  data: humidity3,
                                   yAxisID: 'second-y-axis'
         },{
                      clabel: "Umidità del terreno",
                                   //           backgroundColor: 'red',
                                   borderColor: 'green',
-                                  data: hygro3[1],
+                                  data: hygroThermal3,
                                   yAxisID: 'second-y-axis'
         }]
     },
