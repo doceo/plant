@@ -158,22 +158,34 @@
                     </div><!--row-->
                 
             
-        <script>
+<script>
 //Media valori
-Nel = data.length;
-function AverageP1(){
+  var Nel;
+  var hygroM1=0;
+  var tempM1=0;
+  var humidM1=0;
+
+function AverageP1(data){
+    Nel = data.length;
+    console.log(Nel);
     data.forEach(function (record){
-             tempM1 = tempM1 + record.temperatura;
+             tempM1 = tempM1 + record.temperature;
              humidM1 = humidM1 + record.humidity;
-             hygroM1 = hygroM1 + record.hygroTermal;
+             hygroM1 = hygroM1 + record.hygroThermal;
+
+	     console.log(record);
              });
-             tempM1 = temp1/Nel;
+
+             tempM1 = tempM1/Nel;
              humidM1 = humidM1/Nel;
              hygroM1 = hygroM1/Nel;
+	     console.log(tempM1);
+	     console.log(humidM1);
+	     console.log(hygroM1);
              
-             document.getElementById("tempM1").innerHTML = tempM1:
-             document.getElementById("HumidM1").innerHTML = HumidM1:
-             document.getElementById("HygroM1").innerHTML = HygroM1;
+             document.getElementById("tempM1").innerHTML = tempM1;
+             document.getElementById("humidM1").innerHTML = humidM1;
+             document.getElementById("hygroM1").innerHTML = hygroM1;
 };
         
         function AverageP2(){
@@ -239,585 +251,7 @@ function AverageP1(){
   hygro3  = [ [], []]; 
 
 /*
- 
- DICHIARO QUI LE VARIABILI NUOVE, QUELLE CHE ACQUISISCONO I VETTORI DELLE SINGOLE POSTAZIONI E NON I VETTORI DEI SENSORI */
-
-
- // console.log(temp2);
-
-/* socket.on('temp', function(data){
- //    temp1.length = 0;
- //    temp2.length = 0;
- //    temp3.length = 0;
- 
- temp1[0].splice(0, temp1[0].length);
- temp1[1].splice(0, temp1[1].length);
-
- temp2[0].splice(0, temp2[0].length);
- temp2[1].splice(0, temp2[1].length);
-
- temp3[0].splice(0, temp3[0].length);
- temp3[1].splice(0, temp3[1].length);
-
- Nel = data.length;
-
- data.forEach(function (record){
-
- 
- var dataAcq = new Date(record.data);
- //per record intendiamo ogni elemento del vettore
- if(record.postazione==1) {
- //        console.log("il valore arriva così:");
- //        console.log(moment(record.t));
- var nuovoDato = {
- //             x: (moment(dataAcq).format("DD/MM/YY HH:mm")),
-                x: dataAcq,
-                y: Number(record.temperature),
-                r:2
- };
- pTemp1.push(nuovoDato);
- //        console.log(record.temperature);
- temp1[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
- temp1[1].push(Number(record.temperature));
- }else if(record.postazione==2){
- //        console.log(moment(record.t).format("DD/MM/YY HH:mm"));
- //        console.log(record.temperature);
- temp2[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
- temp2[1].push(Number(record.temperature));
-/* var nuovoDato = {
- x: dataAcq,
- y: Number(record.temperature)
- };
- temp2.push(nuovoDato);
-*/
- 
- /*
-  
-  }else if(record.postazione==3){
-  //        console.log(moment(record.t).format("DD/MM/YY HH:mm"));
-  //        console.log(record.temperature);
-  temp3[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
-  temp3[1].push(parseInt(record.temperature));
-
-  }else{
-  //        console.log(moment(record.t).format("DD/MM/YY HH:mm"));
-  //        console.log(record.temperature);
-  tempS[0].push(dataAcq);
-  tempS[1].push(Number(record.temperature));
-  }
-  });
-  temp1[1].forEach(function (record){
-
-  tempM1 = tempM1 + record;
-
-  });
-
-  tempM1 = tempM1/Nel;
-
-  document.getElementById("tempM1").innerHTML = tempM1;
-
-  chart1.update();
-  chart2.update();
-  chart3.update();
-  });*/
-
-/*
- socket.on('humid', function(data){
-
- humid1[0].splice(0, humid1[0].length);
- humid1[1].splice(0, humid1[1].length);
-
- humid2[0].splice(0, humid2[0].length);
- humid2[1].splice(0, humid2[1].length);
-
- humid3[0].splice(0, humid3[0].length);
- humid3[1].splice(0, humid3[1].length);
- //    humid1.length = 0;
-
- var Nel = data.length;
-
- data.forEach(function (record){
-
- var dataAcq = new Date(record.data);
- //per record intendiamo ogni elemento del vettore
- if(record.postazione==1) {
-
- humid1[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
- humid1[1].push(Number(record.humidity));
- }else if(record.postazione==2){
- //        console.log(moment(record.t).format("DD/MM/YY HH:mm"));
- //        console.log(record.temperature);
- humid2[0].push(dataAcq);
- humid2[1].push(Number(record.humidity));
- 
- }else if(record.postazione==3){
- //        console.log(moment(record.t).format("DD/MM/YY HH:mm"));
- //        console.log(record.temperature);
- humid3[0].push(dataAcq);
- humid3[1].push(parseInt(record.humidity));
- }
- });
- //    console.log("humid 1 è:" + humid1);
- //    console.log("humid 2 è:" + humid2);
- //    console.log("humid 3 è:" + humid3);
-
- humid1[1].forEach(function (record){
-
- humidM1 = humidM1 + record;
- });
- humidM1=humidM1/Nel;
-
- document.getElementById("humidM1").innerHTML = humidM1;
-
- chart1.update();
- chart2.update();
- chart3.update();
- });*/
-
-/*
- socket.on('humid', function(data){
-
- humid1[0].splice(0, humid1[0].length);
- humid1[1].splice(0, humid1[1].length);
-
- humid2[0].splice(0, humid2[0].length);
- humid2[1].splice(0, humid2[1].length);
- 
- humid3[0].splice(0, humid3[0].length);
- humid3[1].splice(0, humid3[1].length);
- //    humid1.length = 0;
- 
- var Nel = data.length;
-
- data.forEach(function (record){
-
- var dataAcq = new Date(record.data);
- //per record intendiamo ogni elemento del vettore
- if(record.postazione==1) {
-
- humid1[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
- humid1[1].push(Number(record.humidity));
- }else if(record.postazione==2){
- //        console.log(moment(record.t).format("DD/MM/YY HH:mm"));
- //        console.log(record.temperature);
- humid2[0].push(dataAcq);
- humid2[1].push(Number(record.humidity));
-
- }else if(record.postazione==3){
- //        console.log(moment(record.t).format("DD/MM/YY HH:mm"));
- //        console.log(record.temperature);
- humid3[0].push(dataAcq);
- humid3[1].push(parseInt(record.humidity));
- }
- 
- });
- //    console.log("humid 1 è:" + humid1);
- //    console.log("humid 2 è:" + humid2);
- //    console.log("humid 3 è:" + humid3);
- 
- humid1[1].forEach(function (record){
-
- humidM1 = humidM1 + record;
-
- });
-
- humidM1=humidM1/Nel;
-
- document.getElementById("humidM1").innerHTML = humidM1;
-
- chart1.update();
- chart2.update();
- chart3.update();
- });
-
-*/
-/*
- socket.on('hygro', function(data){
- 
- hygro1[0].splice(0, hygro1[0].length);
- hygro1[1].splice(0, hygro1[1].length);
-
- hygro2[0].splice(0, hygro2[0].length);
- hygro2[1].splice(0, hygro2[1].length);
- 
- hygro3[0].splice(0, hygro3[0].length);
- hygro3[1].splice(0, hygro3[1].length);
- 
- var Nel = data.length;
- 
- data.forEach(function (record){
- var dataAcq = new Date(record.data);
- //per record intendiamo ogni elemento del vettore
- if(record.postazione==1) {
-
- hygro1[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
- hygro1[1].push(Number(record.hygroThermal));
-
- }else if(record.postazione==2){
-
- hygro2[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
- hygro2[1].push(Number(record.hygroThermal));
-
- }else if(record.postazione==3){
-
- hygro3[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
- hygro3[1].push(parseInt(record.hygroThermal));
- }
- 
- });
- 
- hygro1[1].forEach(function (record){
- hygroM1 = hygroM1 + record;
- });
-
- hygroM1 = parseFloat(hygroM1/Nel);
-
- document.getElementById("hygroM1").innerHTML = hygroM1;
-
- chart1.update();
- chart2.update();
- chart3.update();
- });
-*/
-/*
-
-
-
-  socket.on('temp', function(data){
-            
-            temp1[0].splice(0, temp1[0].lenght);
-            temp1[1].splice(0, temp[1].lenght):
-            
-            temp2[0].splice(0, temp2[0].length);
-            temp2[1].splice(0, temp2[1].length);
-            
-            temp3[0].splice(0, temp3[0].length);
-            temp3[1].splice(0, temp3[1].length);
-
-            var Nel = data.length;
-
-	       data.forEach(function (record){
-                        var Nel = record.length;
-                 
-                        var dataAcq = new Date(record.data);
-                        //per record intendiamo ogni elemento del vettore
-	
-                        if(record.postazione==1) {
-                        //		console.log("il valore arriva così:");
-                        //		console.log(moment(record.t));
-		
-                        var nuovoDato = {
-                        //		x: (moment(dataAcq).format("DD/MM/YY HH:mm")),
-                        
-                        x: dataAcq,
-                        y: Number(record.temperature),
-                        r:2
-                                         };
-
-                        pTemp1.push(nuovoDato);
-                        //		console.log(record.temperature);
-                        temp1[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
-                        temp1[1].push(Number(record.temperature));
-                        
-                        }else if(record.postazione==2){
-                            //		console.log(moment(record.t).format("DD/MM/YY HH:mm"));
-                            //		console.log(record.temperature);
-                            temp2[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
-                            temp2[1].push(Number(record.temperature));
-                            //	var nuovoDato = {
-                              //      x: dataAcq,
-                                //    y: Number(record.temperature)
-                                    //                    };
-                                  //  temp2.push(nuovoDato);
- 
-                        
-                        }else if(record.postazione==3){
-                            //		console.log(moment(record.t).format("DD/MM/YY HH:mm"));
-                            //		console.log(record.temperature);
-                            temp3[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
-                            temp3[1].push(parseInt(record.temperature));
-                        
-                        }else{
-                            //		console.log(moment(record.t).format("DD/MM/YY HH:mm"));
-                            //		console.log(record.temperature);
-                            tempS[0].push(dataAcq);
-                            tempS[1].push(Number(record.temperature));
-
-                        }
-                        });
-
-            var ParseFloat(tempM1=0);
-            temp1[1].forEach(function (record){
-                             tempM1 = tempM1 + record;
-                                                });
-            
-            tempM1 = tempM1/Nel;
-            document.getElementById("tempM1").innerHTML = tempM1;
-
-            chart1.update();
-            chart2.update();
-            chart3.update();
-
-                                                });
-                                                */
-/*
-    socket.on('humid', function(data){
-           
-           humid1[0].splice(0, humid1[0].length);
-           humid1[1].splice(0, humid1[1].length);
-
-           humid2[0].splice(0, humid2[0].length);
-           humid2[1].splice(0, humid2[1].length);
-           
-           humid3[0].splice(0, humid3[0].length);
-           humid3[1].splice(0, humid3[1].length);
-           
-           var Nel = data.length;
-
-    
-        data.forEach(function (record){
-                     var dataAcq = new Date(record.data);
-                     //per record intendiamo ogni elemento del vettore
-	     
-                     if(record.postazione==1) {
-                     
-                                humid1[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
-                                humid1[1].push(Number(record.humidity));
-                     
-                     }else if(record.postazione==2){
-                     
-                                //		console.log(moment(record.t).format("DD/MM/YY HH:mm"));
-                                //		console.log(record.temperature);
-                                humid2[0].push(dataAcq);
-                                humid2[1].push(Number(record.humidity));
-
-                     }else if(record.postazione==3){
-                     
-                                //		console.log(moment(record.t).format("DD/MM/YY HH:mm"));
-                                //		console.log(record.temperature);
-                                humid3[0].push(dataAcq);
-                                humid3[1].push(parseInt(record.humidity));
-                     }
-
-                     });
-              
-              //    console.log("humid 1 è:" + humid1);
-              //    console.log("humid 2 è:" + humid2);
-              //    console.log("humid 3 è:" + humid3);
-
-           var humidM1=0;
-           humid1[1].forEach(function (record){
-                             humidM1 = humidM1 + record;
-                             });
-              
-           humidM1=humidM1/Nel;
-           
-           document.getElementById("humidM1").innerHTML = humidM1;
-
-           chart1.update();
-           chart2.update();
-           chart3.update();
-
-           });
-
-
-        socket.on('humid', function(data){
-           
-           hygro1[0].splice(0, hygro1[0].length);
-           hygro1[1].splice(0, hygro1[1].length);
-
-           hygro2[0].splice(0, hygro2[0].length);
-           hygro2[1].splice(0, hygro2[1].length);
-           
-           hygro3[0].splice(0, hygro3[0].length);
-           hygro3[1].splice(0, hygro3[1].length);
-
-           var Nel = data.length;
-	
-           data.forEach(function (record){
-                        var dataAcq = new Date(record.data);
-                        //per record intendiamo ogni elemento del vettore
-	
-                        
-        if(record.postazione==1) {
-
-                        hygro1[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
-                        hygro1[1].push(Number(record.hygroThermal));
-	
-    }else if(record.postazione==2){
-
-                        hygro2[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
-                        hygro2[1].push(Number(record.hygroThermal));
-                        
-	}else if(record.postazione==3){
-                        
-                 hygro3[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
-                 hygro3[1].push(parseInt(record.hygroThermal));
-                                  }
-
-                                  });
-                  
-                  
-           //    console.log("humid 1 è:" + humid1);
-           //    console.log("humid 2 è:" + humid2);
-           //    console.log("humid 3 è:" + humid3);
-                
-                  /*questo l'ho fatto in classe del lab
-                  
-                  //temp1[1].forEach(function (record){
-                  //                 tempM1 = tempM1 + record;
-                  //                 });
-
-
-             var hygroM1=0;
-             
-                  hygro1[1].forEach(function (record){
-                                    hygroM1 = hygroM1 + record;
-                                                     });
-               tempM1 = tempM1/Nel;
-            
-               document.getElementById("tempM1").innerHTML = tempM1;
-                   
-               chart1.update();
-               chart2.update();
-               chart3.update();
-                   });
-
- 
-            hygroM1 = parseFloat(hygroM1/Nel);
-                  document.getElementById("hygroM1").innerHTML = hygroM1;
-
-            chart1.update();
-            chart2.update();
-            chart3.update();
-                                                    });
-           
-           socket.on('hygro', function(data){
-                     
-                      
-                      hygro1[0].splice(0, hygro1[0].length);
-                      hygro1[1].splice(0, hygro1[1].length);
-                      
-                      hygro2[0].splice(0, hygro2[0].length);
-                      hygro2[1].splice(0, hygro2[1].length);
-                      
-                      hygro3[0].splice(0, hygro3[0].length);
-                      hygro3[1].splice(0, hygro3[1].length);
-
-                     
-                     
-                     var Nel = data.length;
-                     
-                     data.forEach(function (record){
-                                  var dataAcq = new Date(record.data);
-                                  //per record intendiamo ogni elemento del vettore
-                                  
-                                  if(record.postazione==1) {
-                                  
-                                        hygro1[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
-                                        hygro1[1].push(Number(record.hygroThermal));
-
-                                  }else if(record.postazione==2){
-                                  
-                                        hygro2[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
-                                        hygro2[1].push(Number(record.hygroThermal));
-                                  
-                                  }else if(record.postazione==3){
-                                  
-                                                hygro3[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
-                                                hygro3[1].push(parseInt(record.hygroThermal));
-                                  }
-                                                    });
-
-                     var hygroM1=0;
-                    
-                     hygro1[1].forEach(function (record){
-                                       hygroM1 = hygroM1 + record;
-                                       });
-                     
-                     hygroM1 = hygroM1/Nel;
-                        document.getElementById("hygroM1").innerHTML = hygroM1;
-                     
-                        chart1.update();
-                        chart2.update();
-                        chart3.update();
-                     
-                                              });
-                     
-             socket.on('newData', function(record){
-                       console.log(record);
-                       console.log(Date(record.data));
-                       var dataAcq = new Date(record.data);
-
-                               temp1[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
-                               humid1[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
-                               hygro1[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
-
-                               temp2[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
-                               humid2[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
-                               hygro2[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
-
-                               temp3[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
-                               humid3[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
-                               hygro3[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
-
-                               chart1.update();
-                               chart2.update();
-                               chart3.update();
-                       
-                               if(record.postazione==1) {
-                       
-                                        temp1[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
-                                        console.log("aggiunto nuovo valore!");
-                                        temp1[1].push(parseFloat(record.temperature));
-                                        console.log(record.temperature);
-                                        humid1[1].push(parseInt(record.humidity));
-                                        console.log(record.humidity);
-                                        hygro1[1].push(parseInt(record.hygroThermal));
-                                        console.log(record.hygroThermal);
-                       
-                               var pElTemp0 = temp1[0].shift();
-                               var pElhygro1 = temp3[1].shift();
-                               var pElTemp1 = temp1[1].shift();
-                               var pElhumid1 = humid1[1].shift();
-                               var pElhygro1 = hygro1[1].shift();
-                       
-                               chart1.update();
-
-                               }else if(record.postazione==2){
-                       
-                                        temp2[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
-                                        temp2[1].push(Number(record.temperature));
-                                        humid2[1].push(parseInt(record.humidity));
-                                        hygro2[1].push(parseInt(record.hygroThermal));
-                       
-                               var pElTemp0 = temp2[0].shift();
-                               var pElTemp2 = temp2[1].shift();
-                               var pElhumid2 = humid2[1].shift();
-                               var pElhygro2 = hygro2[1].shift();
-
-                               chart2.update();
-                       
-                              }else if(record.postazione==3){
-                       
-                                        temp3[0].push(moment(dataAcq).format("DD/MM/YY HH:mm"));
-                                        temp3[1].push(Number(record.temperature));
-                                        humid3[1].push(parseInt(record.humidity));
-                                        hygro3[1].push(parseInt(record.hygroThermal));
-                       
-                               var pElTemp0 = temp3[0].shift();
-                               var pElTemp3 = temp3[1].shift();
-                               var pElhumid3 = humid3[1].shift();
-                               var pElhygro3 = hygro3[1].shift();
-
-                               chart3.update();
-                               }
-                       
-                               });
-                               
-
-*/
-        
+   
 /*
  IL CODICE SEGUENTE SERVE AD ACQUISIRE I VALORI ATTRAVERSO I VETTORI DI POSTAZIONE
  E NON DI SENSORE
@@ -840,32 +274,30 @@ function AverageP1(){
         var hygroThermal2  = new Array();
         var hygroThermal3  = new Array();
         
-        var Nel;
-        var hygroM1=0;
-        var tempM1=0;
-        var humidM1=0;
 
-        socket.on('postazioneUno', function(data){
 
-       //azzero i vettori, qualora la pagina fosse già nella memoria del browser
-                  date1.splice(0, date1.length);
-                  temperature1.splice(0, temperature1.length);
-                  humidity1.splice(0, humidity1.length);
-                  hygroThermal1.splice(0, hygroThermal1.length);
+socket.on('postazioneUno', function(data){
 
-                  
-                  data.forEach(function (record){
+	   AverageP1(data);
+//azzero i vettori, qualora la pagina fosse già nella memoria del browser
+          date1.splice(0, date1.length);
+          temperature1.splice(0, temperature1.length);
+          humidity1.splice(0, humidity1.length);
+          hygroThermal1.splice(0, hygroThermal1.length);
 
-                               var dataAcq = new Date(record.data);
-                               //per record intendiamo ogni elemento del vettore
-                               //costruisco il vettore delle ascisse del primo grafico
-                               date1.push(moment(dataAcq).format("DD/MM/YY HH:mm"));
-                               temperature1.push(record.temperature);
-                               humidity1.push(record.humidity);
-                               hygroThermal1.push(record.hygroThermal);
-                               chart1.update();
-                               });
-                  });
+          
+          data.forEach(function (record){
+
+                       var dataAcq = new Date(record.data);
+                       //per record intendiamo ogni elemento del vettore
+                       //costruisco il vettore delle ascisse del primo grafico
+                       date1.push(moment(dataAcq).format("DD/MM/YY HH:mm"));
+                       temperature1.push(record.temperature);
+                       humidity1.push(record.humidity);
+                       hygroThermal1.push(record.hygroThermal);
+                       chart1.update();
+                       });
+          });
 
 socket.on('postazioneDue', function(data){
 
