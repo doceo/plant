@@ -29,7 +29,7 @@ MongoClient.connect('mongodb://127.0.0.1:27017/terreno', function (err, database
 
 //rendo possibile il collegamento ad un broker mqtt esterno
 var mqtt = require('mqtt');  
-var mqttClient = mqtt.connect('mqtt://192.168.1.100:1883', {
+var mqttClient = mqtt.connect('mqtt://127.0.0.1:1883', {
 	clean: true,
     clientId: 'nodeJS'
 });  
@@ -47,8 +47,12 @@ mqttClient.on('connect', (connack) => {
 
 app.get('/', function(req, res) {
   res.sendFile(
-  path.resolve( __dirname,'html','testChart.html')
+  path.resolve( __dirname,'html','testChartPostazioneMedia.html')
   );
+});
+
+app.post('/nval', function(req, res) {
+  	console.log("ricevuto");
 });
 
 /*app.get('/temperatura', function(req, res) {
@@ -61,95 +65,33 @@ app.get('/report', function(req, res) {
   );
   });
   
-  app.get('/admin', function(req, res) {
-  res.sendFile(
-  path.resolve( __dirname,'html','admin.html')
-  );
-});
- 
-
-/* abbiamo usato una GET ma sarebbe più opportuno usare il metodo POST. la scelta del 
-GETperchè risulta più comodo nel caso 
-non si disponga di dispositivi fisici e si voglia testare l'applicativo da browser*/
-app.get('/acquisisci/:sensore/:postazione/:dato', function (req, res) {
+  app.get('/range', function(req, res) {
+  console.log(req.params.datain);
+  console.log(req.params.dataout);
+  res = 13;
   res.end();
-    if(req.params.sensore=="temp")
-	{
-		console.log('sensore temperatura');
-	
-		
-  var data = {
-    t: new Date(),
-    valore: parseInt(req.params.dato),
-    postazione: parseInt(req.params.postazione),
-  };
-  db.collection('temp').insert(data);
-  console.log('acquisisco valore');
 
-  io.emit('newTemperature', data);
-	}
-	else if(req.params.sensore=="humid")
-	{
-		console.log('sensore umidità aria');
-	
-		
-  		var data = {
-   		 t: new Date(),
-   		 valore: parseInt(req.params.dato),
-    		postazione: parseInt(req.params.postazione),
-  };
-  db.collection('humid').insert(data);
-  console.log('acquisisco valore');
-
-  	io.emit('newTemperature', data);
-	}
-	else if(req.params.sensore=="hygro")
-	{
-	console.log('Sensore umidità terreno');
-	
-		
-  	var data = {
-   	 t: new Date(),
-   	 valore: parseInt(req.params.dato),
-   	 postazione: parseInt(req.params.postazione),
-  	};
-  	db.collection('hygro').insert(data);
-  	console.log('acquisisco valore');
-
-  	io.emit('newTemperature', data);
-	}
-		
-	else{console.log('postazione non esistente');
-		
-	}
-	
-		
-});
-
-
-mqttClient.on('message', (topic, message) => {  
+});  
+  
+  mqttClient.on('message', (topic, message) => {  
   console.log(`Received message: '${message}'`);
   
-  	var msg = (message).toString();
+  var msg = (message).toString();
   	var dato = msg.split(",");
+	
+	///:datain/:dataout'
   
- 
-	dato.forEach(function (record){
-//	console.log("messaggio ricevuto:");
-//	console.log(record);
-	});
+/* abbiamo usato una GET ma sarebbe più opportuno usare il metodo POST. la scelta del 
+GETperchè risulta più comodo nel caso 
+non si disponga di dispositivi fisici e si voglia testare l'applicativo da browser
+
+*/
 
 	var data =dato[4].split("-");
+	var dataAcq = new Date(parseInt(data[0]),parseInt(data[1]-1),parseInt(data[2]),
+	parseInt(data[3]),parseInt(data[4]),parseInt(data[5]));
 
-	data.forEach(function (record){
-//	console.log("conversione: " + record +" in " + parseInt(record));
-
-	});
 	
-//	var dataAcq = new Date(parseInt(data[0],10),parseInt(data[1]-1,10),parseInt(data[2],10),parseInt(data[3],10),parseInt(data[4],10),parseInt(data[5],10));
-
-	var dataAcq = new Date();
-
 //	console.log("il tipo che arriva è: " + typeof(dato[4]));
 
 //	console.log("il dato ricevuto è: " + dato[4]);
@@ -173,7 +115,8 @@ mqttClient.on('message', (topic, message) => {
   	io.emit('newData', nuovoDato);
 
 	console.log(nuovoDato);
-
+	db.collection('rilevazioni').insert(nuovoDato);
+	
 	//creo la variabile temp estrapolando i pezzi del vettore
 	var temp = {
     	postazione: parseInt(dato[0]),
@@ -234,6 +177,20 @@ io.on('connection', function (socket) {
 //  console.log(result);
 //   console.log(result);
   });
-
-
+  
+db.collection('rilevazioni').find({postazione : 1},{sort:{data:-1}}).limit(Ntemp).toArray( function (err, result) {
+//  console.log(result);
+   socket.emit('postazioneUno', result.reverse());
+  });
+  
+db.collection('rilevazioni').find({postazione : 2},{sort:{data:-1}}).limit(Ntemp).toArray( function (err, result) {
+//  console.log(result);
+   socket.emit('postazioneDue', result.reverse());
+  });
+  
+  db.collection('rilevazioni').find({postazione : 3},{sort:{data:-1}}).limit(Ntemp).toArray( function (err, result) {
+//  console.log(result);
+   socket.emit('postazioneTre', result.reverse());
+  });
+  
 });
