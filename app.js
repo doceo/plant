@@ -71,9 +71,15 @@ app.get('/report', function(req, res) {
   res = 13;
   res.end();
 
+<<<<<<< HEAD
 });  
   
   mqttClient.on('message', (topic, message) => {  
+=======
+//acquisione dati
+
+mqttClient.on('message', (topic, message) => {  
+>>>>>>> 3258411e9589b008a9675f281597f1d7e619bd50
   console.log(`Received message: '${message}'`);
   
   var msg = (message).toString();
@@ -81,15 +87,25 @@ app.get('/report', function(req, res) {
 	
 	///:datain/:dataout'
   
+<<<<<<< HEAD
 /* abbiamo usato una GET ma sarebbe più opportuno usare il metodo POST. la scelta del 
 GETperchè risulta più comodo nel caso 
 non si disponga di dispositivi fisici e si voglia testare l'applicativo da browser
+=======
+
+>>>>>>> 3258411e9589b008a9675f281597f1d7e619bd50
 
 */
 
+<<<<<<< HEAD
 	var data =dato[4].split("-");
 	var dataAcq = new Date(parseInt(data[0]),parseInt(data[1]-1),parseInt(data[2]),
 	parseInt(data[3]),parseInt(data[4]),parseInt(data[5]));
+=======
+	data.forEach(function (record){
+
+//	console.log("conversione: " + record +" in " + parseInt(record));
+>>>>>>> 3258411e9589b008a9675f281597f1d7e619bd50
 
 	
 //	console.log("il tipo che arriva è: " + typeof(dato[4]));
@@ -143,6 +159,7 @@ non si disponga di dispositivi fisici e si voglia testare l'applicativo da brows
 
 	var hygro = {
     	postazione: parseInt(dato[0]),
+
     	hygroThermal: parseFloat(dato[3]),
     	data: dataAcq,
   	};
@@ -154,6 +171,7 @@ non si disponga di dispositivi fisici e si voglia testare l'applicativo da brows
 });
 
 
+//invio vettori al client
 
 
 io.on('connection', function (socket) {
@@ -163,6 +181,7 @@ io.on('connection', function (socket) {
   db.collection('temp').find({},{sort:{data:-1}}).limit(Ntemp).toArray( function (err, result) {
 //  console.log(result);
    socket.emit('temp', result.reverse());
+
   });
  db.collection('Humidity').find({},{sort:{data:-1}}).limit(Ntemp).toArray( function (err, result) {
 //  console.log(result);
@@ -173,6 +192,7 @@ io.on('connection', function (socket) {
    socket.emit('hygro', result.reverse());
   });
 
+<<<<<<< HEAD
  db.collection('temp').find({},{sort:{data:-1}}).limit(Ntemp).toArray( function (err, result) {
 //  console.log(result);
 //   console.log(result);
@@ -193,4 +213,10 @@ db.collection('rilevazioni').find({postazione : 2},{sort:{data:-1}}).limit(Ntemp
    socket.emit('postazioneTre', result.reverse());
   });
   
+=======
+
+});
+
+
+>>>>>>> 3258411e9589b008a9675f281597f1d7e619bd50
 });

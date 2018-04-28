@@ -1,0 +1,1 @@
+il client con arduino Yun non è aggiornato alla versione attuale del software, ma alle versioni antecedenti alla 2.0
