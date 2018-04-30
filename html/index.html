@@ -1,139 +1,85 @@
 <!Doctype html>
 <html lang="it">
     
-     <head>
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Plant</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+                
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/locale/it.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+</head>
+     
+<body>
         
-     <meta charset="utf-8">
-     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-     <meta name="viewport" content="width=device-width, initial-scale=1">
-     
-     <title>Plant</title>
-     
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-                        
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+	<div class="header">
+	  <h1 class="text-center">Ultimi valori raccolti</h1>
+	</div><!--div header-->
+        
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <h2 class="text-center">Postazione 1</h2>
+            <canvas id="post_1"></canvas>
+    	</div>
     
-        
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-     <script src="/socket.io/socket.io.js"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/locale/it.js"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-    
-     </head>
-     
-        <body>
-        
-        <div class="header">
-          <h1 class="text-center">Ultimi valori raccolti</h1>
-        </div><!--div header-->
-        
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-10">
-                            <h2 class="text-center">Postazione 1</h2>
-                            <canvas id="post_1"></canvas>
-                    </div>
-                    
-                    <div class="col-md-2">
-                        <div class="row">
-                            <h2 class="text-center">Valori Medi</h2>
-					</div>
-					
-                    <div class="row">
-                        <span class="btn btn-primary" style="width: 180px"> Temperatura<br>
-						   <span class="badge badge-light"><div id="tempM1"></div></span>
-						</span>
-					</div>
-                    
-					<div class="row">
-                        <span class="btn btn-success" style="width: 180px"> Umidità dell'aria<br>
-						  <span class="badge badge-light"><div id="humidM1"></div></span>
-						</span>
-                    </div>
-                
-                <div class="row">
-                    <span class="btn btn-danger" style="width: 180px"> Umidità del suolo<br>
-                        <span class="badge badge-light"><div id="hygroM1"></div></span>
-                    </span>
-                </div>
-                
-              
-                    <div class="row">
-                        <div class="col-md-10">
-                            <h2 class="text-center">Postazione 2</h2>
-                                <canvas id="post_2"></canvas>
-                        </div><!--div-col-md-10-->
-                    </div>
+	    <div class="col-md-2">
+		<div class="row">
+		    <h2 class="text-center">Valori Medi</h2>
+		</div>
+		
+	    	<div class="row">
+		<span class="btn btn-primary" style="width: 180px"> Temperatura<br>
+			<span class="badge badge-light"><div id="tempM1"></div></span>
+		</span>
+		</div>
+	    
+		<div class="row">
+		<span class="btn btn-success" style="width: 180px"> Umidità dell'aria<br>
+			<span class="badge badge-light"><div id="humidM1"></div></span>
+		</span>
+	    	</div>
 
-                    <div class="row">
-                        <div class="col-md-10">
-                            <h2 class="text-center">Postazione 3</h2>
-                                <canvas id="post_3"></canvas>
-                        </div><!--div row-->
-                    </div>
+		<div class="row">
+	    	<span class="btn btn-danger" style="width: 180px"> Umidità del suolo<br>
+			<span class="badge badge-light"><div id="hygroM1"></div></span>
+	    	</span>
+	    </div>
+	</div>
 
-			
-                    <div class="row">
-                        <span class="btn btn-primary" style="width: 180px"> Temperatura<br>
-                            <span class="badge badge-light"><div id="tempM2"></div></span>
-						</span>
-					</div><!--row-->
-					
-                    <div class="row">
-                        <span class="btn btn-success" style="width: 180px"> Umidità dell'aria<br>
-                            <span class="badge badge-light"><div id="humidM2"></div></span>
-						</span>
-					</div><!--row-->
+    <div class="row">
+        <div class="col-md-10">
+            <h2 class="text-center">Postazione 2</h2>
+                <canvas id="post_2"></canvas>
+        </div><!--div-col-md-10-->
+    </div>
 
-
-                    <div class="row">
-                        <span class="btn btn-danger" style="width: 180px"> Umidità del suolo<br>
-                            <span class="badge badge-light"><div id="hygroM2"></div></span>
-                        </span>
-                    </div><!--row-->
-                    </div><!--col-md-2-->
-                    </div><!--row-->
-
-      
-                    <div class="row">
-                        <div class="col-md-10">
-                            <h2 class="text-center">Postazione 3</h2>
-                                <canvas id="post_1"></canvas>
-                        </div><!--div col-md-10-->
-                    
-                    <div class="col-md-2">
-                        <div class="row">
-                            <h2 class="text-center">Valori Medi</h2>
-                        </div><!--div row-->
-					
-                    <div class="row">
-                        <span class="btn btn-primary" style="width: 180px"> Temperatura<br>
-                            <span class="badge badge-light"><div id="tempM3"></div></span>
-						</span>
-					</div><!--row-->
-					
-                    <div class="row">
-						<span class="btn btn-success" style="width: 180px"> Umidità dell'aria<br>
-                            <span class="badge badge-light"><div id="humidM3"></div></span>
-						</span>
-					</div><!--row-->
-                    
-                    <div class="row">
-                        <span class="btn btn-danger" style="width: 180px"> Umidità del suolo<br>
-                            <span class="badge badge-light"><div id="hygroM3"></div></span>
-                        </span>
-                    </div><!--row-->
-                    </div><!--col-md-2-->
-                    </div><!--row-->
-                
-            
+    <div class="row">
+        <div class="col-md-10">
+            <h2 class="text-center">Postazione 3</h2>
+                <canvas id="post_3"></canvas>
+        </div><!--div row-->
+    </div>
+</div>
+                           
 <script>
 //Media valori
 
