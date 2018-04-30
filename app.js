@@ -51,70 +51,46 @@ app.get('/', function(req, res) {
   );
 });
 
+/*questa rotta sarà utilizzata quando verrà implementata la scelta
+dell'utente del numero di valori da visualizzare*/
+
 app.post('/nval', function(req, res) {
   	console.log("ricevuto");
 });
 
-/*app.get('/temperatura', function(req, res) {
-  res.sendFile(__dirname+'/html/temperatura.html');
-});*/
+
 
 app.get('/report', function(req, res) {
   res.sendFile(
   path.resolve( __dirname,'html','report.html')
   );
   });
-  
-  app.get('/range', function(req, res) {
-  console.log(req.params.datain);
-  console.log(req.params.dataout);
-  res = 13;
-  res.end();
+ 
+/*questa rotta sarà utilizzata quando verrà realizzata la scelta
+di un range temporale entro cui visualizzare i dati*/
 
-<<<<<<< HEAD
+app.get('/range', function(req, res) {
+	console.log(req.params.datain);
+  	console.log(req.params.dataout);
+  	res = 13;
+  	res.end();
 });  
   
-  mqttClient.on('message', (topic, message) => {  
-=======
-//acquisione dati
-
 mqttClient.on('message', (topic, message) => {  
->>>>>>> 3258411e9589b008a9675f281597f1d7e619bd50
-  console.log(`Received message: '${message}'`);
+  	console.log(`Received message: '${message}'`);
   
-  var msg = (message).toString();
+  	var msg = (message).toString();
   	var dato = msg.split(",");
 	
-	///:datain/:dataout'
-  
-<<<<<<< HEAD
-/* abbiamo usato una GET ma sarebbe più opportuno usare il metodo POST. la scelta del 
-GETperchè risulta più comodo nel caso 
-non si disponga di dispositivi fisici e si voglia testare l'applicativo da browser
-=======
 
->>>>>>> 3258411e9589b008a9675f281597f1d7e619bd50
-
-*/
-
-<<<<<<< HEAD
 	var data =dato[4].split("-");
 	var dataAcq = new Date(parseInt(data[0]),parseInt(data[1]-1),parseInt(data[2]),
 	parseInt(data[3]),parseInt(data[4]),parseInt(data[5]));
-=======
-	data.forEach(function (record){
 
-//	console.log("conversione: " + record +" in " + parseInt(record));
->>>>>>> 3258411e9589b008a9675f281597f1d7e619bd50
+/*utiliziamo la data generata dal server solo nel caso in cui il simulatore del client
+non è ingrado di generarne una attendibile*/
 
-	
-//	console.log("il tipo che arriva è: " + typeof(dato[4]));
-
-//	console.log("il dato ricevuto è: " + dato[4]);
-	
-//	dataAcq =new Date('String(dato[4])');
-//	console.log("la data generata: " + dataAcq);	
-//	console.log("il formato data è: " + Date());
+//	var dataAcq = new Date();
 
 	console.log("");
 	console.log("");	
@@ -132,6 +108,10 @@ non si disponga di dispositivi fisici e si voglia testare l'applicativo da brows
 
 	console.log(nuovoDato);
 	db.collection('rilevazioni').insert(nuovoDato);
+/*
+tutta la parte seguente commentata serviva prima della modifica strutturale
+delle variabili e degli insert nel DB
+
 	
 	//creo la variabile temp estrapolando i pezzi del vettore
 	var temp = {
@@ -142,10 +122,6 @@ non si disponga di dispositivi fisici e si voglia testare l'applicativo da brows
 
 	//inserisco nel DB
   	db.collection('temp').insert(temp);
-//  	console.log('acquisisco temperatura');
-//	console.log(temp);
-	//invio il nuovo dato al client collegato
-//  	io.emit('newTemperature', temp);
 
 	var humid = {
     	postazione: parseInt(dato[0]),
@@ -166,37 +142,16 @@ non si disponga di dispositivi fisici e si voglia testare l'applicativo da brows
   	db.collection('HygroThermal').insert(hygro);
 //  	console.log('acquisisco umidità del terreno');
 //  	io.emit('newHygro', hygro);
-
+*/
 
 });
 
 
 //invio vettori al client
 
-
 io.on('connection', function (socket) {
   console.log('richiesta di connessione dal client');
   console.log('invio tutte le temperature');
-
-  db.collection('temp').find({},{sort:{data:-1}}).limit(Ntemp).toArray( function (err, result) {
-//  console.log(result);
-   socket.emit('temp', result.reverse());
-
-  });
- db.collection('Humidity').find({},{sort:{data:-1}}).limit(Ntemp).toArray( function (err, result) {
-//  console.log(result);
-   socket.emit('humid', result.reverse());
-  });
- db.collection('HygroThermal').find({},{sort:{data:-1}}).limit(Ntemp).toArray( function (err, result) {
-//  console.log(result);
-   socket.emit('hygro', result.reverse());
-  });
-
-<<<<<<< HEAD
- db.collection('temp').find({},{sort:{data:-1}}).limit(Ntemp).toArray( function (err, result) {
-//  console.log(result);
-//   console.log(result);
-  });
   
 db.collection('rilevazioni').find({postazione : 1},{sort:{data:-1}}).limit(Ntemp).toArray( function (err, result) {
 //  console.log(result);
@@ -213,10 +168,8 @@ db.collection('rilevazioni').find({postazione : 2},{sort:{data:-1}}).limit(Ntemp
    socket.emit('postazioneTre', result.reverse());
   });
   
-=======
+
 
 });
 
-
->>>>>>> 3258411e9589b008a9675f281597f1d7e619bd50
-});
+//});
