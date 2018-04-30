@@ -32,7 +32,7 @@ int value = 0;
 // Update these with values suitable for your network.
 byte mac[]    = {  0xDE, 0xED, 0xBA, 0xFE, 0xFE, 0xED };
 IPAddress ip(192, 168, 1, 230);
-IPAddress server(192, 168, 1, 174);
+IPAddress server(192, 168, 1, 248);
 
 void callback(char* topic, byte* payload, unsigned int length) {
   Serial.print("Message arrived [");
@@ -89,11 +89,11 @@ void loop()
   
   
   puntoAcq = String(random(1,4));
-  temp = String(random(-40,50));
-  terUm = String(random(0, 1024));
-  AriaUm = String(random(0, 1024));
+  temp = String(random(-4,35));
+  terUm = String(random(0, 90));
+  AriaUm = String(random(0, 90));
   //YYYY-MM-dd hh:mm:ss
-  String MM = '0' + String(random(1,13));
+  String MM = '0' + String(4 ); // String(random(1,13));
   MM = MM.substring(MM.length() - 2, MM.length());
   String dd = '0' + String(random(1,32));
   dd = dd.substring(dd.length() - 2, dd.length());
@@ -120,7 +120,7 @@ Serial.println(msg);
     msg.toCharArray(buf, 64);
     client.publish("acqDati", buf);
 
-    delay(2000);
+    delay(10000);
   
 }
 }
