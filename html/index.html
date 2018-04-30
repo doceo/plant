@@ -64,31 +64,7 @@
                     </span>
                 </div>
                 
-                
-                <!--   <div class="input-group">
-                 <div class="input-group-prepend">
-                 <div class="row">
-<input type="date" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                 <div class="input-group-prepend">
-                 </div>
-                 <div class="row">
-                 <h3 class="text-center">Data Inizio</h3>
-                 </div>
-                 </div>
-<input type="date" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                 <div class="input-group-prepend">
-                 <div class="row">
-                 <br>
-                 </div>
-                 </div>
-                 <input type="date" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                 
-                 </div>
-                 -->
-                
-                    </div><!--col-md-2-->
-                    </div><!--row-->
-                
+              
                     <div class="row">
                         <div class="col-md-10">
                             <h2 class="text-center">Postazione 2</h2>
@@ -160,6 +136,9 @@
             
 <script>
 //Media valori
+
+  var socket = io();
+
   var Nel;
   var hygroM1=0;
   var tempM1=0;
@@ -187,7 +166,7 @@ function AverageP1(data){
              document.getElementById("humidM1").innerHTML = humidM1;
              document.getElementById("hygroM1").innerHTML = hygroM1;
 };
-        
+/*
         function AverageP2(){
             data.forEach(function (record){
                          tempM1 = tempM1 + record.temperatura;
@@ -218,7 +197,7 @@ function AverageP1(data){
                          document.getElementById("HygroM1").innerHTML = HygroM1;
         };
 
-  var socket = io();
+
 
   var temp1  = new Array();
   var temp2  = new Array(); 
