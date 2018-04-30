@@ -1,6 +1,6 @@
 {
   "name": "plant",
-  "version": "0.0.0",
+  "version": "3.0.0",
   "description": "applicazione di esempio per acquisizione ed esposizione di dati relativi all'umidità del terreno",
   "main": "index.js",
   "scripts": {
@@ -8,9 +8,11 @@
   },
   "keywords": [
     "arduino",
-    "nodeMCU"
+    "nodeJS",
+    "Mqtt",
+    "chart.js"
   ],
-  "author": "Diomede Mazzone",
+  "author": "Diomede Mazzone, Fabrizio Tamigi",
   "license": "ISC",
   "dependencies": {
     "chart.js": "^2.5.0",
