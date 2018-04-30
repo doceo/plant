@@ -35,6 +35,31 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
 	</div><!--div header-->
         
 <div class="container">
+
+	<form>
+    	<div class="row justify-content-md-center">
+	<div class="col-md-3">
+    		<label for="numVal">Numero di valori da visualizzare</label>
+	</div>
+	</div>
+
+	<div class="row justify-content-md-center">
+			<div class="col-md-3">
+    				<input type="number" class="form-control" id="num">
+  			</div>
+			<div class="col-md-2">
+				<button type="submit" class="btn btn-primary" onclick="invia()">Invia</button>
+  			</div>
+		</div>
+		</form>
+	<div class="row">
+	<div class="col-md-4">	
+	 	<div id="error"></div>
+	</div>
+	</div><!-- row -->
+
+
+
     <div class="row">
         <div class="col-md-10">
             <h2 class="text-center">Postazione 1</h2>
@@ -79,11 +104,34 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
         </div><!--div row-->
     </div>
 </div>
-                           
+
+<script>
+ var socket = io();
+
+
+
+function invia(){
+	nVal = parseInt($("#num").val());
+	console.log(nVal);
+	$.post("nval",
+		
+	    {	
+		numV: nVal,
+
+  	});
+	
+};
+
+
+
+
+</script>
+
+
 <script>
 //Media valori
 
-  var socket = io();
+ 
 
   var Nel;
   var hygroM1=0;
@@ -92,21 +140,21 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
 
 function AverageP1(data){
     Nel = data.length;
-    console.log(Nel);
+//    console.log(Nel);
     data.forEach(function (record){
              tempM1 = tempM1 + record.temperature;
              humidM1 = humidM1 + record.humidity;
              hygroM1 = hygroM1 + record.hygroThermal;
 
-	     console.log(record);
+//	     console.log(record);
              });
 
              tempM1 = tempM1/Nel;
              humidM1 = humidM1/Nel;
              hygroM1 = hygroM1/Nel;
-	     console.log(tempM1);
-	     console.log(humidM1);
-	     console.log(hygroM1);
+//	     console.log(tempM1);
+//	     console.log(humidM1);
+//	     console.log(hygroM1);
              
              document.getElementById("tempM1").innerHTML = tempM1;
              document.getElementById("humidM1").innerHTML = humidM1;

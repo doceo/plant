@@ -7,11 +7,14 @@ const io = require('socket.io')(server);
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId;
 
+var bodyParser = require('body-parser');
 
 var db;
 
 var Ntemp = 50;
 
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 app.use(log('dev'));
 //connessione del client a mongodb
@@ -56,6 +59,25 @@ dell'utente del numero di valori da visualizzare*/
 
 app.post('/nval', function(req, res) {
   	console.log("ricevuto");
+  	var nVal = parseInt(req.body.numV);
+	console.log(nVal);
+
+//	res.send();
+
+	db.collection('rilevazioni').find({postazione : 1}).limit(nVal).toArray( function (err, result) {
+		console.log("ho recuperato " + result.length + " elementi di postazione 1");
+   		io.emit('postazioneUno', result.reverse());
+	});
+	db.collection('rilevazioni').find({postazione : 2}).limit(nVal).toArray( function (err, result) {
+		console.log("ho recuperato " + result.length + " elementi di postazione 2");
+   		io.emit('postazioneDue', result.reverse());
+	});
+	db.collection('rilevazioni').find({postazione : 3}).limit(nVal).toArray( function (err, result) {
+		console.log("ho recuperato " + result.length + " elementi di postazione 3");
+   		io.emit('postazioneTre', result.reverse());
+	});
+
+
 });
 
 
