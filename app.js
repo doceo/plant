@@ -47,7 +47,7 @@ mqttClient.on('connect', (connack) => {
 
 app.get('/', function(req, res) {
   res.sendFile(
-  path.resolve( __dirname,'html','testChartPostazioneMedia.html')
+  path.resolve( __dirname,'html','index.html')
   );
 });
 
