@@ -63,18 +63,18 @@ app.post('/nval', function(req, res) {
 	console.log(nVal);
 
 //	res.send();
-
+	Ntemp = nVal;
 	db.collection('rilevazioni').find({postazione : 1}).limit(nVal).toArray( function (err, result) {
 		console.log("ho recuperato " + result.length + " elementi di postazione 1");
-   		io.emit('postazioneUno', result.reverse());
+   		io.emit('nValUno', result.reverse());
 	});
 	db.collection('rilevazioni').find({postazione : 2}).limit(nVal).toArray( function (err, result) {
 		console.log("ho recuperato " + result.length + " elementi di postazione 2");
-   		io.emit('postazioneDue', result.reverse());
+   		io.emit('nValDue', result.reverse());
 	});
 	db.collection('rilevazioni').find({postazione : 3}).limit(nVal).toArray( function (err, result) {
 		console.log("ho recuperato " + result.length + " elementi di postazione 3");
-   		io.emit('postazioneTre', result.reverse());
+   		io.emit('nValTre', result.reverse());
 	});
 
 

@@ -27,7 +27,10 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
 </head>
-     
+<script>
+ var socket = io();
+</script>
+
 <body>
         
 	<div class="header">
@@ -58,7 +61,13 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
 	</div>
 	</div><!-- row -->
 
+<script>
+socket.on('nValUno', function(data){
+	console.log(data);
 
+          });
+
+</script>
 
     <div class="row">
         <div class="col-md-10">
@@ -106,9 +115,6 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
 </div>
 
 <script>
- var socket = io();
-
-
 
 function invia(){
 	nVal = parseInt($("#num").val());
