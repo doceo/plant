@@ -64,7 +64,8 @@ app.post('/nval', function(req, res) {
 
 //	res.send();
 	Ntemp = nVal;
-	db.collection('rilevazioni').find({postazione : 1}).limit(nVal).toArray( function (err, result) {
+
+/*	db.collection('rilevazioni').find({postazione : 1}).limit(nVal).toArray( function (err, result) {
 		console.log("ho recuperato " + result.length + " elementi di postazione 1");
    		io.emit('nValUno', result.reverse());
 	});
@@ -76,7 +77,7 @@ app.post('/nval', function(req, res) {
 		console.log("ho recuperato " + result.length + " elementi di postazione 3");
    		io.emit('nValTre', result.reverse());
 	});
-
+*/
 
 });
 
