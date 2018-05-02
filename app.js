@@ -92,11 +92,24 @@ app.get('/report', function(req, res) {
 /*questa rotta sarà utilizzata quando verrà realizzata la scelta
 di un range temporale entro cui visualizzare i dati*/
 
-app.get('/range', function(req, res) {
-	console.log(req.params.datain);
-  	console.log(req.params.dataout);
-  	res = 13;
-  	res.end();
+app.post('/range', function(req, res) {
+
+	var datain = req.body.dataIn;
+  	var dataout = req.body.dataOut;
+//	console.log(datain.toUTCString());
+	console.log("dobbiamo cercare dati tra " + datain + " e " + dataout);
+ 
+
+	db.collection('rilevazioni').find({postazione : 1,
+					 data: { $gt: new Date(datain) , $lt: new Date(dataout) },						
+						},
+					{sort:{data:-1}}).toArray( function (err, result) {
+//					console.log("ho recuperato " + result.length + " elementi di postazione 3");
+	console.log("ho recuperato " + result.length + " elementi");
+//	console.log(datain + " diventa " + new Date(datain));   	
+	io.emit('postazioneUno', result.reverse());
+	})
+
 });  
   
 mqttClient.on('message', (topic, message) => {  
@@ -194,6 +207,7 @@ db.collection('rilevazioni').find({postazione : 2},{sort:{data:-1}}).limit(Ntemp
   
   db.collection('rilevazioni').find({postazione : 3},{sort:{data:-1}}).limit(Ntemp).toArray( function (err, result) {
 //  console.log(result);
+
    socket.emit('postazioneTre', result.reverse());
   });
   

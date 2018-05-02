@@ -35,6 +35,27 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
 	</div><!--div header-->
         
 <div class="container">
+
+
+    	<div class="row justify-content-md-center">
+	<div class="col-md-3">
+    		<label for="numVal">Numero di valori da visualizzare</label>
+	</div>
+	</div>
+
+	<div class="row justify-content-md-center">
+			<div class="col-md-3">
+    				<input type="date" class="form-control" id="datain">
+  			</div>
+			<div class="col-md-3">
+    				<input type="date" class="form-control" id="dataout">
+  			</div>
+			<div class="col-md-2">
+				<button type="submit" class="btn btn-primary" onclick="invia()">Invia</button>
+  			</div>
+		</div>
+
+
     <div class="row">
         <div class="col-md-10">
             <h2 class="text-center">Postazione 1</h2>
@@ -83,6 +104,25 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
 <script>
 //Media valori
 
+
+function invia(){
+	dataIn = new Date($("#datain").val());
+	dataOut = new Date($("#dataout").val());
+
+//ordinare le date
+
+	console.log(dataIn);
+
+	$.post("range",
+
+	    {	
+		dataIn: dataIn,
+		dataOut: dataOut,
+  	});
+	
+};
+
+
   var socket = io();
 
   var Nel;
@@ -101,9 +141,10 @@ function AverageP1(data){
 	     console.log(record);
              });
 
-             tempM1 = tempM1/Nel;
-             humidM1 = humidM1/Nel;
-             hygroM1 = hygroM1/Nel;
+             tempM1 = parseInt(10*tempM1/Nel)/10;
+             humidM1 = parseInt(10*humidM1/Nel)/10;
+             hygroM1 = parseInt(10*hygroM1/Nel)/10;
+
 	     console.log(tempM1);
 	     console.log(humidM1);
 	     console.log(hygroM1);
@@ -193,6 +234,8 @@ socket.on('postazioneUno', function(data){
                        chart1.update();
                        });
           });
+
+
 
 socket.on('postazioneDue', function(data){
 
