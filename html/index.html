@@ -27,7 +27,10 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
 </head>
-     
+<script>
+ var socket = io();
+</script>
+
 <body>
         
 	<div class="header">
@@ -35,6 +38,30 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
 	</div><!--div header-->
         
 <div class="container">
+
+	
+    	<div class="row justify-content-md-center">
+	<div class="col-md-3">
+    		<label for="numVal">Numero di valori da visualizzare</label>
+	</div>
+	</div>
+
+	<div class="row justify-content-md-center">
+			<div class="col-md-3">
+    				<input type="number" class="form-control" id="num">
+  			</div>
+			<div class="col-md-2">
+				<button type="submit" class="btn btn-primary" onclick="invia()">Invia</button>
+  			</div>
+		</div>
+		
+	<div class="row">
+	<div class="col-md-4">	
+	 	<div id="error"></div>
+	</div>
+	</div><!-- row -->
+
+
     <div class="row">
         <div class="col-md-10">
             <h2 class="text-center">Postazione 1</h2>
@@ -79,11 +106,43 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
         </div><!--div row-->
     </div>
 </div>
-                           
+
+<script>
+
+function invia(){
+	nVal = parseInt($("#num").val());
+	console.log(nVal);
+	$.post("nval",
+
+	    {	
+		numV: nVal,
+
+  	});
+	
+};
+
+/*
+function invia(){
+	nVal = parseInt($("#num").val());
+	console.log(nVal);
+	$.get("nval",
+		
+	    {	
+		numV: nVal,
+
+  	});
+	
+};
+
+*/
+
+</script>
+
+
 <script>
 //Media valori
 
-  var socket = io();
+ 
 
   var Nel;
   var hygroM1=0;
@@ -92,21 +151,21 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
 
 function AverageP1(data){
     Nel = data.length;
-    console.log(Nel);
+//    console.log(Nel);
     data.forEach(function (record){
              tempM1 = tempM1 + record.temperature;
              humidM1 = humidM1 + record.humidity;
              hygroM1 = hygroM1 + record.hygroThermal;
 
-	     console.log(record);
+//	     console.log(record);
              });
 
-             tempM1 = tempM1/Nel;
-             humidM1 = humidM1/Nel;
-             hygroM1 = hygroM1/Nel;
-	     console.log(tempM1);
-	     console.log(humidM1);
-	     console.log(hygroM1);
+             tempM1 = parseInt(10*tempM1/Nel)/10;
+             humidM1 = parseInt(10*humidM1/Nel)/10;
+             hygroM1 = parseInt(10*hygroM1/Nel)/10;
+//	     console.log(tempM1);
+//	     console.log(humidM1);
+//	     console.log(hygroM1);
              
              document.getElementById("tempM1").innerHTML = tempM1;
              document.getElementById("humidM1").innerHTML = humidM1;
@@ -199,7 +258,78 @@ function AverageP1(data){
         var hygroThermal2  = new Array();
         var hygroThermal3  = new Array();
         
+socket.on('nValUno', function(data){
+		
+	  console.log("ricevo il vettore nuovo di " + data.length + " elementi");
+	  AverageP1(data);
+//azzero i vettori, qualora la pagina fosse già nella memoria del browser
+          date1.splice(0, date1.length);
+          temperature1.splice(0, temperature1.length);
+          humidity1.splice(0, humidity1.length);
+          hygroThermal1.splice(0, hygroThermal1.length);
 
+          
+          data.forEach(function (record){
+
+                       var dataAcq = new Date(record.data);
+                       //per record intendiamo ogni elemento del vettore
+                       //costruisco il vettore delle ascisse del primo grafico
+                       date1.push(moment(dataAcq).format("DD/MM/YY HH:mm"));
+                       temperature1.push(record.temperature);
+                       humidity1.push(record.humidity);
+                       hygroThermal1.push(record.hygroThermal);
+                       chart1.update();
+                       });
+});
+
+socket.on('nValDue', function(data){
+		
+	  console.log("ricevo il vettore nuovo di " + data.length + " elementi");
+         //azzero i vettori, qualora la pagina fosse già nella memoria del browser
+          date2.splice(0, date2.length);
+          temperature2.splice(0, temperature2.length);
+          humidity2.splice(0, humidity2.length);
+          hygroThermal2.splice(0, hygroThermal2.length);
+
+          Nel = data.length;
+
+          data.forEach(function (record){
+
+                       var dataAcq = new Date(record.data);
+                       //per record intendiamo ogni elemento del vettore
+                       //costruisco il vettore delle ascisse del primo grafico
+                       date2.push(moment(dataAcq).format("DD/MM/YY HH:mm"));
+                       temperature2.push(record.temperature);
+                       humidity2.push(record.humidity);
+                       hygroThermal2.push(record.hygroThermal);
+                       chart2.update();
+                       });
+});
+
+
+socket.on('nValTre', function(data){
+		
+	  console.log("ricevo il vettore nuovo di " + data.length + " elementi");
+         //azzero i vettori, qualora la pagina fosse già nella memoria del browser
+          date3.splice(0, date3.length);
+          temperature3.splice(0, temperature3.length);
+          humidity3.splice(0, humidity3.length);
+          hygroThermal3.splice(0, hygroThermal3.length);
+
+          Nel = data.length;
+
+          data.forEach(function (record){
+
+                       var dataAcq = new Date(record.data);
+                       //per record intendiamo ogni elemento del vettore
+                       //costruisco il vettore delle ascisse del primo grafico
+                       date3.push(moment(dataAcq).format("DD/MM/YY HH:mm"));
+                       temperature3.push(record.temperature);
+                       humidity3.push(record.humidity);
+                       hygroThermal3.push(record.hygroThermal);
+                       chart3.update();
+                       });
+});
 
 socket.on('postazioneUno', function(data){
 
@@ -222,7 +352,7 @@ socket.on('postazioneUno', function(data){
                        hygroThermal1.push(record.hygroThermal);
                        chart1.update();
                        });
-          });
+});
 
 socket.on('postazioneDue', function(data){
 
@@ -245,7 +375,7 @@ socket.on('postazioneDue', function(data){
                        hygroThermal2.push(record.hygroThermal);
                        chart2.update();
                        });
-          });
+});
 
 socket.on('postazioneTre', function(data){
 
@@ -268,7 +398,7 @@ socket.on('postazioneTre', function(data){
                        hygroThermal3.push(record.hygroThermal);
                        chart3.update();
                        });
-          });
+});
 
 /*
  IL CODICE SEGUENTE SERVE AD ACQUISIRE I VALORI IN TEMPO REALE

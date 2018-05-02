@@ -5,13 +5,16 @@ const path=require('path');
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const MongoClient = require('mongodb').MongoClient;
-const ObjectId = require('mongodb').ObjectId;
+//const ObjectId = require('mongodb').ObjectId;
 
+var bodyParser = require('body-parser');
 
 var db;
 
 var Ntemp = 50;
 
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 app.use(log('dev'));
 //connessione del client a mongodb
@@ -56,6 +59,26 @@ dell'utente del numero di valori da visualizzare*/
 
 app.post('/nval', function(req, res) {
   	console.log("ricevuto");
+  	var nVal = parseInt(req.body.numV);
+	console.log(nVal);
+
+//	res.send();
+//	Ntemp = nVal;
+
+	db.collection('rilevazioni').find({postazione : 1},{sort:{data:-1}}).limit(nVal).toArray( function (err, result) {
+		console.log("ho recuperato " + result.length + " elementi di postazione 1");
+   		io.emit('nValUno', result.reverse());
+	});
+	db.collection('rilevazioni').find({postazione : 2},{sort:{data:-1}}).limit(nVal).toArray( function (err, result) {
+		console.log("ho recuperato " + result.length + " elementi di postazione 2");
+   		io.emit('nValDue', result.reverse());
+	});
+	db.collection('rilevazioni').find({postazione : 3},{sort:{data:-1}}).limit(nVal).toArray( function (err, result) {
+		console.log("ho recuperato " + result.length + " elementi di postazione 3");
+   		io.emit('nValTre', result.reverse());
+	});
+
+res.send("ricevuti i dati");
 });
 
 
@@ -69,11 +92,24 @@ app.get('/report', function(req, res) {
 /*questa rotta sarà utilizzata quando verrà realizzata la scelta
 di un range temporale entro cui visualizzare i dati*/
 
-app.get('/range', function(req, res) {
-	console.log(req.params.datain);
-  	console.log(req.params.dataout);
-  	res = 13;
-  	res.end();
+app.post('/range', function(req, res) {
+
+	var datain = req.body.dataIn;
+  	var dataout = req.body.dataOut;
+//	console.log(datain.toUTCString());
+	console.log("dobbiamo cercare dati tra " + datain + " e " + dataout);
+ 
+
+	db.collection('rilevazioni').find({postazione : 1,
+					 data: { $gt: new Date(datain) , $lt: new Date(dataout) },						
+						},
+					{sort:{data:-1}}).toArray( function (err, result) {
+//					console.log("ho recuperato " + result.length + " elementi di postazione 3");
+	console.log("ho recuperato " + result.length + " elementi");
+//	console.log(datain + " diventa " + new Date(datain));   	
+	io.emit('postazioneUno', result.reverse());
+	})
+
 });  
   
 mqttClient.on('message', (topic, message) => {  
@@ -153,10 +189,16 @@ io.on('connection', function (socket) {
   console.log('richiesta di connessione dal client');
   console.log('invio tutte le temperature');
   
+//db.collection('rilevazioni').find({postazione : 1},{sort:{data:-1}}).limit(Ntemp).toArray( function (err, result) {
+//  console.log(result);
+//   socket.emit('postazioneUno', result.reverse());
+//  });
+
 db.collection('rilevazioni').find({postazione : 1},{sort:{data:-1}}).limit(Ntemp).toArray( function (err, result) {
 //  console.log(result);
    socket.emit('postazioneUno', result.reverse());
   });
+
   
 db.collection('rilevazioni').find({postazione : 2},{sort:{data:-1}}).limit(Ntemp).toArray( function (err, result) {
 //  console.log(result);
@@ -165,6 +207,7 @@ db.collection('rilevazioni').find({postazione : 2},{sort:{data:-1}}).limit(Ntemp
   
   db.collection('rilevazioni').find({postazione : 3},{sort:{data:-1}}).limit(Ntemp).toArray( function (err, result) {
 //  console.log(result);
+
    socket.emit('postazioneTre', result.reverse());
   });
   
