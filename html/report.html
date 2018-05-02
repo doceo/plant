@@ -141,9 +141,10 @@ function AverageP1(data){
 	     console.log(record);
              });
 
-             tempM1 = tempM1/Nel;
-             humidM1 = humidM1/Nel;
-             hygroM1 = hygroM1/Nel;
+             tempM1 = parseInt(10*tempM1/Nel)/10;
+             humidM1 = parseInt(10*humidM1/Nel)/10;
+             hygroM1 = parseInt(10*hygroM1/Nel)/10;
+
 	     console.log(tempM1);
 	     console.log(humidM1);
 	     console.log(hygroM1);
@@ -233,6 +234,8 @@ socket.on('postazioneUno', function(data){
                        chart1.update();
                        });
           });
+
+
 
 socket.on('postazioneDue', function(data){
 

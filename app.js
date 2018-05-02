@@ -97,18 +97,17 @@ app.post('/range', function(req, res) {
 	var datain = req.body.dataIn;
   	var dataout = req.body.dataOut;
 //	console.log(datain.toUTCString());
-	console.log(dataout);
-  	res = 13;
+	console.log("dobbiamo cercare dati tra " + datain + " e " + dataout);
+ 
 
 	db.collection('rilevazioni').find({postazione : 1,
-					 data: { $gt: new Date(datain) },
-					 data: { $lt: new Date(dataout) },						
+					 data: { $gt: new Date(datain) , $lt: new Date(dataout) },						
 						},
 					{sort:{data:-1}}).toArray( function (err, result) {
-					console.log("ho recuperato " + result.length + " elementi di postazione 3");
-	console.log(result.length);
-	console.log(datain + " diventa " + Date(datain));   	
-	io.emit('nValTre', result.reverse());
+//					console.log("ho recuperato " + result.length + " elementi di postazione 3");
+	console.log("ho recuperato " + result.length + " elementi");
+//	console.log(datain + " diventa " + new Date(datain));   	
+	io.emit('postazioneUno', result.reverse());
 	})
 
 });  
