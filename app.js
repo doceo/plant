@@ -5,7 +5,7 @@ const path=require('path');
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const MongoClient = require('mongodb').MongoClient;
-const ObjectId = require('mongodb').ObjectId;
+//const ObjectId = require('mongodb').ObjectId;
 
 var bodyParser = require('body-parser');
 
@@ -63,22 +63,22 @@ app.post('/nval', function(req, res) {
 	console.log(nVal);
 
 //	res.send();
-	Ntemp = nVal;
+//	Ntemp = nVal;
 
-/*	db.collection('rilevazioni').find({postazione : 1}).limit(nVal).toArray( function (err, result) {
+	db.collection('rilevazioni').find({postazione : 1},{sort:{data:-1}}).limit(nVal).toArray( function (err, result) {
 		console.log("ho recuperato " + result.length + " elementi di postazione 1");
    		io.emit('nValUno', result.reverse());
 	});
-	db.collection('rilevazioni').find({postazione : 2}).limit(nVal).toArray( function (err, result) {
+	db.collection('rilevazioni').find({postazione : 2},{sort:{data:-1}}).limit(nVal).toArray( function (err, result) {
 		console.log("ho recuperato " + result.length + " elementi di postazione 2");
    		io.emit('nValDue', result.reverse());
 	});
-	db.collection('rilevazioni').find({postazione : 3}).limit(nVal).toArray( function (err, result) {
+	db.collection('rilevazioni').find({postazione : 3},{sort:{data:-1}}).limit(nVal).toArray( function (err, result) {
 		console.log("ho recuperato " + result.length + " elementi di postazione 3");
    		io.emit('nValTre', result.reverse());
 	});
-*/
 
+res.send("ricevuti i dati");
 });
 
 
@@ -176,10 +176,16 @@ io.on('connection', function (socket) {
   console.log('richiesta di connessione dal client');
   console.log('invio tutte le temperature');
   
+//db.collection('rilevazioni').find({postazione : 1},{sort:{data:-1}}).limit(Ntemp).toArray( function (err, result) {
+//  console.log(result);
+//   socket.emit('postazioneUno', result.reverse());
+//  });
+
 db.collection('rilevazioni').find({postazione : 1},{sort:{data:-1}}).limit(Ntemp).toArray( function (err, result) {
 //  console.log(result);
    socket.emit('postazioneUno', result.reverse());
   });
+
   
 db.collection('rilevazioni').find({postazione : 2},{sort:{data:-1}}).limit(Ntemp).toArray( function (err, result) {
 //  console.log(result);
