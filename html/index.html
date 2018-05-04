@@ -411,13 +411,14 @@ socket.on('newData', function(record){
           var dataAcq = new Date(record.data);
 
           if(record.postazione==1) {
+	console.log("entro in postazione 1");
           date1.push(moment(dataAcq).format("DD/MM/YY HH:mm"));
           console.log("aggiunto nuovo valore!");
           temperature1.push(parseFloat(record.temperature));
           console.log(record.temperature);
           humidity1.push(parseInt(record.humidity));
           console.log(record.humidity);
-          hygroTermal1.push(parseInt(record.hygroThermal));
+          hygroThermal1.push(parseInt(record.hygroThermal));
           console.log(record.hygroThermal);
 
           var pElhygro = date1.shift();
@@ -434,7 +435,7 @@ socket.on('newData', function(record){
           console.log(record.temperature);
           humidity2.push(parseInt(record.humidity));
           console.log(record.humidity);
-          hygroTermal2.push(parseInt(record.hygroThermal));
+          hygroThermal2.push(parseInt(record.hygroThermal));
           console.log(record.hygroThermal);
 
           var pElhygro = date2.shift();
@@ -451,7 +452,7 @@ socket.on('newData', function(record){
           console.log(record.temperature);
           humidity3.push(parseInt(record.humidity));
           console.log(record.humidity);
-          hygroTermal3.push(parseInt(record.hygroThermal));
+          hygroThermal3.push(parseInt(record.hygroThermal));
           console.log(record.hygroThermal);
 
           var pElhygro = date3.shift();
