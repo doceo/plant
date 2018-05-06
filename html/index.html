@@ -112,29 +112,21 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
 function invia(){
 	nVal = parseInt($("#num").val());
 	console.log(nVal);
+
+	if (nVal == 0){
+//        	document.getElementById("error").innerHTML = "<div class=\"alert alert-danger\" role=\"alert\">si è scelto un valore nullo</div>";
+		alert("hai inserito un valore nullo");
+	}else{
 	$.post("nval",
 
 	    {	
 		numV: nVal,
 
-  	});
-	
+  	    });
+        	document.getElementById("error").innerHTML = "";	
+	}
 };
 
-/*
-function invia(){
-	nVal = parseInt($("#num").val());
-	console.log(nVal);
-	$.get("nval",
-		
-	    {	
-		numV: nVal,
-
-  	});
-	
-};
-
-*/
 
 </script>
 
@@ -593,7 +585,7 @@ var chart3 = new Chart(ctx3, {
                                   data: humidity3,
                                   yAxisID: 'second-y-axis'
         },{
-                     clabel: "Umidità del terreno",
+                     label: "Umidità del terreno",
                                   //           backgroundColor: 'red',
                                   borderColor: 'green',
                                   data: hygroThermal3,
