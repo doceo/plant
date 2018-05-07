@@ -109,7 +109,13 @@ function invia(){
 	dataIn = new Date($("#datain").val());
 	dataOut = new Date($("#dataout").val());
 
-//ordinare le date
+
+	//ordinare le date
+	if(dataOut < dataIn){
+		var temp = dataIn;
+		dataIn = dataOut;
+		dataOut = temp;
+	}
 
 	console.log(dataIn);
 
@@ -130,10 +136,18 @@ function invia(){
   var tempM1=0;
   var humidM1=0;
 
+function VerificaRicerca(data){
+	if (data.length == 0){
+		alert("in questo range non ci sono rilevazioni");
+	}
+};
+
 function AverageP1(data){
     Nel = data.length;
     console.log(Nel);
-    data.forEach(function (record){
+
+if (data.length!=0){
+    	data.forEach(function (record){
              tempM1 = tempM1 + record.temperature;
              humidM1 = humidM1 + record.humidity;
              hygroM1 = hygroM1 + record.hygroThermal;
@@ -152,6 +166,7 @@ function AverageP1(data){
              document.getElementById("tempM1").innerHTML = tempM1;
              document.getElementById("humidM1").innerHTML = humidM1;
              document.getElementById("hygroM1").innerHTML = hygroM1;
+}
 };
 /*
         function AverageP2(){
@@ -214,7 +229,8 @@ function AverageP1(data){
 
 socket.on('postazioneUno', function(data){
 
-	   AverageP1(data);
+	  VerificaRicerca(data);
+	  AverageP1(data);
 //azzero i vettori, qualora la pagina fosse già nella memoria del browser
           date1.splice(0, date1.length);
           temperature1.splice(0, temperature1.length);
@@ -239,6 +255,7 @@ socket.on('postazioneUno', function(data){
 
 socket.on('postazioneDue', function(data){
 
+	  VerificaRicerca(data);
           //azzero i vettori, qualora la pagina fosse già nella memoria del browser
           date2.splice(0, date2.length);
           temperature2.splice(0, temperature2.length);
@@ -262,6 +279,7 @@ socket.on('postazioneDue', function(data){
 
 socket.on('postazioneTre', function(data){
 
+	  VerificaRicerca(data);
           //azzero i vettori, qualora la pagina fosse già nella memoria del browser
           date3.splice(0, date3.length);
           temperature3.splice(0, temperature3.length);
