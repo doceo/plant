@@ -1,5 +1,11 @@
 # Change Log
 
+## UNVERSIONING
+- modifica dei grafici: aggiunta di 3 curve per postazione;
+- acquisizione dati con Mqtt
+- modifica delle collezioni del database MongoDB
+- modifica dell'estrapolazione di dati dal database
+
 ## [2.2]
 - risolto un bug sull'invio dei dati, venivano visualizzati a partire dal primo e quindi ignorati tutti i campioni rilevati dopo il 150-esimo. Ora vengono inviati al client a partire dall'ultimo memorizzato e il client ordinerà il vettore in modo da visualizzarli correttamente. 
 
