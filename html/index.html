@@ -1,4 +1,4 @@
-<!Doctype html>
+﻿<!Doctype html>
 <html lang="it">
     
 <head>
@@ -33,75 +33,123 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
 
 <body>
         
-	<div class="header">
-	  <h1 class="text-center">Ultimi valori raccolti</h1>
-	</div><!--div header-->
+ <div class="header">
+   <h1 class="text-center">Ultimi valori raccolti</h1>
+ </div><!--div header-->
         
 <div class="container">
 
-	
-    	<div class="row justify-content-md-center">
-	<div class="col-md-3">
-    		<label for="numVal">Numero di valori da visualizzare</label>
-	</div>
-	</div>
+ 
+     <div class="row justify-content-md-center">
+ <div class="col-md-3">
+      <label for="numVal">Numero di valori da visualizzare</label>
+ </div>
+ </div>
 
-	<div class="row justify-content-md-center">
-			<div class="col-md-3">
-    				<input type="number" class="form-control" id="num">
-  			</div>
-			<div class="col-md-2">
-				<button type="submit" class="btn btn-primary" onclick="invia()">Invia</button>
-  			</div>
-		</div>
-		
-	<div class="row">
-	<div class="col-md-4">	
-	 	<div id="error"></div>
-	</div>
-	</div><!-- row -->
+ <div class="row justify-content-md-center">
+   <div class="col-md-3">
+        <input type="number" class="form-control" id="num">
+     </div>
+   <div class="col-md-2">
+    <button type="submit" class="btn btn-primary" onclick="invia()">Invia</button>
+     </div>
+  </div>
+  
+ <div class="row">
+ <div class="col-md-4"> 
+   <div id="error"></div>
+ </div>
+ </div><!-- row -->
 
 
     <div class="row">
         <div class="col-md-10">
             <h2 class="text-center">Postazione 1</h2>
             <canvas id="post_1"></canvas>
-    	</div>
+     </div>
     
-	    <div class="col-md-2">
-		<div class="row">
-		    <h2 class="text-center">Valori Medi</h2>
-		</div>
-		
-	    	<div class="row">
-		<span class="btn btn-primary" style="width: 180px"> Temperatura<br>
-			<span class="badge badge-light"><div id="tempM1"></div></span>
-		</span>
-		</div>
-	    
-		<div class="row">
-		<span class="btn btn-success" style="width: 180px"> Umidità dell'aria<br>
-			<span class="badge badge-light"><div id="humidM1"></div></span>
-		</span>
-	    	</div>
+     <div class="col-md-2">
+     <div class="row">
+       <h2 class="text-center">Valori Medi</h2>
+  </div>
+  
+      <div class="row">
+  <span class="btn btn-primary" style="width: 180px"> Temperatura<br>
+   <span class="badge badge-light"><div id="tempM1"></div></span>
+  </span>
+  </div>
+     
+  <div class="row">
+  <span class="btn btn-success" style="width: 180px"> Umidità dell'aria<br>
+   <span class="badge badge-light"><div id="humidM1"></div></span>
+  </span>
+      </div>
 
-		<div class="row">
-	    	<span class="btn btn-danger" style="width: 180px"> Umidità del suolo<br>
-			<span class="badge badge-light"><div id="hygroM1"></div></span>
-	    	</span>
-	    </div>
-	</div>
+  <div class="row">
+      <span class="btn btn-danger" style="width: 180px"> Umidità del suolo<br>
+   <span class="badge badge-light"><div id="hygroM1"></div></span>
+      </span>
+     </div>
+ </div>
 
     <div class="row">
         <div class="col-md-10">
             <h2 class="text-center">Postazione 2</h2>
-                <canvas id="post_2"></canvas>
-        </div><!--div-col-md-10-->
-    </div>
+            <canvas id="post_2"></canvas>
+            </div>
+        
+            <div class="col-md-2">
+                <div class="row">
+                    <h2 class="text-center">Valori Medi</h2>
+                </div>
+                
+                <div class="row">
+                    <span class="btn btn-primary" style="width: 180px"> Temperatura<br>
+                        <span class="badge badge-light"><div id="tempM1"></div></span>
+                    </span>
+                </div>
+                
+                <div class="row">
+                    <span class="btn btn-success" style="width: 180px"> Umidità dell'aria<br>
+                        <span class="badge badge-light"><div id="humidM1"></div></span>
+                    </span>
+                </div>
+                
+                <div class="row">
+                    <span class="btn btn-danger" style="width: 180px"> Umidità del suolo<br>
+                        <span class="badge badge-light"><div id="hygroM1"></div></span>
+                    </span>
+                </div>
+            </div>
 
     <div class="row">
         <div class="col-md-10">
             <h2 class="text-center">Postazione 3</h2>
+<canvas id="post_3"></canvas>
+            </div>
+        
+        <div class="col-md-2">
+            <div class="row">
+                <h2 class="text-center">Valori Medi</h2>
+                </div>
+             <div class="row">
+                 <span class="btn btn-primary" style="width: 180px"> Temperatura<br>
+                    <span class="badge badge-light"><div id="tempM3"></div></span>
+                </span>
+            </div>
+            
+            <div class="row">
+                <span class="btn btn-success" style="width: 180px"> Umidità dell'aria<br>
+                    <span class="badge badge-light"><div id="humidM3"></div></span>
+                </span>
+            </div>
+            
+            <div class="row">
+                <span class="btn btn-danger" style="width: 180px"> Umidità del suolo<br>
+                    <span class="badge badge-light"><div id="hygroM3"></div></span>
+                </span>
+            </div>
+        </div>
                 <canvas id="post_3"></canvas>
         </div><!--div row-->
     </div>
@@ -110,21 +158,21 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
 <script>
 
 function invia(){
-	nVal = parseInt($("#num").val());
-	console.log(nVal);
+ nVal = parseInt($("#num").val());
+ console.log(nVal);
 
-	if (nVal == 0){
-//        	document.getElementById("error").innerHTML = "<div class=\"alert alert-danger\" role=\"alert\">si è scelto un valore nullo</div>";
-		alert("hai inserito un valore nullo");
-	}else{
-	$.post("nval",
+ if (nVal == 0){
+//         document.getElementById("error").innerHTML = "<div class=\"alert alert-danger\" role=\"alert\">si è scelto un valore nullo</div>";
+  alert("hai inserito un valore nullo");
+ }else{
+ $.post("nval",
 
-	    {	
-		numV: nVal,
+     { 
+  numV: nVal,
 
-  	    });
+       });
 
-	}
+ }
 };
 
 
@@ -134,64 +182,118 @@ function invia(){
 <script>
 //Media valori
 
- 
+function invia(){
+    dataIn = new Date($("#datain").val());
+    dataOut = new Date($("#dataout").val());
+
+//ordinare le date
+if(dataOut < dataIn){
+    var temp = dataIn;
+    dataIn = dataOut;
+    dataOut = temp;
+}
+
+console.log(dataIn);
+
+$.post("range",
+
+       {
+       dataIn: dataIn,
+       dataOut: dataOut,
+       });
+};
+
+var socket = io();
 
   var Nel;
   var hygroM1=0;
   var tempM1=0;
   var humidM1=0;
+  
+ 
+  
+function VerificaRicerca(data){
+    if (data.length == 0){
+        alert("in questo range non ci sono rilevazioni");
+    }
+};
 
 function AverageP1(data){
     Nel = data.length;
-//    console.log(Nel);
+    console.log(Nel);
+
+if (data.length!=0){
     data.forEach(function (record){
              tempM1 = tempM1 + record.temperature;
              humidM1 = humidM1 + record.humidity;
              hygroM1 = hygroM1 + record.hygroThermal;
 
-//	     console.log(record);
+      console.log(record);
              });
 
              tempM1 = parseInt(10*tempM1/Nel)/10;
              humidM1 = parseInt(10*humidM1/Nel)/10;
              hygroM1 = parseInt(10*hygroM1/Nel)/10;
-//	     console.log(tempM1);
-//	     console.log(humidM1);
-//	     console.log(hygroM1);
+         
+         console.log(tempM1);
+         console.log(humidM1);
+         console.log(hygroM1);
              
              document.getElementById("tempM1").innerHTML = tempM1;
              document.getElementById("humidM1").innerHTML = humidM1;
              document.getElementById("hygroM1").innerHTML = hygroM1;
+}
 };
-/*
-        function AverageP2(){
-            data.forEach(function (record){
-                         tempM1 = tempM1 + record.temperatura;
-                         humidM1 = humidM1 + record.humidity;
-                         hygroM1 = hygroM1 + record.hygroTermal;
-                         });
-                         tempM1 = temp1/Nel;
-                         humidM1 = humidM1/Nel;
-                         hygroM1 = hygroM1/Nel;
+		var Nel2;
+		var hygroM2=0;
+		var tempM2=0;
+		var humidM2=0;
+
+        function AverageP2(data){
+		Nel = data.length;
+		console.log(Nel);
+		
+            if (data.length!=0){
+             data.forEach(function (record){
+             tempM2 = tempM1 + record.temperature;
+             humidM2 = humidM1 + record.humidity;
+             hygroM2 = hygroM1 + record.hygroThermal;
+             
+			 
+			 console.log(record);
+             });
+
+                         tempM2 = parseInt(10*tempM1/Nel)/10;
+                         humidM2 = parseInt(10*humidM1/Nel)/10;
+                         hygroM2 = parseInt(10*hygroM1/Nel)/10;
+						 
+						   console.log(tempM2);
+                           console.log(humidM2);
+                           console.log(hygroM2);
+             
                          
-                         document.getElementById("tempM1").innerHTML = tempM1:
-                         document.getElementById("HumidM1").innerHTML = HumidM1:
-                         document.getElementById("HygroM1").innerHTML = HygroM1;
-        };
+                         document.getElementById("tempM2").innerHTML = tempM2;
+                         document.getElementById("humidM2").innerHTML = HumidM2;
+                         document.getElementById("hygroM2").innerHTML = hygroM2;
+        }
+		};
+		
+		var hygroM3=0;
+		var tempM3=0;
+		var humidM3=0;
         
         function AverageP3(){
             data.forEach(function (record){
-                         tempM1 = tempM1 + record.temperatura;
-                         humidM1 = humidM1 + record.humidity;
-                         hygroM1 = hygroM1 + record.hygroTermal;
+                         tempM3 = tempM3 + record.temperatura;
+                         humidM3 = humidM3 + record.humidity;
+                         hygroM3 = hygroM3 + record.hygroTermal;
                          });
-                         tempM1 = temp1/Nel;
-                         humidM1 = humidM1/Nel;
-                         hygroM1 = hygroM1/Nel;
-                         
-                         document.getElementById("tempM1").innerHTML = tempM1:
-                         document.getElementById("HumidM1").innerHTML = HumidM1:
-                         document.getElementById("HygroM1").innerHTML = HygroM1;
+                         tempM3 = parseInt(10*temp3/Nel)/10;
+                         humidM3 = parseInt(10*humidM3/Nel)/10;
+                         hygroM3 = parseInt(10*hygroM3/Nel)/10;
+document.getElementById("tempM3").innerHTML = tempM1;
+                         document.getElementById("HumidM3").innerHTML = HumidM1;
+                         document.getElementById("HygroM3").innerHTML = HygroM1;
         };
 
 
@@ -251,9 +353,9 @@ function AverageP1(data){
         var hygroThermal3  = new Array();
         
 socket.on('nValUno', function(data){
-		
-	  console.log("ricevo il vettore nuovo di " + data.length + " elementi");
-	  AverageP1(data);
+  
+   console.log("ricevo il vettore nuovo di " + data.length + " elementi");
+   AverageP1(data);
 //azzero i vettori, qualora la pagina fosse già nella memoria del browser
           date1.splice(0, date1.length);
           temperature1.splice(0, temperature1.length);
@@ -275,8 +377,8 @@ socket.on('nValUno', function(data){
 });
 
 socket.on('nValDue', function(data){
-		
-	  console.log("ricevo il vettore nuovo di " + data.length + " elementi");
+  
+   console.log("ricevo il vettore nuovo di " + data.length + " elementi");
          //azzero i vettori, qualora la pagina fosse già nella memoria del browser
           date2.splice(0, date2.length);
           temperature2.splice(0, temperature2.length);
@@ -300,8 +402,8 @@ socket.on('nValDue', function(data){
 
 
 socket.on('nValTre', function(data){
-		
-	  console.log("ricevo il vettore nuovo di " + data.length + " elementi");
+  
+   console.log("ricevo il vettore nuovo di " + data.length + " elementi");
          //azzero i vettori, qualora la pagina fosse già nella memoria del browser
           date3.splice(0, date3.length);
           temperature3.splice(0, temperature3.length);
@@ -312,7 +414,8 @@ socket.on('nValTre', function(data){
 
           data.forEach(function (record){
 
-                       var dataAcq = new Date(record.data);
+                       var data
+Acq = new Date(record.data);
                        //per record intendiamo ogni elemento del vettore
                        //costruisco il vettore delle ascisse del primo grafico
                        date3.push(moment(dataAcq).format("DD/MM/YY HH:mm"));
@@ -325,7 +428,7 @@ socket.on('nValTre', function(data){
 
 socket.on('postazioneUno', function(data){
 
-	   AverageP1(data);
+    AverageP1(data);
 //azzero i vettori, qualora la pagina fosse già nella memoria del browser
           date1.splice(0, date1.length);
           temperature1.splice(0, temperature1.length);
@@ -347,6 +450,7 @@ socket.on('postazioneUno', function(data){
 });
 
 socket.on('postazioneDue', function(data){
+
 
           //azzero i vettori, qualora la pagina fosse già nella memoria del browser
           date2.splice(0, date2.length);
@@ -403,7 +507,7 @@ socket.on('newData', function(record){
           var dataAcq = new Date(record.data);
 
           if(record.postazione==1) {
-	console.log("entro in postazione 1");
+ console.log("entro in postazione 1");
           date1.push(moment(dataAcq).format("DD/MM/YY HH:mm"));
           console.log("aggiunto nuovo valore!");
           temperature1.push(parseFloat(record.temperature));
@@ -492,7 +596,7 @@ var chart1 = new Chart(ctx1, {
 
     // Configuration options go here
     options: {
-   	
+    
                        scales: {
                        yAxes: [{
                                id: 'first-y-axis',
@@ -529,7 +633,7 @@ var chart2 = new Chart(ctx2, {
                                   yAxisID: 'first-y-axis'
         },{
                        label: "Umidità dell'aria",
-                                  //backgroundColor: 'red',
+//backgroundColor: 'red',
                                   borderColor: 'red',
                                   data: humidity2,
                                   yAxisID: 'second-y-axis'
@@ -545,7 +649,7 @@ var chart2 = new Chart(ctx2, {
 
     // Configuration options go here
     options: {
-   	scales: {
+    scales: {
                        yAxes: [{
                                id: 'first-y-axis',
                                type: 'linear',
@@ -596,7 +700,7 @@ var chart3 = new Chart(ctx3, {
 
                        // Configuration options go here
                        options: {
-//	      
+//       
                        scales: {
                        yAxes: [{
                                id: 'first-y-axis',
@@ -613,5 +717,5 @@ var chart3 = new Chart(ctx3, {
             </script>
                 </div>
         </body>
-		
+  
     </html>
