@@ -88,10 +88,10 @@ void loop()
 
   
   
-  puntoAcq = String(random(1,4));
-  temp = String(random(-4,35));
-  terUm = String(random(0, 90));
-  AriaUm = String(random(0, 90));
+  puntoAcq = String(2);
+  temp = String(random(15,30));
+  terUm = String(random(0, 60));
+  AriaUm = String(random(30, 90));
   //YYYY-MM-dd hh:mm:ss
   String MM = '0' + String(4 ); // String(random(1,13));
   MM = MM.substring(MM.length() - 2, MM.length());
