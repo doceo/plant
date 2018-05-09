@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 app.use(log('dev'));
 //connessione del client a mongodb
-MongoClient.connect('mongodb://127.0.0.1:27017/terreno', function (err, database) {
+MongoClient.connect('mongodb://192.168.1.248:27017/terreno', function (err, database) {
 
   if (err) return console.log(err)
   db = database;
@@ -32,7 +32,7 @@ MongoClient.connect('mongodb://127.0.0.1:27017/terreno', function (err, database
 
 //rendo possibile il collegamento ad un broker mqtt esterno
 var mqtt = require('mqtt');  
-var mqttClient = mqtt.connect('mqtt://127.0.0.1:1883', {
+var mqttClient = mqtt.connect('mqtt://192.168.1.248:1883', {
 	clean: true,
     clientId: 'nodeJS'
 });  
