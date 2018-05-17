@@ -1,6 +1,8 @@
 const app = require('express')();
 const log=require('morgan');
 const path=require('path');
+const express = require('express');
+app.use(express.static('/js'));
 
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
@@ -28,11 +30,9 @@ MongoClient.connect('mongodb://127.0.0.1:27017/terreno', function (err, database
 });
 
 
-
-
 //rendo possibile il collegamento ad un broker mqtt esterno
 var mqtt = require('mqtt');  
-var mqttClient = mqtt.connect('mqtt://127.0.0.1:1883', {
+var mqttClient = mqtt.connect('mqtt://192.168.1.248:1883', {
 	clean: true,
     clientId: 'nodeJS'
 });  
@@ -110,6 +110,25 @@ app.post('/range', function(req, res) {
 	io.emit('postazioneUno', result.reverse());
 	})
 
+	db.collection('rilevazioni').find({postazione : 2,
+					 data: { $gt: new Date(datain) , $lt: new Date(dataout) },						
+						},
+					{sort:{data:-1}}).toArray( function (err, result) {
+//					console.log("ho recuperato " + result.length + " elementi di postazione 3");
+	console.log("ho recuperato " + result.length + " elementi");
+//	console.log(datain + " diventa " + new Date(datain));   	
+	io.emit('postazioneDue', result.reverse());
+	})
+	
+	db.collection('rilevazioni').find({postazione : 3,
+					 data: { $gt: new Date(datain) , $lt: new Date(dataout) },						
+						},
+					{sort:{data:-1}}).toArray( function (err, result) {
+//					console.log("ho recuperato " + result.length + " elementi di postazione 3");
+	console.log("ho recuperato " + result.length + " elementi");
+//	console.log(datain + " diventa " + new Date(datain));   	
+	io.emit('postazioneTre', result.reverse(), console.log('Prova'));
+	})
 });  
   
 mqttClient.on('message', (topic, message) => {  

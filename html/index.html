@@ -12,12 +12,11 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
                 
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
+
+
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -155,34 +154,35 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
     </div>
 </div>
 
-<script>
+<script type="script/javascript" src="./js/functions.js">
 
-function invia(){
- nVal = parseInt($("#num").val());
- console.log(nVal);
+	function invia(){};
+ 
+ 
+ //nVal = parseInt($("#num").val());
+ //console.log(nVal);
 
- if (nVal == 0){
-//         document.getElementById("error").innerHTML = "<div class=\"alert alert-danger\" role=\"alert\">si è scelto un valore nullo</div>";
-  alert("hai inserito un valore nullo");
- }else{
- $.post("nval",
+ //if (nVal == 0){
+   //     document.getElementById("error").innerHTML = "<div class=\"alert alert-danger\" role=\"alert\">si è scelto un valore nullo</div>";
+  // alert("hai inserito un valore nullo");
+ // }else{
+ // $.post("nval",
 
-     { 
-  numV: nVal,
+  //   { 
+  // numV: nVal,
 
-       });
+   //    });
 
- }
-};
-
-
-</script>
+ // }
+// (( }; 
 
 
-<script>
+// </script> 
+
+
+ <script type="script/javascript" src="./js/functions.js">
 //Media valori
-
-function invia(){
+/*function invia(){
     dataIn = new Date($("#datain").val());
     dataOut = new Date($("#dataout").val());
 
@@ -201,7 +201,7 @@ $.post("range",
        dataIn: dataIn,
        dataOut: dataOut,
        });
-};
+};*/
 
 var socket = io();
 
@@ -210,9 +210,12 @@ var socket = io();
   var tempM1=0;
   var humidM1=0;
   
+ VerificaRicerca(data); 
  
-  
-function VerificaRicerca(data){
+ 
+  AverageP1(data); 
+  /*function VerificaRicerca(data)
+{
     if (data.length == 0){
         alert("in questo range non ci sono rilevazioni");
     }
@@ -309,7 +312,7 @@ if (data.length!=0){
                          document.getElementById("humidM3").innerHTML = humidM3;
                          document.getElementById("hygroM3").innerHTML = hygroM3;
         }
-		};
+		}; */
 		
 
   var temp1  = new Array();
@@ -391,7 +394,7 @@ socket.on('nValUno', function(data){
 });
 
 socket.on('nValDue', function(data){
-  
+    AverageP2(data);
    console.log("ricevo il vettore nuovo di " + data.length + " elementi");
          //azzero i vettori, qualora la pagina fosse già nella memoria del browser
           date2.splice(0, date2.length);
@@ -416,7 +419,7 @@ socket.on('nValDue', function(data){
 
 
 socket.on('nValTre', function(data){
-  
+   AverageP3(data);
    console.log("ricevo il vettore nuovo di " + data.length + " elementi");
          //azzero i vettori, qualora la pagina fosse già nella memoria del browser
           date3.splice(0, date3.length);
@@ -428,8 +431,8 @@ socket.on('nValTre', function(data){
 
           data.forEach(function (record){
 
-                       var data
-Acq = new Date(record.data);
+                     //  var data;
+var dataAcq = new Date(record.data);
                        //per record intendiamo ogni elemento del vettore
                        //costruisco il vettore delle ascisse del primo grafico
                        date3.push(moment(dataAcq).format("DD/MM/YY HH:mm"));
@@ -442,7 +445,7 @@ Acq = new Date(record.data);
 
 socket.on('postazioneUno', function(data){
 
-    AverageP1(data);
+   function AverageP1(data){};
 //azzero i vettori, qualora la pagina fosse già nella memoria del browser
           date1.splice(0, date1.length);
           temperature1.splice(0, temperature1.length);
@@ -465,7 +468,7 @@ socket.on('postazioneUno', function(data){
 
 socket.on('postazioneDue', function(data){
 
-			AverageP2(data);
+			function AverageP2(data){};
           //azzero i vettori, qualora la pagina fosse già nella memoria del browser
           date2.splice(0, date2.length);
           temperature2.splice(0, temperature2.length);
@@ -489,7 +492,7 @@ socket.on('postazioneDue', function(data){
 
 socket.on('postazioneTre', function(data){
 
-		  AverageP3(data);
+		  function AverageP3(data){};
 
           //azzero i vettori, qualora la pagina fosse già nella memoria del browser
           date3.splice(0, date3.length);
