@@ -180,28 +180,7 @@ function invia(){
 
 
 <script>
-//Media valori
 
-function invia(){
-    dataIn = new Date($("#datain").val());
-    dataOut = new Date($("#dataout").val());
-
-//ordinare le date
-if(dataOut < dataIn){
-    var temp = dataIn;
-    dataIn = dataOut;
-    dataOut = temp;
-}
-
-console.log(dataIn);
-
-$.post("range",
-
-       {
-       dataIn: dataIn,
-       dataOut: dataOut,
-       });
-};
 
 var socket = io();
 
@@ -209,12 +188,12 @@ var socket = io();
   var hygroM1=0;
   var tempM1=0;
   var humidM1=0;
-
-function VerificaRicerca(data){
-    if (data.length == 0){
-        alert("in questo range non ci sono rilevazioni");
-    }
-};
+  var hygroM2=0;
+  var tempM2=0;
+  var humidM2=0;
+  var hygroM3=0;
+  var tempM3=0;
+  var humidM3=0;
 
 function AverageP1(data){
     Nel = data.length;
@@ -233,7 +212,7 @@ if (data.length!=0){
              humidM1 = parseInt(10*humidM1/Nel)/10;
              hygroM1 = parseInt(10*hygroM1/Nel)/10;
          
-         console.log(tempM1);
+             console.log(tempM1);
 	     console.log(humidM1);
 	     console.log(hygroM1);
              
@@ -243,34 +222,43 @@ if (data.length!=0){
 }
 };
 
-        function AverageP2(){
+        function AverageP2(data){
             data.forEach(function (record){
-                         tempM2 = tempM2 + record.temperatura;
+                         tempM2 = tempM2 + record.temperature;
                          humidM2 = humidM2 + record.humidity;
-                         hygroM2 = hygroM2 + record.hygroTermal;
+                         hygroM2 = hygroM2 + record.hygroThermal;
                          });
-                         tempM2 = parseInt(10*temp2/Nel)/10;
+
+            		console.log(tempM2);
+	     		console.log(humidM2);
+	     		console.log(hygroM2);
+
+                         tempM2 = parseInt(10*tempM2/Nel)/10;
                          humidM2 = parseInt(10*humidM2/Nel)/10;
                          hygroM2 = parseInt(10*hygroM2/Nel)/10;
                          
-                         document.getElementById("tempM2").innerHTML = tempM1;
-                         document.getElementById("HumidM2").innerHTML = HumidM1;
-                         document.getElementById("HygroM2").innerHTML = HygroM1;
+                         document.getElementById("tempM2").innerHTML = tempM2;
+                         document.getElementById("humidM2").innerHTML = humidM2;
+                         document.getElementById("hygroM2").innerHTML = hygroM2;
         };
         
-        function AverageP3(){
+        function AverageP3(data){
             data.forEach(function (record){
-                         tempM3 = tempM3 + record.temperatura;
+                         tempM3 = tempM3 + record.temperature;
                          humidM3 = humidM3 + record.humidity;
-                         hygroM3 = hygroM3 + record.hygroTermal;
+                         hygroM3 = hygroM3 + record.hygroThermal;
                          });
-                         tempM3 = parseInt(10*temp3/Nel)/10;
+                         tempM3 = parseInt(10*tempM3/Nel)/10;
                          humidM3 = parseInt(10*humidM3/Nel)/10;
                          hygroM3 = parseInt(10*hygroM3/Nel)/10;
+
+            		 console.log(tempM3);
+	     		 console.log(humidM3);
+	     		 console.log(hygroM3);
                          
-                         document.getElementById("tempM3").innerHTML = tempM1;
-                         document.getElementById("HumidM3").innerHTML = HumidM1;
-                         document.getElementById("HygroM3").innerHTML = HygroM1;
+                         document.getElementById("tempM3").innerHTML = tempM3;
+                         document.getElementById("humidM3").innerHTML = humidM3;
+                         document.getElementById("hygroM3").innerHTML = hygroM3;
         };
 
 
@@ -404,7 +392,7 @@ socket.on('nValTre', function(data){
 
 socket.on('postazioneUno', function(data){
 
-	   AverageP1(data);
+	  AverageP1(data);
 //azzero i vettori, qualora la pagina fosse già nella memoria del browser
           date1.splice(0, date1.length);
           temperature1.splice(0, temperature1.length);
@@ -427,6 +415,7 @@ socket.on('postazioneUno', function(data){
 
 socket.on('postazioneDue', function(data){
 
+	  AverageP2(data);
           //azzero i vettori, qualora la pagina fosse già nella memoria del browser
           date2.splice(0, date2.length);
           temperature2.splice(0, temperature2.length);
@@ -449,7 +438,7 @@ socket.on('postazioneDue', function(data){
 });
 
 socket.on('postazioneTre', function(data){
-
+	  AverageP3(data);
           //azzero i vettori, qualora la pagina fosse già nella memoria del browser
           date3.splice(0, date3.length);
           temperature3.splice(0, temperature3.length);
