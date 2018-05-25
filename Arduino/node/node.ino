@@ -40,7 +40,7 @@ void loop() {
   if (DHT.read(DHT11_PIN) == DHTLIB_OK) {
     Serial.println("DHT11 read");
     byte hygro = map(analogRead(HYGRO), 0, 1023, 100, 0);
-    String data = (String)NODE_ID + "," + (String)DHT.temperature + "," + (String)DHT.humidity + "," + (String)hygro;
+    String data = (String)NODE_ID + "," + (String)DHT.temperature + "," + (String)hygro + "," + (String)DHT.humidity;
     Serial.println(data);
     uint8_t buffer[RH_NRF24_MAX_MESSAGE_LEN];
     data.toCharArray(buffer, data.length() + 1);
