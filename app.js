@@ -32,7 +32,7 @@ MongoClient.connect('mongodb://127.0.0.1:27017/terreno', function (err, database
 
 //rendo possibile il collegamento ad un broker mqtt esterno
 var mqtt = require('mqtt');  
-var mqttClient = mqtt.connect('mqtt://127.0.0.1:1883', {
+var mqttClient = mqtt.connect('mqtt://192.168.1.115:1883', {
 	clean: true,
     clientId: 'nodeJS'
 });  
@@ -119,14 +119,14 @@ mqttClient.on('message', (topic, message) => {
   	var dato = msg.split(",");
 	
 
-	var data =dato[4].split("-");
-	var dataAcq = new Date(parseInt(data[0]),parseInt(data[1]-1),parseInt(data[2]),
-	parseInt(data[3]),parseInt(data[4]),parseInt(data[5]));
+//	var data =dato[4].split("-");
+//	var dataAcq = new Date(parseInt(data[0]),parseInt(data[1]-1),parseInt(data[2]),
+//	parseInt(data[3]),parseInt(data[4]),parseInt(data[5]));
 
 /*utiliziamo la data generata dal server solo nel caso in cui il simulatore del client
 non è ingrado di generarne una attendibile*/
 
-//	var dataAcq = new Date();
+	var dataAcq = new Date();
 
 	console.log("");
 	console.log("");	
