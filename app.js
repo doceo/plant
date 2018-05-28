@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 app.use(log('dev'));
 //connessione del client a mongodb
-MongoClient.connect('mongodb://127.0.0.1:27017/terreno', function (err, database) {
+MongoClient.connect('mongodb://diomDB:Neru65da_@ds237620.mlab.com:37620/heroku_zn28dl17', function (err, database) {
 
   if (err) return console.log(err)
   db = database;
