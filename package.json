@@ -4,7 +4,9 @@
   "description": "applicazione di esempio per acquisizione ed esposizione di dati relativi all'umidità del terreno",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+   "start": "node app.js",
+   "test": "echo \"Error: no test specified\" && exit 1"
+ 
   },
   "keywords": [
     "arduino",
