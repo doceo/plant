@@ -1,6 +1,7 @@
 const app = require('express')();
 const log=require('morgan');
 const path=require('path');
+const mqtt = require('mqtt');
 
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
@@ -31,20 +32,34 @@ MongoClient.connect('mongodb://diomDB:Cawethubezt4Dro@ds237620.mlab.com:37620/he
 
 
 //rendo possibile il collegamento ad un broker mqtt esterno
-var mqtt = require('mqtt');  
-var mqttClient = mqtt.connect('mqtt://192.168.1.115:1883', {
-	clean: true,
-    clientId: 'nodeJS'
-});  
+//var mqtt = require('mqtt');  
+//var mqttClient = mqtt.connect('mqtt://192.168.1.115:1883', {
+//	clean: true,
+//    clientId: 'nodeJS'
+//});  
 
-mqttClient.on('connect', (connack) => {  
+
+  var my_topic_name = 'acqDati';
+
+  var client = mqtt.connect('mqtts://io.adafruit.com',{
+    port: 8883,
+    username: 'diomede',
+    password: '30e0f9943a9243768e5c6af82fbbc16a'
+  });
+
+  client.on('connect', (connack) => {  
   if (connack.sessionPresent) {
     console.log('Already subbed, no subbing necessary');
   } else {
     console.log('First session! Subbing.');
-    mqttClient.subscribe('acqDati', { qos: 2 });
+    client.subscribe('acqDati', { qos: 2 });
   }
-});
+  });
+
+  client.on('error', (error) => {
+    console.log('MQTT Client Errored');
+    console.log(error);
+  });
 
 
 
@@ -112,7 +127,7 @@ app.post('/range', function(req, res) {
 
 });  
   
-mqttClient.on('message', (topic, message) => {  
+client.on('message', (topic, message) => {  
   	console.log(`Received message: '${message}'`);
   
   	var msg = (message).toString();
