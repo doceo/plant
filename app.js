@@ -39,7 +39,7 @@ MongoClient.connect('mongodb://diomDB:Cawethubezt4Dro@ds237620.mlab.com:37620/he
 //});  
 
 
-  var my_topic_name = 'acqDati';
+  var my_topic_name = 'diomede/f/acqDati';
 
   var client = mqtt.connect('mqtts://io.adafruit.com',{
     port: 8883,
@@ -52,7 +52,7 @@ MongoClient.connect('mongodb://diomDB:Cawethubezt4Dro@ds237620.mlab.com:37620/he
     console.log('Already subbed, no subbing necessary');
   } else {
     console.log('First session! Subbing.');
-    client.subscribe('acqDati', { qos: 2 });
+    client.subscribe(my_topic_name, { qos: 2 });
   }
   });
 
