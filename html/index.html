@@ -184,7 +184,6 @@ function invia(){
 
 var socket = io();
 
-  //Media valori
 
   var Nel;
   var hygroM1=0;
@@ -197,7 +196,9 @@ var socket = io();
   var tempM3=0;
   var humidM3=0;
 
+
 //Funzione per il calcolo delle medie postazione 1
+
 
 function Average(data, postazione){
 	Nel = data.length;
@@ -357,8 +358,7 @@ function Average(data, postazione){
 socket.on('postazioneUno', function(data){
 
 	  Average(data, 1);
-
-          //azzero i vettori, qualora la pagina fosse già nella memoria del browser
+//azzero i vettori, qualora la pagina fosse già nella memoria del browser
 
           date1.splice(0, date1.length);
           temperature1.splice(0, temperature1.length);
