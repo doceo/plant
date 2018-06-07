@@ -21,6 +21,10 @@ app.use(log('dev'));
 //connessione del client a mongodb
 MongoClient.connect('mongodb://diomDB:Cawethubezt4Dro@ds237620.mlab.com:37620/heroku_zn28dl17', function (err, database) {
 
+//MongoClient.connect('mongodb://127.0.0.1:27017/terreno', function (err, database) {
+
+
+
   if (err) return console.log(err)
   db = database;
   server.listen(3000, function() {

@@ -272,11 +272,6 @@ function Average(data, postazione){
 
 
 
-
-        
-
-
-
   var temp1  = new Array();
   var temp2  = new Array(); 
   var temp3  = new Array(); 
@@ -333,8 +328,8 @@ function Average(data, postazione){
         
 socket.on('nValUno', function(data){
 		
-	  console.log("ricevo il vettore nuovo di " + data.length + " elementi");
-	  AverageP1(data);
+	  console.log("ricevo il vettore nuovo di " + data.length + " elementi per nval1");
+	  Average(data, 1);
 //azzero i vettori, qualora la pagina fosse già nella memoria del browser
           date1.splice(0, date1.length);
           temperature1.splice(0, temperature1.length);

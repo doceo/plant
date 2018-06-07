@@ -64,7 +64,7 @@ per ogni features da realizzare:
         
 	Andare sulla pagina principale del repository
 
-	Nel menù "branch", scegliere il branch     
+	Nel menù "branch", scegliere il branch 
 
 	Fare clic su "Nuova pull request", a destra del menu Branch;
 
