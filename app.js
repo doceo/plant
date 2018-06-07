@@ -1,6 +1,9 @@
 const app = require('express')();
 const log=require('morgan');
 const path=require('path');
+const express = require('express');
+
+
 const mqtt = require('mqtt');
 
 const server = require('http').createServer(app);
@@ -9,6 +12,7 @@ const MongoClient = require('mongodb').MongoClient;
 //const ObjectId = require('mongodb').ObjectId;
 
 var bodyParser = require('body-parser');
+app.use(express.static('/js'));
 
 var db;
 
@@ -32,6 +36,7 @@ MongoClient.connect('mongodb://diomDB:Cawethubezt4Dro@ds237620.mlab.com:37620/he
 
 
 //rendo possibile il collegamento ad un broker mqtt esterno
+
 //var mqtt = require('mqtt');  
 //var mqttClient = mqtt.connect('mqtt://192.168.1.115:1883', {
 //	clean: true,
@@ -47,6 +52,7 @@ MongoClient.connect('mongodb://diomDB:Cawethubezt4Dro@ds237620.mlab.com:37620/he
     password: '30e0f9943a9243768e5c6af82fbbc16a'
   });
 
+
   client.on('connect', (connack) => {  
   if (connack.sessionPresent) {
     console.log('Already subbed, no subbing necessary');
@@ -60,7 +66,6 @@ MongoClient.connect('mongodb://diomDB:Cawethubezt4Dro@ds237620.mlab.com:37620/he
     console.log('MQTT Client Errored');
     console.log(error);
   });
-
 
 
 app.get('/', function(req, res) {
@@ -125,6 +130,25 @@ app.post('/range', function(req, res) {
 	io.emit('postazioneUno', result.reverse());
 	})
 
+	db.collection('rilevazioni').find({postazione : 2,
+					 data: { $gt: new Date(datain) , $lt: new Date(dataout) },						
+						},
+					{sort:{data:-1}}).toArray( function (err, result) {
+//					console.log("ho recuperato " + result.length + " elementi di postazione 3");
+	console.log("ho recuperato " + result.length + " elementi");
+//	console.log(datain + " diventa " + new Date(datain));   	
+	io.emit('postazioneDue', result.reverse());
+	})
+	
+	db.collection('rilevazioni').find({postazione : 3,
+					 data: { $gt: new Date(datain) , $lt: new Date(dataout) },						
+						},
+					{sort:{data:-1}}).toArray( function (err, result) {
+//					console.log("ho recuperato " + result.length + " elementi di postazione 3");
+	console.log("ho recuperato " + result.length + " elementi");
+//	console.log(datain + " diventa " + new Date(datain));   	
+	io.emit('postazioneTre', result.reverse(), console.log('Prova'));
+	})
 });  
   
 client.on('message', (topic, message) => {  
@@ -159,41 +183,6 @@ non è ingrado di generarne una attendibile*/
 
 	console.log(nuovoDato);
 	db.collection('rilevazioni').insert(nuovoDato);
-/*
-tutta la parte seguente commentata serviva prima della modifica strutturale
-delle variabili e degli insert nel DB
-
-	
-	//creo la variabile temp estrapolando i pezzi del vettore
-	var temp = {
-    	postazione: parseInt(dato[0]),
-    	temperature: parseFloat(dato[1]),
-    	data: dataAcq,
-  	};
-
-	//inserisco nel DB
-  	db.collection('temp').insert(temp);
-
-	var humid = {
-    	postazione: parseInt(dato[0]),
-    	humidity: parseFloat(dato[2]),
-    	data: dataAcq,
-  	};
-  	db.collection('Humidity').insert(humid);
-//  	console.log('acquisisco Umidità');
-//  	io.emit('newHumid', humid);
-
-
-	var hygro = {
-    	postazione: parseInt(dato[0]),
-
-    	hygroThermal: parseFloat(dato[3]),
-    	data: dataAcq,
-  	};
-  	db.collection('HygroThermal').insert(hygro);
-//  	console.log('acquisisco umidità del terreno');
-//  	io.emit('newHygro', hygro);
-*/
 
 });
 
@@ -204,10 +193,7 @@ io.on('connection', function (socket) {
   console.log('richiesta di connessione dal client');
   console.log('invio tutte le temperature');
   
-//db.collection('rilevazioni').find({postazione : 1},{sort:{data:-1}}).limit(Ntemp).toArray( function (err, result) {
-//  console.log(result);
-//   socket.emit('postazioneUno', result.reverse());
-//  });
+
 
 db.collection('rilevazioni').find({postazione : 1},{sort:{data:-1}}).limit(Ntemp).toArray( function (err, result) {
 //  console.log(result);
