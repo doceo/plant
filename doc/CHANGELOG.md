@@ -1,6 +1,7 @@
 # Change Log
 
-## UNVERSIONING
+## [2.4] Esame Maturità 2017/2018
+
 - modifica dei grafici: aggiunta di 3 curve per postazione;
 - acquisizione dati con Mqtt
 - modifica delle collezioni del database MongoDB
@@ -8,6 +9,7 @@
 - aggiunta delle medie dei dati raccolti per ogni grafico
 - aggiunta la scelta del numero di rilevazioni da parte dell'utente
 - aggiunto il report con la scelta del range temporale dei dati da visualizzare
+- collegamento a server remotu per DB e broker
 
 ## [2.2]
 - risolto un bug sull'invio dei dati, venivano visualizzati a partire dal primo e quindi ignorati tutti i campioni rilevati dopo il 150-esimo. Ora vengono inviati al client a partire dall'ultimo memorizzato e il client ordinerà il vettore in modo da visualizzarli correttamente. 
