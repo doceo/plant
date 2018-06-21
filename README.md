@@ -1,4 +1,4 @@
-﻿ Autore: Diomede Mazzone con la collaborazione di Fabio Z Tessitore (@FabioZTessitore)
+﻿ Autore: Diomede Mazzone con la collaborazione iniziale di Fabio Z Tessitore (@FabioZTessitore)
 
 Tag: NodeJS, ExpressJS, Socket.io, HTML 5, client/server, MongoDB, Arduino Yun
 
