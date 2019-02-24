@@ -12,6 +12,6 @@
 /******************************* WIFI **************************************/
 
 
-#define MY_SSID       "FASTWEB-1-casa"
-#define MY_PWD       "0418EE41E8"
+#define MY_SSID       "XXXXXX"
+#define MY_PWD       "XXXXXX"
 
